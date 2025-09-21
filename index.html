@@ -848,3 +848,69 @@
 
             const totalTime = Date.now() - sessionStartTime;
             const avgResponseTime = responses.reduce((sum, r) => sum + r.responseTime, 0) / responses.length;
+            
+            const actionCounts = {
+                like: responses.filter(r => r.selectedAction === 'like').length,
+                share: responses.filter(r => r.selectedAction === 'share').length,
+                follow: responses.filter(r => r.selectedAction === 'follow').length,
+                skip: responses.filter(r => r.selectedAction === 'skip').length
+            };
+
+            const highEngagementLowConversion = responses.filter(r => 
+                ['luxury_aspiration', 'viral_trend'].includes(r.questionType) && 
+                ['like', 'share'].includes(r.selectedAction)
+            ).length;
+
+            const lowEngagementHighConversion = responses.filter(r => 
+                ['practical_work', 'accessible_luxury'].includes(r.questionType) && 
+                r.selectedAction === 'follow'
+            ).length;
+
+            const resultsSummary = `
+                <h3>Your Response Pattern</h3>
+                <p><strong>Interface Selected:</strong> ${selectedInterface === 'facebook' ? 'Detailed Style' : 'Visual Style'}</p>
+                <p><strong>Age Group:</strong> ${demographics.age}</p>
+                <p><strong>Total Survey Time:</strong> ${Math.round(totalTime / 1000)} seconds</p>
+                <p><strong>Average Response Time:</strong> ${Math.round(avgResponseTime / 1000)} seconds</p>
+                
+                <h4>Your Actions:</h4>
+                <p>❤️ Liked: ${actionCounts.like} items</p>
+                <p>📤 Shared: ${actionCounts.share} items</p>
+                <p>👥 Followed: ${actionCounts.follow} items</p>
+                <p>⏭️ Skipped: ${actionCounts.skip} items</p>
+
+                <h4>Behavior Indicators:</h4>
+                <p><strong>High Engagement Items:</strong> ${highEngagementLowConversion} luxury/trendy items liked or shared</p>
+                <p><strong>Purchase Intent Items:</strong> ${lowEngagementHighConversion} practical items followed</p>
+                
+                ${navigationMetrics.filter(m => m.direction === 'backward').length > 0 ? 
+                    `<p><strong>Reconsiderations:</strong> You went back ${navigationMetrics.filter(m => m.direction === 'backward').length} times</p>` : 
+                    '<p><strong>Decision Style:</strong> Direct and decisive</p>'
+                }
+            `;
+
+            document.getElementById('resultsSummary').innerHTML = resultsSummary;
+
+            const finalData = {
+                participantId: demographics.participantId,
+                demographics: demographics,
+                interfaceSelected: selectedInterface,
+                responses: responses,
+                navigationMetrics: navigationMetrics,
+                summary: {
+                    totalTime: totalTime,
+                    avgResponseTime: avgResponseTime,
+                    actionCounts: actionCounts,
+                    paradoxIndicators: {
+                        highEngagementLowConversion: highEngagementLowConversion,
+                        lowEngagementHighConversion: lowEngagementHighConversion
+                    }
+                },
+                completedAt: new Date().toISOString()
+            };
+
+            console.log('COMPLETE SURVEY DATA:', finalData);
+        }
+    </script>
+</body>
+</html>
