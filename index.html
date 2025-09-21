@@ -642,7 +642,7 @@
             }
         ];
 
-        function submitDemographics() {
+        window.submitDemographics = function() {
             const form = document.getElementById('demographicsForm');
             if (!form.checkValidity()) {
                 form.reportValidity();
