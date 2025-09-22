@@ -3,272 +3,889 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Social Media Behavior Study - UAE Fashion Survey</title>
+    <title>Fashion Behavior Study</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #f8f9fa;
             min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .app-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 500px;
+            width: 100%;
+            background: white;
+            padding: 15px 20px;
+            border-bottom: 1px solid #e1e8ed;
+            z-index: 100;
+        }
+
+        .progress-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 3px;
+            background: #e1e8ed;
+            border-radius: 2px;
+            margin-right: 15px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #1DA1F2, #8B5CF6);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            font-size: 12px;
+            color: #657786;
+            font-weight: 500;
+        }
+
+        .survey-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #14171A;
+        }
+
+        .cards-container {
+            padding-top: 80px;
+            padding-bottom: 100px;
+        }
+
+        .card {
+            margin: 0 15px 20px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .card.removing {
+            transform: translateX(-100vw);
+            opacity: 0;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 300px;
+            background: #f0f0f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder-image {
+            width: 100%;
+            height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 60px;
+        }
+
+        .card-content {
             padding: 20px;
         }
-        .container {
-            max-width: 900px;
-            width: 100%;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
+
+        .brand-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
         }
-        .header {
+
+        .brand-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: white;
-            padding: 30px;
-            text-align: center;
+            font-weight: bold;
+            margin-right: 12px;
         }
-        .header h1 {
-            font-size: 28px;
-            margin-bottom: 10px;
+
+        .brand-details h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #14171A;
+            margin-bottom: 2px;
         }
-        .content {
-            padding: 40px;
+
+        .brand-details p {
+            font-size: 13px;
+            color: #657786;
         }
-        .form-group {
+
+        .product-info h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #14171A;
+            margin-bottom: 8px;
+        }
+
+        .product-description {
+            font-size: 14px;
+            color: #657786;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        .price-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             margin-bottom: 20px;
         }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-            color: #555;
+
+        .price {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1DA1F2;
         }
-        .form-group select, .form-group input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e1e5e9;
-            border-radius: 8px;
+
+        .original-price {
             font-size: 16px;
+            color: #657786;
+            text-decoration: line-through;
+            margin-left: 8px;
         }
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        @media (max-width: 600px) {
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-        }
-        .btn {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+
+        .discount-badge {
+            background: #FF6B6B;
             color: white;
-            padding: 15px 30px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .actions {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 500px;
+            width: 100%;
+            background: white;
+            padding: 20px;
+            border-top: 1px solid #e1e8ed;
+            display: flex;
+            justify-content: space-around;
+            gap: 15px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 15px;
             border: none;
             border-radius: 25px;
             font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
-            margin-top: 20px;
-        }
-        .interface-selection {
-            display: none;
-            text-align: center;
-        }
-        .interface-options {
-            display: flex;
-            gap: 30px;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        .interface-option {
-            border: 3px solid #ddd;
-            border-radius: 12px;
-            padding: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-            max-width: 300px;
-        }
-        .interface-option:hover {
-            border-color: #667eea;
-            transform: translateY(-3px);
-        }
-        .interface-preview {
-            border: 1px solid #eee;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
-            min-height: 100px;
-        }
-        .facebook-preview {
-            background: #f7f8fa;
-            font-size: 13px;
-            text-align: left;
-        }
-        .instagram-preview {
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743);
-            color: white;
-            text-align: center;
+            transition: all 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 8px;
+        }
+
+        .skip-btn {
+            background: #f7f9fa;
+            color: #657786;
+            border: 2px solid #e1e8ed;
+        }
+
+        .skip-btn:hover {
+            background: #e1e8ed;
+        }
+
+        .like-btn {
+            background: #FF6B6B;
+            color: white;
+        }
+
+        .like-btn:hover {
+            background: #FF5252;
+        }
+
+        .buy-btn {
+            background: #1DA1F2;
+            color: white;
+        }
+
+        .buy-btn:hover {
+            background: #1991DA;
+        }
+
+        .results {
+            display: none;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .results h2 {
+            font-size: 24px;
+            color: #14171A;
+            margin-bottom: 20px;
+        }
+
+        .results-summary {
+            background: #f7f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .demo-section {
+            padding: 20px;
+            background: #f7f9fa;
+            margin: 20px 15px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .demo-section h3 {
+            margin-bottom: 10px;
+            color: #14171A;
+        }
+
+        .demographic-form {
+            display: none;
+            padding: 20px;
+            margin-top: 80px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #14171A;
+        }
+
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .start-btn {
+            width: 100%;
+            padding: 15px;
+            background: #1DA1F2;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 480px) {
+            .cards-container {
+                padding-top: 70px;
+            }
+            
+            .card {
+                margin: 0 10px 15px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="app-container">
+        <!-- Header -->
         <div class="header">
-            <h1>Social Media & Fashion Study</h1>
-            <p>Understanding how people discover and purchase fashion in the UAE</p>
-        </div>
-
-        <div class="content" id="demographics">
-            <h2>Tell us about yourself</h2>
-            <form id="demographicsForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Name/ID (Optional)</label>
-                        <input type="text" id="participantId" placeholder="Enter your name or leave blank">
-                    </div>
-                    <div class="form-group">
-                        <label>Age</label>
-                        <select id="age" required>
-                            <option value="">Select your age range</option>
-                            <option value="18-24">18-24</option>
-                            <option value="25-29">25-29</option>
-                            <option value="30-34">30-34</option>
-                            <option value="35-39">35-39</option>
-                            <option value="40-44">40-44</option>
-                            <option value="45-50">45-50</option>
-                            <option value="50+">50+</option>
-                        </select>
-                    </div>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
                 </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Monthly Income (AED)</label>
-                        <select id="income" required>
-                            <option value="">Select income range</option>
-                            <option value="Under 3000">Under 3,000</option>
-                            <option value="3000-5000">3,000 - 5,000</option>
-                            <option value="5000-8000">5,000 - 8,000</option>
-                            <option value="8000-12000">8,000 - 12,000</option>
-                            <option value="12000-18000">12,000 - 18,000</option>
-                            <option value="18000-25000">18,000 - 25,000</option>
-                            <option value="Over 25000">Over 25,000</option>
-                            <option value="Prefer not to say">Prefer not to say</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Daily social media time</label>
-                        <select id="socialTime" required>
-                            <option value="">How long do you spend?</option>
-                            <option value="Less than 1 hour">Less than 1 hour</option>
-                            <option value="1-2 hours">1-2 hours</option>
-                            <option value="2-3 hours">2-3 hours</option>
-                            <option value="3-4 hours">3-4 hours</option>
-                            <option value="More than 4 hours">More than 4 hours</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Platform for discovering products</label>
-                        <select id="discoveryPlatform" required>
-                            <option value="">Which do you use most?</option>
-                            <option value="Instagram">Instagram</option>
-                            <option value="Facebook">Facebook</option>
-                            <option value="TikTok">TikTok</option>
-                            <option value="YouTube">YouTube</option>
-                            <option value="WhatsApp">WhatsApp</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Platform for actually buying</label>
-                        <select id="purchasePlatform" required>
-                            <option value="">Where do you buy?</option>
-                            <option value="Instagram Shopping">Instagram Shopping</option>
-                            <option value="Facebook Marketplace">Facebook Marketplace</option>
-                            <option value="Brand websites">Direct brand websites</option>
-                            <option value="Amazon/Noon">Amazon/Noon</option>
-                            <option value="Physical stores">Physical stores</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>How often do you buy fashion items?</label>
-                    <select id="purchaseFrequency" required>
-                        <option value="">Select frequency</option>
-                        <option value="Weekly">Weekly</option>
-                        <option value="Monthly">Monthly</option>
-                        <option value="Every few months">Every few months</option>
-                        <option value="A couple times per year">A couple times per year</option>
-                        <option value="Rarely">Rarely</option>
-                    </select>
-                </div>
-
-                <button type="button" class="btn" id="continueBtn">Continue to Survey</button>
-            </form>
-        </div>
-
-        <div class="content interface-selection" id="interfaceSelection">
-            <h2>Choose Your Preferred Style</h2>
-            <p>Which of these feels more natural to you?</p>
-            
-            <div class="interface-options">
-                <div class="interface-option" data-interface="facebook">
-                    <div class="interface-preview facebook-preview">
-                        <strong>Fashion Brand</strong><br>
-                        Check out our new collection! These premium sneakers combine comfort and style with high-quality materials and modern design. Perfect for casual wear or light exercise.
-                        <br><br>
-                        <button>👍 Like</button>
-                        <button>📤 Share</button>
-                        <button>👥 Follow</button>
-                    </div>
-                    <h3>Detailed Style</h3>
-                    <p>More information, detailed descriptions</p>
-                </div>
-
-                <div class="interface-option" data-interface="instagram">
-                    <div class="interface-preview instagram-preview">
-                        New drops! ✨<br>
-                        Swipe for details 👆
-                    </div>
-                    <h3>Visual Style</h3>
-                    <p>Quick, visual, story-like format</p>
-                </div>
+                <div class="progress-text" id="progressText">0/15</div>
             </div>
+            <div class="survey-title">Fashion Behavior Study</div>
+        </div>
+
+        <!-- Demographics Form -->
+        <div class="demographic-form" id="demographicForm">
+            <h2>Before we start...</h2>
+            <p style="color: #657786; margin-bottom: 30px;">Help us understand your fashion shopping habits</p>
+            
+            <div class="form-group">
+                <label>Age Range</label>
+                <select id="ageRange" required>
+                    <option value="">Select your age</option>
+                    <option value="18-24">18-24</option>
+                    <option value="25-29">25-29</option>
+                    <option value="30-34">30-34</option>
+                    <option value="35-39">35-39</option>
+                    <option value="40-44">40-44</option>
+                    <option value="45-50">45-50</option>
+                    <option value="50+">50+</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Monthly Income (AED)</label>
+                <select id="income" required>
+                    <option value="">Select range</option>
+                    <option value="under-3000">Under 3,000</option>
+                    <option value="3000-5000">3,000 - 5,000</option>
+                    <option value="5000-8000">5,000 - 8,000</option>
+                    <option value="8000-12000">8,000 - 12,000</option>
+                    <option value="12000-18000">12,000 - 18,000</option>
+                    <option value="18000-25000">18,000 - 25,000</option>
+                    <option value="over-25000">Over 25,000</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Primary platform for discovering fashion</label>
+                <select id="discoveryPlatform" required>
+                    <option value="">Select platform</option>
+                    <option value="instagram">Instagram</option>
+                    <option value="facebook">Facebook</option>
+                    <option value="tiktok">TikTok</option>
+                    <option value="youtube">YouTube</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>How often do you buy fashion items online?</label>
+                <select id="frequency" required>
+                    <option value="">Select frequency</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="few-times-year">Few times a year</option>
+                    <option value="rarely">Rarely</option>
+                    <option value="never">Never</option>
+                </select>
+            </div>
+
+            <button class="start-btn" onclick="startSurvey()">Start Survey</button>
+        </div>
+
+        <!-- Cards Container -->
+        <div class="cards-container" id="cardsContainer" style="display: none;">
+            <!-- Cards will be dynamically inserted here -->
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="actions" id="actions" style="display: none;">
+            <button class="action-btn skip-btn" onclick="handleAction('skip')">
+                👎 Skip
+            </button>
+            <button class="action-btn like-btn" onclick="handleAction('like')">
+                ❤️ Like
+            </button>
+            <button class="action-btn buy-btn" onclick="handleAction('buy')">
+                🛒 Buy
+            </button>
+        </div>
+
+        <!-- Results -->
+        <div class="results" id="results">
+            <h2>Thank you for participating!</h2>
+            <div class="results-summary" id="resultsSummary"></div>
+            <p style="color: #657786; margin-top: 20px;">
+                Your responses help us understand the relationship between social media engagement and purchasing behavior in fashion retail.
+            </p>
         </div>
     </div>
 
     <script>
-        document.getElementById('continueBtn').addEventListener('click', function() {
-            const form = document.getElementById('demographicsForm');
-            if (!form.checkValidity()) {
-                form.reportValidity();
+        // Survey data with brand-neutral products
+        const surveyQuestions = [
+            // Brand perception tests
+            {
+                type: 'fictional_brand',
+                brand: 'LUXEMONT PARIS',
+                productName: 'Premium Leather Handbag',
+                price: 'AED 2,400',
+                originalPrice: null,
+                description: 'Hand-crafted Italian leather, limited collection',
+                imageUrl: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&h=300&fit=crop',
+                category: 'luxury_european'
+            },
+            {
+                type: 'fictional_brand',
+                brand: 'CRAFTLY',
+                productName: 'Leather Handbag',
+                price: 'AED 400',
+                originalPrice: null,
+                description: 'Quality leather bag for everyday use',
+                imageUrl: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&h=300&fit=crop',
+                category: 'budget_generic'
+            },
+            {
+                type: 'fictional_brand',
+                brand: 'ALESSANDRO MILANO',
+                productName: 'Designer Dress Shoes',
+                price: 'AED 800',
+                originalPrice: null,
+                description: 'Italian craftsmanship meets modern style',
+                imageUrl: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=300&fit=crop',
+                category: 'luxury_italian'
+            },
+            {
+                type: 'fictional_brand',
+                brand: 'URBAN STEP',
+                productName: 'Dress Shoes',
+                price: 'AED 200',
+                originalPrice: null,
+                description: 'Comfortable formal shoes for daily wear',
+                imageUrl: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=300&fit=crop',
+                category: 'budget_generic'
+            },
+            // Price perception tests
+            {
+                type: 'price_test',
+                brand: 'NOVELLA',
+                productName: 'Silk Evening Dress',
+                price: 'AED 900',
+                originalPrice: null,
+                description: 'Limited edition - Only 50 pieces worldwide',
+                imageUrl: 'https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=400&h=300&fit=crop',
+                category: 'luxury_pricing'
+            },
+            {
+                type: 'price_test',
+                brand: 'NOVELLA',
+                productName: 'Silk Evening Dress',
+                price: 'AED 150',
+                originalPrice: 'AED 450',
+                description: 'End of season sale - Last pieces!',
+                imageUrl: 'https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=400&h=300&fit=crop',
+                category: 'sale_pricing'
+            },
+            // Cultural brand tests
+            {
+                type: 'cultural_brand',
+                brand: 'BELLE ÉTOILE',
+                productName: 'Signature Perfume',
+                price: 'AED 300',
+                originalPrice: null,
+                description: 'Parisian elegance in a bottle',
+                imageUrl: 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=300&fit=crop',
+                category: 'french_luxury'
+            },
+            {
+                type: 'cultural_brand',
+                brand: 'MODERN EDGE',
+                productName: 'Signature Fragrance',
+                price: 'AED 200',
+                originalPrice: null,
+                description: 'Contemporary scent for modern lifestyle',
+                imageUrl: 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=300&fit=crop',
+                category: 'generic_brand'
+            },
+            // Platform-specific products
+            {
+                type: 'trendy_item',
+                brand: 'VIRAL TRENDS',
+                productName: 'Chunky Gold Chain',
+                price: 'AED 89',
+                originalPrice: 'AED 149',
+                description: 'As seen on TikTok! ✨ 2M+ views',
+                imageUrl: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=300&fit=crop',
+                category: 'social_media_viral'
+            },
+            {
+                type: 'classic_item',
+                brand: 'TIMELESS CLASSIC',
+                productName: 'Pearl Necklace',
+                price: 'AED 320',
+                originalPrice: null,
+                description: 'Elegant freshwater pearls, timeless design',
+                imageUrl: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=300&fit=crop',
+                category: 'traditional_luxury'
+            },
+            // Sustainable vs fast fashion
+            {
+                type: 'sustainable',
+                brand: 'ECO LUXE',
+                productName: 'Organic Cotton T-Shirt',
+                price: 'AED 180',
+                originalPrice: null,
+                description: 'Made from 100% organic cotton, carbon neutral',
+                imageUrl: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=300&fit=crop',
+                category: 'sustainable_fashion'
+            },
+            {
+                type: 'fast_fashion',
+                brand: 'QUICK STYLE',
+                productName: 'Trendy T-Shirt',
+                price: 'AED 45',
+                originalPrice: null,
+                description: 'Latest trend, soft fabric, multiple colors',
+                imageUrl: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=300&fit=crop',
+                category: 'fast_fashion'
+            },
+            // Sneaker comparison
+            {
+                type: 'sneaker_test',
+                brand: 'ATHLETIC PREMIUM',
+                productName: 'Performance Sneakers',
+                price: 'AED 450',
+                originalPrice: null,
+                description: 'Advanced cushioning technology, professional athlete endorsed',
+                imageUrl: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=300&fit=crop',
+                category: 'premium_athletic'
+            },
+            {
+                type: 'sneaker_test',
+                brand: 'SPORT BASICS',
+                productName: 'Casual Sneakers',
+                price: 'AED 120',
+                originalPrice: null,
+                description: 'Comfortable everyday sneakers, versatile design',
+                imageUrl: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=300&fit=crop',
+                category: 'budget_athletic'
+            },
+            // Social proof test
+            {
+                type: 'social_proof',
+                brand: 'TRENDY NOW',
+                productName: 'Crossbody Bag',
+                price: 'AED 200',
+                originalPrice: null,
+                description: '⭐ 4.8/5 stars • 1,247 reviews • "My friends keep asking where I got this!"',
+                imageUrl: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&h=300&fit=crop',
+                category: 'high_social_proof'
+            },
+            {
+                type: 'no_social_proof',
+                brand: 'NEW BRAND',
+                productName: 'Crossbody Bag',
+                price: 'AED 200',
+                originalPrice: null,
+                description: 'New arrival - be the first to try this design',
+                imageUrl: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&h=300&fit=crop',
+                category: 'no_social_proof'
+            }
+        ];
+
+        let currentCard = 0;
+        let responses = [];
+        let questionStartTime = Date.now();
+        let demographics = {};
+
+        function startSurvey() {
+            // Collect demographics
+            demographics = {
+                age: document.getElementById('ageRange').value,
+                income: document.getElementById('income').value,
+                discoveryPlatform: document.getElementById('discoveryPlatform').value,
+                frequency: document.getElementById('frequency').value,
+                timestamp: new Date().toISOString()
+            };
+
+            // Validate required fields
+            if (!demographics.age || !demographics.income || !demographics.discoveryPlatform || !demographics.frequency) {
+                alert('Please fill in all fields to continue');
                 return;
             }
+
+            // Hide demographics and show survey
+            document.getElementById('demographicForm').style.display = 'none';
+            document.getElementById('cardsContainer').style.display = 'block';
+            document.getElementById('actions').style.display = 'flex';
+
+            // Shuffle questions for randomization
+            surveyQuestions.forEach((q, index) => {
+                q.originalIndex = index;
+            });
+            shuffleArray(surveyQuestions);
             
-            document.getElementById('demographics').style.display = 'none';
-            document.getElementById('interfaceSelection').style.display = 'block';
+            // Initialize timing
+            questionStartTime = Date.now();
+            
+            renderCard();
+            updateProgress();
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function renderCard() {
+            if (currentCard >= surveyQuestions.length) {
+                showResults();
+                return;
+            }
+
+            const question = surveyQuestions[currentCard];
+            const container = document.getElementById('cardsContainer');
+
+            const cardHTML = `
+                <div class="card" id="card-${currentCard}">
+                    <div class="card-image">
+                        <img src="${question.imageUrl}" alt="${question.productName}" 
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                        <div class="placeholder-image" style="display: none;">👜</div>
+                    </div>
+                    <div class="card-content">
+                        <div class="brand-info">
+                            <div class="brand-avatar">${question.brand.charAt(0)}</div>
+                            <div class="brand-details">
+                                <h3>${question.brand}</h3>
+                                <p>Fashion • Sponsored</p>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h4>${question.productName}</h4>
+                            <div class="product-description">${question.description}</div>
+                            <div class="price-container">
+                                <div>
+                                    <span class="price">${question.price}</span>
+                                    ${question.originalPrice ? `<span class="original-price">${question.originalPrice}</span>` : ''}
+                                </div>
+                                ${question.originalPrice ? '<div class="discount-badge">SALE</div>' : ''}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            container.insertAdjacentHTML('beforeend', cardHTML);
+            
+            // Animate card in
+            setTimeout(() => {
+                document.getElementById(`card-${currentCard}`).classList.add('visible');
+            }, 100);
+        }
+
+        function handleAction(action) {
+            const question = surveyQuestions[currentCard];
+            const responseTime = Date.now() - questionStartTime;
+            
+            // Record response
+            responses.push({
+                questionIndex: currentCard,
+                brand: question.brand,
+                productName: question.productName,
+                price: question.price,
+                category: question.category,
+                type: question.type,
+                action: action,
+                responseTime: responseTime,
+                timestamp: new Date().toISOString()
+            });
+
+            // Animate card out
+            const currentCardElement = document.getElementById(`card-${currentCard}`);
+            if (currentCardElement) {
+                currentCardElement.classList.add('removing');
+                
+                setTimeout(() => {
+                    currentCardElement.remove();
+                }, 300);
+            }
+
+            // Move to next card
+            currentCard++;
+            questionStartTime = Date.now(); // Reset timer for next question
+            
+            setTimeout(() => {
+                renderCard();
+                updateProgress();
+            }, 200);
+        }
+
+        function updateProgress() {
+            const progress = (currentCard / surveyQuestions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `${currentCard}/${surveyQuestions.length}`;
+        }
+
+        function showResults() {
+            document.getElementById('cardsContainer').style.display = 'none';
+            document.getElementById('actions').style.display = 'none';
+            document.getElementById('results').style.display = 'block';
+
+            // Analyze responses
+            const analysis = analyzeResponses();
+            document.getElementById('resultsSummary').innerHTML = `
+                <h3>Your Fashion Behavior Profile</h3>
+                <p><strong>Response Pattern:</strong> ${analysis.pattern}</p>
+                <p><strong>Brand Preference:</strong> ${analysis.brandPreference}</p>
+                <p><strong>Price Sensitivity:</strong> ${analysis.priceSensitivity}</p>
+                <p><strong>Average Decision Time:</strong> ${analysis.avgResponseTime}s</p>
+            `;
+
+            // Log complete data for research
+            console.log('Complete Survey Data:', {
+                demographics: demographics,
+                responses: responses,
+                analysis: analysis,
+                totalTime: Date.now() - questionStartTime
+            });
+        }
+
+        function analyzeResponses() {
+            const buyResponses = responses.filter(r => r.action === 'buy');
+            const likeResponses = responses.filter(r => r.action === 'like');
+            const skipResponses = responses.filter(r => r.action === 'skip');
+
+            const avgResponseTime = (responses.reduce((sum, r) => sum + r.responseTime, 0) / responses.length / 1000).toFixed(1);
+            
+            // Determine patterns
+            let pattern = 'Balanced';
+            if (buyResponses.length > likeResponses.length * 2) pattern = 'Purchase-Focused';
+            else if (likeResponses.length > buyResponses.length * 2) pattern = 'Browse-Focused';
+            
+            // Analyze brand preference
+            const luxuryBuys = buyResponses.filter(r => r.category.includes('luxury')).length;
+            const budgetBuys = buyResponses.filter(r => r.category.includes('budget')).length;
+            
+            let brandPreference = 'Mixed';
+            if (luxuryBuys > budgetBuys) brandPreference = 'Premium Brands';
+            else if (budgetBuys > luxuryBuys) brandPreference = 'Value Brands';
+
+            // Price sensitivity
+            const highPriceBuys = buyResponses.filter(r => parseFloat(r.price.replace(/[^\d.]/g, '')) > 500).length;
+            const lowPriceBuys = buyResponses.filter(r => parseFloat(r.price.replace(/[^\d.]/g, '')) <= 200).length;
+            
+            let priceSensitivity = 'Moderate';
+            if (lowPriceBuys > highPriceBuys) priceSensitivity = 'Price-Conscious';
+            else if (highPriceBuys > lowPriceBuys) priceSensitivity = 'Price-Flexible';
+
+            return {
+                pattern,
+                brandPreference,
+                priceSensitivity,
+                avgResponseTime,
+                totalBuys: buyResponses.length,
+                totalLikes: likeResponses.length,
+                totalSkips: skipResponses.length
+            };
+        }
+
+        // Touch/swipe support for mobile
+        let touchStartX = null, touchStartY = null, touchStartTime = null;
+
+        document.addEventListener('touchstart', (e) => {
+            if (currentCard >= surveyQuestions.length) return;
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+            touchStartTime = Date.now();
+        }, { passive: true });
+
+        document.addEventListener('touchend', (e) => {
+            if (currentCard >= surveyQuestions.length) return;
+            if (!touchStartX || !touchStartY) return;
+
+            const endX = e.changedTouches[0].clientX;
+            const endY = e.changedTouches[0].clientY;
+            const diffX = touchStartX - endX;
+            const diffY = touchStartY - endY;
+            const timeDiff = Date.now() - touchStartTime;
+
+            // Only process swipes, not taps
+            if (Math.abs(diffX) < 50 && Math.abs(diffY) < 50) return;
+            if (timeDiff > 500) return; // Too slow to be a swipe
+
+            // Horizontal swipes
+            if (Math.abs(diffX) > Math.abs(diffY)) {
+                if (diffX > 50) {
+                    // Swipe left = skip
+                    handleAction('skip');
+                } else if (diffX < -50) {
+                    // Swipe right = like
+                    handleAction('like');
+                }
+            }
+            // Vertical swipes
+            else {
+                if (diffY > 50) {
+                    // Swipe up = buy
+                    handleAction('buy');
+                }
+            }
+
+            touchStartX = null;
+            touchStartY = null;
+            touchStartTime = null;
+        }, { passive: true });
+
+        // Initialize demographics form on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('demographicForm').style.display = 'block';
         });
 
-        document.querySelectorAll('.interface-option').forEach(option => {
-            option.addEventListener('click', function() {
-                const interface = this.getAttribute('data-interface');
-                alert(`Interface selected: ${interface}. Full survey functionality coming next!`);
-                console.log('Selected interface:', interface);
-            });
+        // Keyboard support
+        document.addEventListener('keydown', (e) => {
+            if (currentCard >= surveyQuestions.length) return;
+            
+            switch(e.key) {
+                case 'ArrowLeft':
+                case '1':
+                    handleAction('skip');
+                    break;
+                case 'ArrowRight':
+                case '2':
+                    handleAction('like');
+                    break;
+                case 'ArrowUp':
+                case '3':
+                case ' ':
+                    handleAction('buy');
+                    break;
+            }
         });
     </script>
 </body>
