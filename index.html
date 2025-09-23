@@ -753,4 +753,116 @@
             document.getElementById('demographicForm').style.display = 'block';
         }
 
-        function updateCurrencyAndIn
+        function updateCurrencyAndIncome() {
+            const countrySelect = document.getElementById('country');
+            const currencySelect = document.getElementById('currency');
+            const incomeSelect = document.getElementById('income');
+            
+            const selectedCountry = countrySelect.value;
+            
+            if (selectedCountry && currencyData[selectedCountry]) {
+                const currencyInfo = currencyData[selectedCountry];
+                
+                currencySelect.innerHTML = `<option value="${currencyInfo.currency}">${currencyInfo.currency} (${currencyInfo.symbol})</option>`;
+                currencySelect.value = currencyInfo.currency;
+                currencySelect.disabled = false;
+                
+                const ranges = incomeRanges[currencyInfo.currency] || incomeRanges['USD'];
+                incomeSelect.innerHTML = '<option value="">Select income range</option>';
+                
+                ranges.forEach(range => {
+                    const option = document.createElement('option');
+                    option.value = range.value;
+                    option.textContent = range.label;
+                    incomeSelect.appendChild(option);
+                });
+                
+                incomeSelect.disabled = false;
+            } else {
+                currencySelect.innerHTML = '<option value="">Select country first</option>';
+                incomeSelect.innerHTML = '<option value="">Select currency first</option>';
+                currencySelect.disabled = true;
+                incomeSelect.disabled = true;
+            }
+        }
+
+        function showPlatformSelection() {
+            const demographics = {
+                name: document.getElementById('participantName').value,
+                age: document.getElementById('ageRange').value,
+                country: document.getElementById('country').value,
+                currency: document.getElementById('currency').value,
+                income: document.getElementById('income').value,
+                lastPurchasePlatform: document.getElementById('lastPurchasePlatform').value,
+                adType: document.getElementById('adType').value,
+                adFrequency: document.getElementById('adFrequency').value,
+                timestamp: new Date().toISOString()
+            };
+
+            const requiredFields = ['name', 'age', 'country', 'currency', 'income', 'lastPurchasePlatform', 'adType', 'adFrequency'];
+            const missingFields = requiredFields.filter(field => !demographics[field]);
+
+            if (missingFields.length > 0) {
+                alert(`Please fill in all fields: ${missingFields.join(', ')}`);
+                return;
+            }
+
+            studyData.demographics = demographics;
+
+            document.getElementById('demographicForm').style.display = 'none';
+            document.getElementById('platformSelection').style.display = 'block';
+        }
+
+        function selectPlatform(platform) {
+            studyData.selectedPlatform = platform;
+
+            document.querySelectorAll('.platform-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            document.querySelector(`[data-platform="${platform}"]`).classList.add('selected');
+            
+            document.getElementById('proceedBtn').disabled = false;
+        }
+
+        function startSurvey() {
+            if (!studyData.selectedPlatform) {
+                alert('Please select a platform style first');
+                return;
+            }
+
+            document.getElementById('platformSelection').style.display = 'none';
+            document.getElementById('header').style.display = 'block';
+            
+            const titles = {
+                facebook: 'Fashion Feed',
+                linkedin: 'Fashion Professional',
+                instagram: 'Fashion Stories',
+                tiktok: 'Fashion Trends'
+            };
+            document.getElementById('feedTitle').textContent = titles[studyData.selectedPlatform];
+
+            // For now, we'll show completion immediately for testing
+            // In the full version, this would load the 15 posts
+            setTimeout(() => {
+                showCompletion();
+            }, 2000);
+        }
+
+        function showCompletion() {
+            document.getElementById('header').style.display = 'none';
+            document.getElementById('completionCard').style.display = 'block';
+            
+            document.getElementById('resultsSummary').innerHTML = `
+                <h3>Your Social Commerce Profile</h3>
+                <p><strong>Platform Choice:</strong> ${studyData.selectedPlatform.charAt(0).toUpperCase() + studyData.selectedPlatform.slice(1)} Style</p>
+                <p><strong>Name:</strong> ${studyData.demographics.name}</p>
+                <p><strong>Age:</strong> ${studyData.demographics.age}</p>
+                <p><strong>Country:</strong> ${studyData.demographics.country}</p>
+                <p><strong>Last Purchase Platform:</strong> ${studyData.demographics.lastPurchasePlatform}</p>
+            `;
+
+            console.log('Study Data:', studyData);
+        }
+    </script>
+</body>
+</html>
