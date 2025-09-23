@@ -739,14 +739,28 @@
             const continueBtn = document.getElementById('continueBtn');
             const consentBox = document.getElementById('consentBox');
             
-            continueBtn.disabled = !checkbox.checked;
+            console.log('Checkbox checked:', checkbox.checked); // Debug log
             
             if (checkbox.checked) {
+                continueBtn.disabled = false;
+                continueBtn.style.opacity = '1';
+                continueBtn.style.transform = 'scale(1)';
                 consentBox.classList.add('checked');
             } else {
+                continueBtn.disabled = true;
+                continueBtn.style.opacity = '0.4';
+                continueBtn.style.transform = 'scale(0.98)';
                 consentBox.classList.remove('checked');
             }
         }
+
+        // Add backup event listener when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkbox = document.getElementById('consentCheck');
+            if (checkbox) {
+                checkbox.addEventListener('change', toggleContinueButton);
+            }
+        });
 
         function showDemographics() {
             document.getElementById('disclaimerSection').style.display = 'none';
