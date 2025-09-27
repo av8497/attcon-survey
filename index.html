@@ -1151,10 +1151,30 @@
 
         // Toggle continue button based on consent
         function toggleContinueButton() {
+            console.log('toggleContinueButton called'); // Debug log
             const consentCheck = document.getElementById('consentCheck');
             const continueBtn = document.getElementById('continueBtn');
+            
+            console.log('Checkbox checked:', consentCheck.checked); // Debug log
+            console.log('Button before:', continueBtn.disabled); // Debug log
+            
             continueBtn.disabled = !consentCheck.checked;
+            
+            console.log('Button after:', continueBtn.disabled); // Debug log
         }
+
+        // Alternative method - add event listener when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const consentCheckbox = document.getElementById('consentCheck');
+            const continueButton = document.getElementById('continueBtn');
+            
+            if (consentCheckbox && continueButton) {
+                consentCheckbox.addEventListener('change', function() {
+                    console.log('Event listener triggered, checked:', this.checked);
+                    continueButton.disabled = !this.checked;
+                });
+            }
+        });
 
         // Show demographics form
         function showDemographics() {
