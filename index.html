@@ -13,146 +13,177 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f8f9fa;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        .app-container {
-            max-width: 500px;
-            margin: 0 auto;
-            background: white;
-            min-height: 100vh;
-            position: relative;
-        }
-
-        .header {
-            position: fixed;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            max-width: 500px;
-            width: 100%;
-            background: white;
-            padding: 15px 20px;
-            border-bottom: 1px solid #e1e8ed;
-            z-index: 100;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .progress-container {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            margin-bottom: 10px;
+            justify-content: center;
+            padding: 10px;
         }
 
-        .progress-bar {
-            flex: 1;
-            height: 3px;
-            background: #e1e8ed;
-            border-radius: 2px;
-            margin-right: 15px;
+        .container {
+            max-width: 450px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             overflow: hidden;
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
         }
 
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #1DA1F2, #8B5CF6);
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-
-        .progress-text {
-            font-size: 12px;
-            color: #657786;
-            font-weight: 500;
-        }
-
-        .survey-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #1c1e21;
-        }
-
-        /* Demographic Form */
-        .demographic-form {
-            padding: 30px 20px;
+        /* Disclaimer & Consent */
+        .disclaimer-form {
+            padding: 30px 25px;
             text-align: center;
-            min-height: 100vh;
+            flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
 
-        .form-title {
-            font-size: 28px;
+        .disclaimer-title {
+            font-size: 26px;
             margin-bottom: 15px;
             color: #333;
+            font-weight: 600;
         }
 
-        .form-subtitle {
+        .disclaimer-subtitle {
             color: #666;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             font-size: 16px;
             line-height: 1.4;
         }
 
-        .form-group {
-            margin-bottom: 20px;
+        .disclaimer-content {
             text-align: left;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #555;
         }
 
-        .form-label {
+        .disclaimer-content h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .disclaimer-content ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .consent-checkbox {
+            text-align: left;
+            margin-bottom: 25px;
+        }
+
+        .consent-checkbox input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .consent-checkbox label {
+            color: #555;
+            font-size: 14px;
+            line-height: 1.4;
+            cursor: pointer;
+        }
+
+        /* Demographic Form */
+        .demographic-form {
+            padding: 30px 25px;
+            display: none;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .form-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .form-subtitle {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 14px;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
             display: block;
             font-weight: 600;
             color: #333;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-size: 14px;
         }
 
-        .form-input, .form-select {
+        .form-group input, .form-group select {
             width: 100%;
-            padding: 12px 16px;
+            padding: 12px 15px;
             border: 2px solid #e0e6ed;
-            border-radius: 10px;
-            font-size: 16px;
+            border-radius: 8px;
+            font-size: 15px;
             transition: border-color 0.3s ease;
             background: white;
         }
 
-        .form-input:focus, .form-select:focus {
+        .form-group input:focus, .form-group select:focus {
             outline: none;
             border-color: #667eea;
         }
 
-        .form-radio-group {
+        .currency-income-group {
+            display: flex;
+            gap: 15px;
+        }
+
+        .currency-income-group .form-group {
+            flex: 1;
+        }
+
+        .radio-group {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
             margin-top: 8px;
         }
 
-        .form-radio-option {
+        .radio-option {
             display: flex;
             align-items: center;
-            padding: 10px;
+            padding: 12px;
             border: 2px solid #e0e6ed;
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-size: 14px;
         }
 
-        .form-radio-option:hover {
+        .radio-option:hover {
             border-color: #667eea;
         }
 
-        .form-radio-option.selected {
+        .radio-option.selected {
             border-color: #667eea;
             background: #f8f9ff;
         }
 
-        .form-radio-option input[type="radio"] {
+        .radio-option input[type="radio"] {
             margin-right: 8px;
         }
 
@@ -160,58 +191,62 @@
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
             border: none;
-            padding: 15px 40px;
+            padding: 15px 30px;
             border-radius: 25px;
-            font-size: 18px;
+            font-size: 16px;
             cursor: pointer;
             transition: transform 0.2s ease;
-            margin-top: 20px;
+            width: 100%;
+            font-weight: 600;
         }
 
-        .continue-btn:hover {
+        .continue-btn:hover:not(:disabled) {
             transform: translateY(-2px);
         }
 
         .continue-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
+            transform: none;
         }
+
+        /* Interface Selection */
         .interface-selection {
-            padding: 40px 20px;
+            padding: 30px 25px;
+            display: none;
+            flex: 1;
             text-align: center;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
         }
 
         .selection-title {
-            font-size: 28px;
-            margin-bottom: 20px;
+            font-size: 24px;
+            margin-bottom: 15px;
             color: #333;
+            font-weight: 600;
         }
 
         .selection-subtitle {
             color: #666;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             font-size: 16px;
             line-height: 1.4;
         }
 
         .interface-options {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-bottom: 40px;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
         }
 
         .interface-option {
             background: white;
             border: 2px solid #e0e6ed;
             border-radius: 15px;
-            padding: 30px 20px;
+            padding: 20px 15px;
             cursor: pointer;
             transition: all 0.3s ease;
+            text-align: center;
         }
 
         .interface-option:hover {
@@ -225,557 +260,20 @@
         }
 
         .option-icon {
-            font-size: 40px;
-            margin-bottom: 15px;
+            font-size: 30px;
+            margin-bottom: 10px;
         }
 
         .option-name {
             font-weight: 600;
             color: #333;
-            margin-bottom: 8px;
-            font-size: 18px;
+            margin-bottom: 5px;
+            font-size: 16px;
         }
 
         .option-desc {
-            font-size: 14px;
-            color: #666;
-        }
-
-        .start-btn {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            border-radius: 25px;
-            font-size: 18px;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-
-        .start-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .start-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        /* Enhanced Mobile Feed Scrolling */
-        .feed-container {
-            padding-top: 70px;
-            padding-bottom: 80px;
-            height: calc(100vh - 70px);
-            overflow-y: auto;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-            scroll-snap-type: y proximity;
-        }
-
-        .feed-container::-webkit-scrollbar {
-            display: none;
-        }
-
-        /* Facebook/Instagram/LinkedIn Feed Style */
-        .facebook-feed, .instagram-feed, .linkedin-feed {
-            padding: 0;
-            background: #f0f2f5;
-        }
-
-        .fb-card, .ig-card, .linkedin-card {
-            background: white;
-            margin: 8px 16px 16px 16px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: slideInUp 0.6s ease forwards;
-            height: auto;
-            min-height: 300px;
-            max-height: 500px;
-            scroll-snap-align: start;
-        }
-
-        @keyframes slideInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Facebook Feed Cards */
-        .fb-card {
-            animation-delay: var(--delay, 0s);
-        }
-
-        .fb-post-header {
-            padding: 16px;
-            display: flex;
-            align-items: center;
-            border-bottom: 1px solid #f0f2f5;
-        }
-
-        .fb-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #1877f2;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            margin-right: 12px;
-        }
-
-        .fb-user-info h3 {
-            font-size: 15px;
-            font-weight: 600;
-            color: #1c1e21;
-            margin-bottom: 2px;
-        }
-
-        .fb-user-info p {
-            font-size: 13px;
-            color: #65676b;
-        }
-
-        .fb-post-content {
-            padding: 0;
-        }
-
-        .fb-post-text {
-            padding: 16px;
-            font-size: 16px;
-            line-height: 1.5;
-            color: #1c1e21;
-        }
-
-        .fb-post-image {
-            width: 100%;
-            height: 250px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 18px;
-            font-weight: 600;
-            position: relative;
-        }
-
-        .fb-post-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .fb-price-tag {
-            position: absolute;
-            bottom: 12px;
-            right: 12px;
-            background: rgba(0,0,0,0.8);
-            color: white;
-            padding: 8px 12px;
-            border-radius: 15px;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        /* Instagram Feed Cards */
-        .ig-card {
-            animation-delay: var(--delay, 0s);
-        }
-
-        .ig-header {
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-        }
-
-        .ig-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 14px;
-            margin-right: 10px;
-        }
-
-        .ig-username {
-            font-size: 14px;
-            font-weight: 600;
-            color: #262626;
-        }
-
-        .ig-content {
-            padding: 0;
-        }
-
-        .ig-image {
-            width: 100%;
-            height: 280px;
-            background: linear-gradient(45deg, #f09433, #e6683c);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 18px;
-            font-weight: 600;
-            position: relative;
-        }
-
-        .ig-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .ig-price-tag {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 6px 10px;
-            border-radius: 12px;
-            font-weight: 600;
             font-size: 12px;
-        }
-
-        .ig-caption {
-            padding: 12px 16px;
-            font-size: 14px;
-            line-height: 1.4;
-            color: #262626;
-        }
-
-        /* LinkedIn Feed Cards */
-        .linkedin-card {
-            animation-delay: var(--delay, 0s);
-        }
-
-        .linkedin-header {
-            padding: 16px;
-            display: flex;
-            align-items: center;
-            border-bottom: 1px solid #e9e5df;
-        }
-
-        .linkedin-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: #0077b5;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            margin-right: 12px;
-        }
-
-        .linkedin-user-info h3 {
-            font-size: 16px;
-            font-weight: 600;
-            color: #000000;
-            margin-bottom: 2px;
-        }
-
-        .linkedin-user-info p {
-            font-size: 14px;
-            color: #666666;
-        }
-
-        .linkedin-content {
-            padding: 0;
-        }
-
-        .linkedin-text {
-            padding: 16px;
-            font-size: 16px;
-            line-height: 1.5;
-            color: #000000;
-        }
-
-        .linkedin-image {
-            width: 100%;
-            height: 260px;
-            background: linear-gradient(45deg, #0077b5, #005885);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 18px;
-            font-weight: 600;
-            position: relative;
-        }
-
-        .linkedin-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .linkedin-price-tag {
-            position: absolute;
-            bottom: 12px;
-            right: 12px;
-            background: rgba(0,0,0,0.8);
-            color: white;
-            padding: 8px 12px;
-            border-radius: 4px;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        /* TikTok Full-Screen Style */
-        .tiktok-feed {
-            padding: 0;
-            height: 100vh;
-            overflow: hidden;
-            background: #000;
-        }
-
-        .tiktok-card {
-            width: 100%;
-            height: 100vh;
-            position: relative;
-            opacity: 0;
-            transform: translateY(100vh);
-            transition: all 0.5s ease;
-            background: #000;
-        }
-
-        .tiktok-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .tiktok-card.current {
-            position: fixed;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            max-width: 500px;
-            z-index: 10;
-        }
-
-        .tiktok-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, #ff0050, #000, #00f2ea);
-            opacity: 0.8;
-        }
-
-        .tiktok-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-        }
-
-        .tiktok-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.7;
-        }
-
-        .tiktok-content {
-            position: absolute;
-            bottom: 100px;
-            left: 16px;
-            right: 80px;
-            z-index: 5;
-        }
-
-        .tiktok-brand {
-            color: white;
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .tiktok-title {
-            color: white;
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            line-height: 1.3;
-        }
-
-        .tiktok-price {
-            color: #25f4ee;
-            font-size: 20px;
-            font-weight: 700;
-        }
-
-        /* Action Buttons for All Platforms */
-        .action-buttons {
-            padding: 16px;
-            border-top: 1px solid #f0f2f5;
-            display: flex;
-            justify-content: space-around;
-            gap: 8px;
-        }
-
-        .action-btn {
-            flex: 1;
-            padding: 10px 14px;
-            border: 2px solid #e4e6ea;
-            border-radius: 20px;
-            background: white;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
-        }
-
-        .action-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        }
-
-        .action-btn:active {
-            transform: translateY(0);
-        }
-
-        .action-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none !important;
-        }
-
-        .like-btn {
-            border-color: #e1306c;
-            color: #e1306c;
-        }
-
-        .like-btn:hover:not(:disabled) {
-            background: #e1306c;
-            color: white;
-        }
-
-        .share-btn {
-            border-color: #1877f2;
-            color: #1877f2;
-        }
-
-        .share-btn:hover:not(:disabled) {
-            background: #1877f2;
-            color: white;
-        }
-
-        .skip-btn {
-            border-color: #8e8e93;
-            color: #8e8e93;
-        }
-
-        .skip-btn:hover:not(:disabled) {
-            background: #8e8e93;
-            color: white;
-        }
-
-        .buy-btn {
-            border-color: #00ba7c;
-            color: #00ba7c;
-        }
-
-        .buy-btn:hover:not(:disabled) {
-            background: #00ba7c;
-            color: white;
-        }
-
-        .selected {
-            transform: scale(0.95) !important;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3) !important;
-        }
-
-        /* TikTok Actions */
-        .tiktok-actions {
-            position: absolute;
-            right: 16px;
-            bottom: 120px;
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .tiktok-action-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: none;
-            background: rgba(255,255,255,0.2);
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .tiktok-action-btn:hover {
-            background: rgba(255,255,255,0.3);
-            transform: scale(1.1);
-        }
-
-        /* Results Screen */
-        .results-screen {
-            display: none;
-            padding: 40px 20px;
-            text-align: center;
-            min-height: 100vh;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .results-title {
-            font-size: 32px;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .results-content {
             color: #666;
-            font-size: 18px;
-            line-height: 1.5;
-            margin-bottom: 40px;
-            max-width: 400px;
-        }
-
-        .download-btn {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-
-        .download-btn:hover {
-            transform: translateY(-2px);
         }
 
         /* Instruction Modal */
@@ -786,7 +284,7 @@
             right: 0;
             bottom: 0;
             background: rgba(0,0,0,0.8);
-            display: flex;
+            display: none;
             align-items: center;
             justify-content: center;
             z-index: 2000;
@@ -816,34 +314,20 @@
             font-size: 16px;
         }
 
-        .instruction-actions {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-        }
-
         .instruction-btn {
-            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
             border-radius: 25px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             transition: transform 0.2s ease;
-            border: none;
         }
 
         .instruction-btn:hover {
             transform: translateY(-2px);
-        }
-
-        .primary-btn {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-        }
-
-        .secondary-btn {
-            background: #f0f2f5;
-            color: #666;
         }
 
         /* Warning Modal */
@@ -904,7 +388,7 @@
             transform: translateY(-1px);
         }
 
-        .continue-btn {
+        .continue-warning-btn {
             background: #e74c3c;
             color: white;
         }
@@ -913,228 +397,493 @@
             background: #f0f2f5;
             color: #666;
         }
+
+        /* Survey Header */
+        .survey-header {
+            padding: 15px 20px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e1e8ed;
+            display: none;
+        }
+
+        .progress-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .survey-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1c1e21;
+        }
+
+        .progress-text {
+            font-size: 14px;
+            color: #657786;
+            font-weight: 500;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: #e1e8ed;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Feed Container */
+        .feed-container {
+            flex: 1;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            background: #f0f2f5;
+            display: none;
+        }
+
+        .feed-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Post Styles */
+        .post {
+            background: white;
+            margin: 8px 16px 16px 16px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideInUp 0.6s ease forwards;
+        }
+
+        @keyframes slideInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .post-header {
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #f0f2f5;
+        }
+
+        .post-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 12px;
+        }
+
+        .post-info h3 {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1c1e21;
+            margin-bottom: 2px;
+        }
+
+        .post-info p {
+            font-size: 13px;
+            color: #65676b;
+        }
+
+        .post-content {
+            padding: 0;
+        }
+
+        .post-text {
+            padding: 16px;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #1c1e21;
+        }
+
+        .post-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .price-tag {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 15px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .post-actions {
+            padding: 16px;
+            border-top: 1px solid #f0f2f5;
+            display: flex;
+            justify-content: space-around;
+            gap: 8px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 10px 12px;
+            border: 2px solid #e4e6ea;
+            border-radius: 20px;
+            background: white;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .action-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .like-btn {
+            border-color: #e1306c;
+            color: #e1306c;
+        }
+
+        .like-btn:hover:not(:disabled) {
+            background: #e1306c;
+            color: white;
+        }
+
+        .share-btn {
+            border-color: #1877f2;
+            color: #1877f2;
+        }
+
+        .share-btn:hover:not(:disabled) {
+            background: #1877f2;
+            color: white;
+        }
+
+        .buy-btn {
+            border-color: #00ba7c;
+            color: #00ba7c;
+        }
+
+        .buy-btn:hover:not(:disabled) {
+            background: #00ba7c;
+            color: white;
+        }
+
+        .selected {
+            transform: scale(0.95) !important;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3) !important;
+        }
+
+        /* Results Screen */
+        .results-screen {
+            display: none;
+            padding: 40px 25px;
+            text-align: center;
+            flex: 1;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .results-title {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .results-content {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 30px;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Mobile Responsive */
         @media (max-width: 768px) {
-            .app-container {
-                margin: 0;
-                border-radius: 0;
-            }
-
-            .header {
-                border-radius: 0;
-            }
-
-            .fb-card, .ig-card, .linkedin-card {
-                margin: 4px 8px 12px 8px;
-                border-radius: 8px;
-            }
-
-            .fb-post-image, .ig-image, .linkedin-image {
-                height: 220px;
-            }
-
-            .action-btn {
-                padding: 8px 10px;
-                font-size: 12px;
-            }
-
-            .feed-container {
-                height: calc(100vh - 60px);
-                padding-top: 60px;
+            .container {
+                margin: 5px;
+                min-height: 95vh;
             }
 
             .interface-options {
                 grid-template-columns: 1fr;
-                gap: 15px;
+                gap: 12px;
             }
 
-            .interface-option {
-                padding: 20px 15px;
+            .currency-income-group {
+                flex-direction: column;
+                gap: 12px;
             }
 
-            .option-name {
-                font-size: 16px;
+            .radio-group {
+                grid-template-columns: 1fr;
+                gap: 8px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="app-container">
-        <!-- Demographic Form -->
-        <div class="demographic-form" id="demographicForm">
-            <h1 class="form-title">Quick Background Info</h1>
-            <p class="form-subtitle">Help us understand your perspective with a few quick questions</p>
+    <div class="container">
+        <!-- Disclaimer & Consent -->
+        <div class="disclaimer-form" id="disclaimerForm">
+            <h1 class="disclaimer-title">Fashion Shopping Research</h1>
+            <p class="disclaimer-subtitle">Understanding social media shopping behavior across different platforms</p>
             
-            <form id="demographicsFormData">
-                <div class="form-group">
-                    <label class="form-label">What's your age?</label>
-                    <select class="form-select" id="age" required>
-                        <option value="">Select your age range</option>
-                        <option value="18-24">18-24</option>
-                        <option value="25-34">25-34</option>
-                        <option value="35-44">35-44</option>
-                        <option value="45-54">45-54</option>
-                        <option value="55-64">55-64</option>
-                        <option value="65+">65+</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">What's your monthly income range? (USD)</label>
-                    <select class="form-select" id="income" required>
-                        <option value="">Select income range</option>
-                        <option value="under-2000">Under $2,000</option>
-                        <option value="2000-4000">$2,000 - $4,000</option>
-                        <option value="4000-6000">$4,000 - $6,000</option>
-                        <option value="6000-8000">$6,000 - $8,000</option>
-                        <option value="8000-12000">$8,000 - $12,000</option>
-                        <option value="12000+">$12,000+</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Where are you located?</label>
-                    <select class="form-select" id="location" required>
-                        <option value="">Select your location</option>
-                        <option value="UAE">United Arab Emirates</option>
-                        <option value="Saudi Arabia">Saudi Arabia</option>
-                        <option value="Qatar">Qatar</option>
-                        <option value="Kuwait">Kuwait</option>
-                        <option value="Bahrain">Bahrain</option>
-                        <option value="Oman">Oman</option>
-                        <option value="India">India</option>
-                        <option value="Pakistan">Pakistan</option>
-                        <option value="Bangladesh">Bangladesh</option>
-                        <option value="Philippines">Philippines</option>
-                        <option value="Egypt">Egypt</option>
-                        <option value="Jordan">Jordan</option>
-                        <option value="Lebanon">Lebanon</option>
-                        <option value="USA">United States</option>
-                        <option value="UK">United Kingdom</option>
-                        <option value="Canada">Canada</option>
-                        <option value="Australia">Australia</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">What's your gender?</label>
-                    <div class="form-radio-group">
-                        <div class="form-radio-option" onclick="selectGender('female')">
-                            <input type="radio" name="gender" value="female" id="female">
-                            <label for="female">Female</label>
-                        </div>
-                        <div class="form-radio-option" onclick="selectGender('male')">
-                            <input type="radio" name="gender" value="male" id="male">
-                            <label for="male">Male</label>
-                        </div>
-                        <div class="form-radio-option" onclick="selectGender('non-binary')">
-                            <input type="radio" name="gender" value="non-binary" id="non-binary">
-                            <label for="non-binary">Non-binary</label>
-                        </div>
-                        <div class="form-radio-option" onclick="selectGender('prefer-not-to-say')">
-                            <input type="radio" name="gender" value="prefer-not-to-say" id="prefer-not-to-say">
-                            <label for="prefer-not-to-say">Prefer not to say</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Which social media platform do you use most for discovering fashion/products?</label>
-                    <select class="form-select" id="primaryPlatform" required>
-                        <option value="">Select primary platform</option>
-                        <option value="Instagram">Instagram</option>
-                        <option value="TikTok">TikTok</option>
-                        <option value="Facebook">Facebook</option>
-                        <option value="LinkedIn">LinkedIn</option>
-                        <option value="YouTube">YouTube</option>
-                        <option value="Pinterest">Pinterest</option>
-                        <option value="Twitter/X">Twitter/X</option>
-                        <option value="Snapchat">Snapchat</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">How often do you shop online?</label>
-                    <select class="form-select" id="shoppingFrequency" required>
-                        <option value="">Select frequency</option>
-                        <option value="daily">Daily</option>
-                        <option value="weekly">Weekly</option>
-                        <option value="monthly">Monthly</option>
-                        <option value="few-times-year">A few times a year</option>
-                        <option value="rarely">Rarely</option>
-                        <option value="never">Never</option>
-                    </select>
-                </div>
-            </form>
+            <div class="disclaimer-content">
+                <h3>About This Research</h3>
+                <p>This study examines how people interact with fashion content on different social media platforms. You'll experience realistic social feeds and can interact naturally.</p>
+                
+                <h3>What You'll Do</h3>
+                <ul>
+                    <li>Answer a few background questions (2 minutes)</li>
+                    <li>Choose a social media platform style</li>
+                    <li>Browse through posts and interact naturally</li>
+                </ul>
+                
+                <h3>Privacy & Data Use</h3>
+                <p>Your responses are anonymous and used only for academic research. No personal information is stored or shared.</p>
+            </div>
             
-            <button class="continue-btn" id="continueBtn" onclick="submitDemographics()" disabled>Continue to Experience</button>
+            <div class="consent-checkbox">
+                <input type="checkbox" id="consentCheck" onchange="toggleContinueButton()">
+                <label for="consentCheck">
+                    I understand this is academic research and consent to participate. I understand my responses are anonymous and used only for research purposes.
+                </label>
+            </div>
+            
+            <button class="continue-btn" id="continueBtn" onclick="showDemographics()" disabled>
+                Start Survey
+            </button>
         </div>
 
-        // Interface Selection Screen
-        <div class="interface-selection" id="interfaceSelection" style="display: none;">
-            <h1 class="selection-title">Choose Your Platform</h1>
-            <p class="selection-subtitle">Select the social media experience that feels most natural to you</p>
+        <!-- Demographics Form -->
+        <div class="demographic-form" id="demographicForm">
+            <h2 class="form-title">Tell us about yourself</h2>
+            <p class="form-subtitle">This helps us understand shopping behavior across different demographics and regions</p>
+            
+            <div class="form-group">
+                <label>Your Name</label>
+                <input type="text" id="participantName" placeholder="Enter your first name" required>
+            </div>
+
+            <div class="form-group">
+                <label>Age Range</label>
+                <select id="ageRange" onchange="validateDemographics()" required>
+                    <option value="">Select your age range</option>
+                    <option value="18-24">18-24 years</option>
+                    <option value="25-29">25-29 years</option>
+                    <option value="30-34">30-34 years</option>
+                    <option value="35-39">35-39 years</option>
+                    <option value="40-44">40-44 years</option>
+                    <option value="45-50">45-50 years</option>
+                    <option value="50+">50+ years</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Country</label>
+                <select id="country" onchange="updateCurrencyAndIncome()" required>
+                    <option value="">Select your country</option>
+                    <option value="AE">United Arab Emirates</option>
+                    <option value="SA">Saudi Arabia</option>
+                    <option value="US">United States</option>
+                    <option value="UK">United Kingdom</option>
+                    <option value="CA">Canada</option>
+                    <option value="AU">Australia</option>
+                    <option value="IN">India</option>
+                    <option value="PK">Pakistan</option>
+                    <option value="BD">Bangladesh</option>
+                    <option value="PH">Philippines</option>
+                    <option value="EG">Egypt</option>
+                    <option value="NG">Nigeria</option>
+                    <option value="KE">Kenya</option>
+                    <option value="ZA">South Africa</option>
+                    <option value="DE">Germany</option>
+                    <option value="FR">France</option>
+                    <option value="IT">Italy</option>
+                    <option value="ES">Spain</option>
+                    <option value="NL">Netherlands</option>
+                    <option value="SG">Singapore</option>
+                    <option value="MY">Malaysia</option>
+                    <option value="TH">Thailand</option>
+                    <option value="ID">Indonesia</option>
+                    <option value="JP">Japan</option>
+                    <option value="KR">South Korea</option>
+                    <option value="CN">China</option>
+                    <option value="BR">Brazil</option>
+                    <option value="MX">Mexico</option>
+                    <option value="OTHER">Other</option>
+                </select>
+            </div>
+
+            <div class="currency-income-group">
+                <div class="form-group">
+                    <label>Currency</label>
+                    <input type="text" id="currency" readonly style="background-color: #f8f9fa;">
+                </div>
+                
+                <div class="form-group">
+                    <label>Monthly Income</label>
+                    <select id="income" onchange="validateDemographics()" required>
+                        <option value="">Select income range</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Gender</label>
+                <div class="radio-group">
+                    <div class="radio-option" onclick="selectGender('female')">
+                        <input type="radio" name="gender" value="female" id="female">
+                        <label for="female">Female</label>
+                    </div>
+                    <div class="radio-option" onclick="selectGender('male')">
+                        <input type="radio" name="gender" value="male" id="male">
+                        <label for="male">Male</label>
+                    </div>
+                    <div class="radio-option" onclick="selectGender('non-binary')">
+                        <input type="radio" name="gender" value="non-binary" id="non-binary">
+                        <label for="non-binary">Non-binary</label>
+                    </div>
+                    <div class="radio-option" onclick="selectGender('prefer-not-to-say')">
+                        <input type="radio" name="gender" value="prefer-not-to-say" id="prefer-not-to-say">
+                        <label for="prefer-not-to-say">Prefer not to say</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Primary Platform for Fashion Discovery</label>
+                <select id="primaryPlatform" onchange="validateDemographics()" required>
+                    <option value="">Select primary platform</option>
+                    <option value="Instagram">Instagram</option>
+                    <option value="TikTok">TikTok</option>
+                    <option value="Facebook">Facebook</option>
+                    <option value="LinkedIn">LinkedIn</option>
+                    <option value="YouTube">YouTube</option>
+                    <option value="Pinterest">Pinterest</option>
+                    <option value="Twitter/X">Twitter/X</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Online Shopping Frequency</label>
+                <select id="shoppingFrequency" onchange="validateDemographics()" required>
+                    <option value="">Select frequency</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="quarterly">Every few months</option>
+                    <option value="annually">Few times a year</option>
+                    <option value="rarely">Rarely</option>
+                </select>
+            </div>
+            
+            <button class="continue-btn" id="demographicsContinueBtn" onclick="showInterfaceSelection()" disabled>
+                Continue to Platform Selection
+            </button>
+        </div>
+
+        <!-- Interface Selection -->
+        <div class="interface-selection" id="interfaceSelection">
+            <h2 class="selection-title">Choose Your Platform Experience</h2>
+            <p class="selection-subtitle">Select the social media style that feels most natural to you</p>
             
             <div class="interface-options">
-                <div class="interface-option" data-interface="facebook">
+                <div class="interface-option" data-interface="facebook" onclick="selectInterface('facebook')">
                     <div class="option-icon">📘</div>
                     <div class="option-name">Facebook</div>
                     <div class="option-desc">Detailed posts with discussions</div>
                 </div>
-                <div class="interface-option" data-interface="instagram">
+                <div class="interface-option" data-interface="instagram" onclick="selectInterface('instagram')">
                     <div class="option-icon">📸</div>
                     <div class="option-name">Instagram</div>
-                    <div class="option-desc">Visual content and stories</div>
+                    <div class="option-desc">Visual stories and posts</div>
                 </div>
-                <div class="interface-option" data-interface="linkedin">
+                <div class="interface-option" data-interface="linkedin" onclick="selectInterface('linkedin')">
                     <div class="option-icon">💼</div>
                     <div class="option-name">LinkedIn</div>
                     <div class="option-desc">Professional networking</div>
                 </div>
-                <div class="interface-option" data-interface="tiktok">
+                <div class="interface-option" data-interface="tiktok" onclick="selectInterface('tiktok')">
                     <div class="option-icon">🎵</div>
                     <div class="option-name">TikTok</div>
-                    <div class="option-desc">Short-form video content</div>
+                    <div class="option-desc">Short-form videos</div>
                 </div>
             </div>
             
-            <button class="start-btn" id="startBtn" disabled>Start Experience</button>
-        </div>
-
-        <!-- Survey Header -->
-        <div class="header" id="surveyHeader" style="display: none;">
-            <div class="progress-container">
-                <div class="survey-title" id="surveyTitle">Social Feed</div>
-                <div class="progress-text"><span id="currentCard">1</span> / <span id="totalCards">15</span></div>
-            </div>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
-        </div>
-
-        <!-- Feed Container -->
-        <div class="feed-container" id="feedContainer" style="display: none;">
-            <!-- Dynamic content will be inserted here -->
+            <button class="continue-btn" id="startExperienceBtn" onclick="startSurveyExperience()" disabled>
+                Start Survey
+            </button>
         </div>
 
         <!-- Instruction Modal -->
-        <div class="instruction-modal" id="instructionModal" style="display: none;">
+        <div class="instruction-modal" id="instructionModal">
             <div class="instruction-content">
                 <h2 class="instruction-title">📱 How to Use This Feed</h2>
                 <div class="instruction-text">
                     <p><strong>Scroll naturally</strong> through the feed just like you normally would on <span id="platformName">social media</span>.</p>
                     <br>
                     <p>You can react to posts by:</p>
-                    <p>❤️ <strong>Like</strong> • 💬 <strong>Comment</strong> • 📤 <strong>Share</strong> • 🛒 <strong>Buy Now</strong></p>
+                    <p>❤️ <strong>Like</strong> • 📤 <strong>Share</strong> • 🛒 <strong>Buy Now</strong></p>
                     <br>
                     <p>Or simply <strong>scroll past</strong> if nothing interests you.</p>
                     <br>
                     <p><em>Take your time and interact naturally!</em></p>
                 </div>
-                <div class="instruction-actions">
-                    <button class="instruction-btn primary-btn" onclick="startSurveyExperience()">Got it! Start</button>
-                </div>
+                <button class="instruction-btn" onclick="startFeedExperience()">Got it! Start</button>
             </div>
         </div>
 
@@ -1149,10 +898,28 @@
                 </div>
                 <div class="warning-actions">
                     <button class="warning-btn go-back-btn" onclick="goBackToFeed()">Go Back & Engage</button>
-                    <button class="warning-btn continue-btn" onclick="submitBlankSurvey()">Submit Blank Survey</button>
+                    <button class="warning-btn continue-warning-btn" onclick="submitBlankSurvey()">Submit Blank Survey</button>
                 </div>
             </div>
         </div>
+
+        <!-- Survey Header -->
+        <div class="survey-header" id="surveyHeader">
+            <div class="progress-container">
+                <div class="survey-title" id="surveyTitle">Social Feed</div>
+                <div class="progress-text"><span id="currentPost">1</span> / <span id="totalPosts">15</span></div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <!-- Feed Container -->
+        <div class="feed-container" id="feedContainer">
+            <!-- Posts will be generated here -->
+        </div>
+
+        <!-- Results Screen -->
         <div class="results-screen" id="resultsScreen">
             <h2 class="results-title">🎉 Thank You!</h2>
             <div class="results-content">
@@ -1165,16 +932,98 @@
     <script>
         // Survey state
         let selectedInterface = null;
-        let currentCard = 0;
+        let currentPost = 0;
         let responses = [];
+        let demographicData = {};
         let startTime = Date.now();
         let surveyStartTime = null;
-        let questionViewTimes = {}; // Track time spent viewing each question
-        let questionFirstView = {}; // Track when each question was first viewed
-        let hasEngaged = false; // Track if user has interacted with any post
+        let questionViewTimes = {};
+        let questionFirstView = {};
+        let hasEngaged = false;
         let scrollStartTime = null;
         let isScrolling = false;
-        let demographicData = {}; // Store demographic responses
+
+        // Currency conversion data
+        const currencyData = {
+            'AE': { currency: 'AED', symbol: 'AED' },
+            'SA': { currency: 'SAR', symbol: 'SAR' },
+            'US': { currency: 'USD', symbol: ' },
+            'UK': { currency: 'GBP', symbol: '£' },
+            'CA': { currency: 'CAD', symbol: 'C },
+            'AU': { currency: 'AUD', symbol: 'A },
+            'IN': { currency: 'INR', symbol: '₹' },
+            'PK': { currency: 'PKR', symbol: 'Rs' },
+            'BD': { currency: 'BDT', symbol: '৳' },
+            'PH': { currency: 'PHP', symbol: '₱' },
+            'EG': { currency: 'EGP', symbol: 'E£' },
+            'NG': { currency: 'NGN', symbol: '₦' },
+            'KE': { currency: 'KES', symbol: 'KSh' },
+            'ZA': { currency: 'ZAR', symbol: 'R' },
+            'DE': { currency: 'EUR', symbol: '€' },
+            'FR': { currency: 'EUR', symbol: '€' },
+            'IT': { currency: 'EUR', symbol: '€' },
+            'ES': { currency: 'EUR', symbol: '€' },
+            'NL': { currency: 'EUR', symbol: '€' },
+            'SG': { currency: 'SGD', symbol: 'S },
+            'MY': { currency: 'MYR', symbol: 'RM' },
+            'TH': { currency: 'THB', symbol: '฿' },
+            'ID': { currency: 'IDR', symbol: 'Rp' },
+            'JP': { currency: 'JPY', symbol: '¥' },
+            'KR': { currency: 'KRW', symbol: '₩' },
+            'CN': { currency: 'CNY', symbol: '¥' },
+            'BR': { currency: 'BRL', symbol: 'R },
+            'MX': { currency: 'MXN', symbol: ' },
+            'OTHER': { currency: 'USD', symbol: ' }
+        };
+
+        // Income ranges by currency
+        const incomeRanges = {
+            'AED': [
+                { value: 'under-3000', label: 'Under AED 3,000' },
+                { value: '3000-5000', label: 'AED 3,000 - 5,000' },
+                { value: '5000-8000', label: 'AED 5,000 - 8,000' },
+                { value: '8000-12000', label: 'AED 8,000 - 12,000' },
+                { value: '12000-18000', label: 'AED 12,000 - 18,000' },
+                { value: '18000-25000', label: 'AED 18,000 - 25,000' },
+                { value: 'over-25000', label: 'Over AED 25,000' }
+            ],
+            'USD': [
+                { value: 'under-800', label: 'Under $800' },
+                { value: '800-1300', label: '$800 - 1,300' },
+                { value: '1300-2200', label: '$1,300 - 2,200' },
+                { value: '2200-3300', label: '$2,200 - 3,300' },
+                { value: '3300-5000', label: '$3,300 - 5,000' },
+                { value: '5000-7000', label: '$5,000 - 7,000' },
+                { value: 'over-7000', label: 'Over $7,000' }
+            ],
+            'GBP': [
+                { value: 'under-600', label: 'Under £600' },
+                { value: '600-1000', label: '£600 - 1,000' },
+                { value: '1000-1700', label: '£1,000 - 1,700' },
+                { value: '1700-2500', label: '£1,700 - 2,500' },
+                { value: '2500-3800', label: '£2,500 - 3,800' },
+                { value: '3800-5500', label: '£3,800 - 5,500' },
+                { value: 'over-5500', label: 'Over £5,500' }
+            ],
+            'INR': [
+                { value: 'under-20000', label: 'Under ₹20,000' },
+                { value: '20000-35000', label: '₹20,000 - 35,000' },
+                { value: '35000-50000', label: '₹35,000 - 50,000' },
+                { value: '50000-75000', label: '₹50,000 - 75,000' },
+                { value: '75000-100000', label: '₹75,000 - 1,00,000' },
+                { value: '100000-150000', label: '₹1,00,000 - 1,50,000' },
+                { value: 'over-150000', label: 'Over ₹1,50,000' }
+            ],
+            'EUR': [
+                { value: 'under-700', label: 'Under €700' },
+                { value: '700-1200', label: '€700 - 1,200' },
+                { value: '1200-2000', label: '€1,200 - 2,000' },
+                { value: '2000-3000', label: '€2,000 - 3,000' },
+                { value: '3000-4500', label: '€3,000 - 4,500' },
+                { value: '4500-6500', label: '€4,500 - 6,500' },
+                { value: 'over-6500', label: 'Over €6,500' }
+            ]
+        };
 
         // Sample survey questions
         const surveyQuestions = [
@@ -1300,25 +1149,61 @@
             }
         ];
 
-        // Form validation and interactions
+        // Toggle continue button based on consent
+        function toggleContinueButton() {
+            const consentCheck = document.getElementById('consentCheck');
+            const continueBtn = document.getElementById('continueBtn');
+            continueBtn.disabled = !consentCheck.checked;
+        }
+
+        // Show demographics form
+        function showDemographics() {
+            document.getElementById('disclaimerForm').style.display = 'none';
+            document.getElementById('demographicForm').style.display = 'block';
+        }
+
+        // Update currency and income based on country selection
+        function updateCurrencyAndIncome() {
+            const countrySelect = document.getElementById('country');
+            const currencyInput = document.getElementById('currency');
+            const incomeSelect = document.getElementById('income');
+            
+            const selectedCountry = countrySelect.value;
+            
+            if (selectedCountry && currencyData[selectedCountry]) {
+                const countryData = currencyData[selectedCountry];
+                currencyInput.value = countryData.currency;
+                
+                // Update income options
+                incomeSelect.innerHTML = '<option value="">Select income range</option>';
+                
+                const ranges = incomeRanges[countryData.currency] || incomeRanges['USD'];
+                ranges.forEach(range => {
+                    const option = document.createElement('option');
+                    option.value = range.value;
+                    option.textContent = range.label;
+                    incomeSelect.appendChild(option);
+                });
+            }
+            
+            validateDemographics();
+        }
+
+        // Select gender option
         function selectGender(value) {
-            // Remove selected class from all options
-            document.querySelectorAll('.form-radio-option').forEach(option => {
+            document.querySelectorAll('.radio-option').forEach(option => {
                 option.classList.remove('selected');
             });
             
-            // Add selected class to clicked option
             event.currentTarget.classList.add('selected');
-            
-            // Check the radio button
             document.getElementById(value).checked = true;
             
-            validateForm();
+            validateDemographics();
         }
 
-        // Validate form completion
-        function validateForm() {
-            const requiredFields = ['age', 'income', 'location', 'primaryPlatform', 'shoppingFrequency'];
+        // Validate demographics form
+        function validateDemographics() {
+            const requiredFields = ['participantName', 'ageRange', 'country', 'income', 'primaryPlatform', 'shoppingFrequency'];
             const genderSelected = document.querySelector('input[name="gender"]:checked');
             
             const allFieldsFilled = requiredFields.every(field => {
@@ -1327,28 +1212,18 @@
             });
             
             const isValid = allFieldsFilled && genderSelected;
-            document.getElementById('continueBtn').disabled = !isValid;
+            document.getElementById('demographicsContinueBtn').disabled = !isValid;
         }
 
-        // Add event listeners for form validation
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add change listeners to all form fields
-            const formFields = ['age', 'income', 'location', 'primaryPlatform', 'shoppingFrequency'];
-            formFields.forEach(fieldId => {
-                const field = document.getElementById(fieldId);
-                if (field) {
-                    field.addEventListener('change', validateForm);
-                }
-            });
-        });
-
-        // Submit demographics and move to interface selection
-        function submitDemographics() {
+        // Show interface selection
+        function showInterfaceSelection() {
             // Collect demographic data
             demographicData = {
-                age: document.getElementById('age').value,
+                name: document.getElementById('participantName').value,
+                age: document.getElementById('ageRange').value,
+                country: document.getElementById('country').value,
+                currency: document.getElementById('currency').value,
                 income: document.getElementById('income').value,
-                location: document.getElementById('location').value,
                 gender: document.querySelector('input[name="gender"]:checked').value,
                 primaryPlatform: document.getElementById('primaryPlatform').value,
                 shoppingFrequency: document.getElementById('shoppingFrequency').value,
@@ -1357,31 +1232,24 @@
             
             console.log('Demographics collected:', demographicData);
             
-            // Hide demographic form and show interface selection
             document.getElementById('demographicForm').style.display = 'none';
             document.getElementById('interfaceSelection').style.display = 'block';
         }
-        document.querySelectorAll('.interface-option').forEach(option => {
-            option.addEventListener('click', function() {
-                document.querySelectorAll('.interface-option').forEach(opt => opt.classList.remove('selected'));
-                this.classList.add('selected');
-                selectedInterface = this.dataset.interface;
-                document.getElementById('startBtn').disabled = false;
+
+        // Select interface
+        function selectInterface(interface) {
+            document.querySelectorAll('.interface-option').forEach(option => {
+                option.classList.remove('selected');
             });
-        });
-
-        // Start survey
-        document.getElementById('startBtn').addEventListener('click', function() {
-            document.getElementById('interfaceSelection').style.display = 'none';
-            document.getElementById('surveyHeader').style.display = 'block';
-            document.getElementById('feedContainer').style.display = 'block';
             
-            // Show instruction modal
-            showInstructionModal();
-        });
+            event.currentTarget.classList.add('selected');
+            selectedInterface = interface;
+            document.getElementById('startExperienceBtn').disabled = false;
+        }
 
-        // Show instruction modal
-        function showInstructionModal() {
+        // Start survey experience
+        function startSurveyExperience() {
+            // Show instruction modal
             const platformNames = {
                 'facebook': 'Facebook',
                 'instagram': 'Instagram',
@@ -1393,213 +1261,82 @@
             document.getElementById('instructionModal').style.display = 'flex';
         }
 
-        // Start actual survey experience
-        function startSurveyExperience() {
+        // Start feed experience
+        function startFeedExperience() {
             document.getElementById('instructionModal').style.display = 'none';
+            document.getElementById('interfaceSelection').style.display = 'none';
+            document.getElementById('surveyHeader').style.display = 'block';
+            document.getElementById('feedContainer').style.display = 'block';
+            
             surveyStartTime = Date.now();
             scrollStartTime = Date.now();
             initializeSurvey();
         }
 
-        // Initialize survey based on selected interface
+        // Initialize survey
         function initializeSurvey() {
             const feedContainer = document.getElementById('feedContainer');
-            feedContainer.className = `feed-container ${selectedInterface}-feed`;
-            feedContainer.innerHTML = ''; // Clear any existing content
+            feedContainer.innerHTML = '';
             
-            // Set survey title based on platform
+            // Set survey title
             const titles = {
                 'facebook': 'Facebook Feed',
-                'instagram': 'Instagram Feed', 
+                'instagram': 'Instagram Feed',
                 'linkedin': 'LinkedIn Feed',
                 'tiktok': 'TikTok For You'
             };
             document.getElementById('surveyTitle').textContent = titles[selectedInterface];
             
-            // Reset current card counter
-            currentCard = 0;
-            
-            // Generate all posts at once for smooth scrolling (except TikTok)
-            if (selectedInterface !== 'tiktok') {
-                surveyQuestions.forEach((question, index) => {
-                    const card = createCard(question, index);
-                    feedContainer.appendChild(card);
-                });
-                
-                // Make sure first card is visible
-                setTimeout(() => {
-                    const firstCard = feedContainer.querySelector('.fb-card, .ig-card, .linkedin-card');
-                    if (firstCard) {
-                        firstCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                }, 100);
-            } else {
-                // TikTok shows one card at a time
-                showTikTokCard(0);
-            }
+            // Generate all posts
+            surveyQuestions.forEach((question, index) => {
+                const post = createPost(question, index);
+                feedContainer.appendChild(post);
+            });
             
             updateProgress();
             
-            // Debug logging
-            console.log('Survey initialized with interface:', selectedInterface);
-            console.log('Feed container classes:', feedContainer.className);
-            console.log('Number of questions:', surveyQuestions.length);
+            // Start tracking scroll behavior
+            startScrollTracking();
         }
 
-        // Create card based on interface
-        function createCard(question, index) {
-            const card = document.createElement('div');
-            card.style.setProperty('--delay', `${index * 0.1}s`);
+        // Create post element
+        function createPost(question, index) {
+            const post = document.createElement('div');
+            post.className = 'post';
+            post.style.animationDelay = `${index * 0.1}s`;
             
-            switch(selectedInterface) {
-                case 'facebook':
-                    card.className = 'fb-card';
-                    card.innerHTML = createFacebookCard(question);
-                    break;
-                case 'instagram':
-                    card.className = 'ig-card';
-                    card.innerHTML = createInstagramCard(question);
-                    break;
-                case 'linkedin':
-                    card.className = 'linkedin-card';
-                    card.innerHTML = createLinkedInCard(question);
-                    break;
-            }
-            
-            return card;
-        }
-
-        // Create Facebook-style card
-        function createFacebookCard(question) {
-            return `
-                <div class="fb-post-header">
-                    <div class="fb-avatar">${question.brand.charAt(0)}</div>
-                    <div class="fb-user-info">
+            post.innerHTML = `
+                <div class="post-header">
+                    <div class="post-avatar">${question.brand.charAt(0)}</div>
+                    <div class="post-info">
                         <h3>${question.brand}</h3>
                         <p>2 hours ago</p>
                     </div>
                 </div>
-                <div class="fb-post-content">
-                    <div class="fb-post-text">Check out our new ${question.product}! ${question.description}</div>
-                    <div class="fb-post-image">
+                <div class="post-content">
+                    <div class="post-text">Check out our new ${question.product}! ${question.description}</div>
+                    <div class="post-image">
                         ${question.product}
-                        <div class="fb-price-tag">${question.price}</div>
+                        <div class="price-tag">${question.price}</div>
                     </div>
                 </div>
-                <div class="action-buttons">
-                    <button class="action-btn like-btn" onclick="handleResponse(${question.id}, 'like')">👍 Like</button>
+                <div class="post-actions">
+                    <button class="action-btn like-btn" onclick="handleResponse(${question.id}, 'like')">❤️ Like</button>
                     <button class="action-btn share-btn" onclick="handleResponse(${question.id}, 'share')">📤 Share</button>
                     <button class="action-btn buy-btn" onclick="handleResponse(${question.id}, 'buy')">🛒 Buy</button>
                 </div>
             `;
-        }
-
-        // Create Instagram-style card
-        function createInstagramCard(question) {
-            return `
-                <div class="ig-header">
-                    <div class="ig-avatar">${question.brand.charAt(0)}</div>
-                    <div class="ig-username">${question.brand.toLowerCase().replace(/\s/g, '')}</div>
-                </div>
-                <div class="ig-content">
-                    <div class="ig-image">
-                        ${question.product}
-                        <div class="ig-price-tag">${question.price}</div>
-                    </div>
-                    <div class="ig-caption">New drop! ${question.description} ✨ #fashion #style</div>
-                </div>
-                <div class="action-buttons">
-        // Create Instagram-style card
-        function createInstagramCard(question) {
-            return `
-                <div class="ig-header">
-                    <div class="ig-avatar">${question.brand.charAt(0)}</div>
-                    <div class="ig-username">${question.brand.toLowerCase().replace(/\s/g, '')}</div>
-                </div>
-                <div class="ig-content">
-                    <div class="ig-image">
-                        ${question.product}
-                        <div class="ig-price-tag">${question.price}</div>
-                    </div>
-                    <div class="ig-caption">New drop! ${question.description} ✨ #fashion #style</div>
-                </div>
-                <div class="action-buttons">
-                    <button class="action-btn like-btn" onclick="handleResponse(${question.id}, 'like')">❤️ Like</button>
-                    <button class="action-btn share-btn" onclick="handleResponse(${question.id}, 'share')">📨 Share</button>
-                    <button class="action-btn buy-btn" onclick="handleResponse(${question.id}, 'buy')">🛒 Shop</button>
-                </div>
-            `;
-        }
-
-        // Create LinkedIn-style card
-        function createLinkedInCard(question) {
-            return `
-                <div class="linkedin-header">
-                    <div class="linkedin-avatar">${question.brand.charAt(0)}</div>
-                    <div class="linkedin-user-info">
-                        <h3>${question.brand}</h3>
-                        <p>Fashion & Retail • 2h</p>
-                    </div>
-                </div>
-                <div class="linkedin-content">
-                    <div class="linkedin-text">Excited to introduce our ${question.product}. ${question.description} What do you think about this addition to our collection?</div>
-                    <div class="linkedin-image">
-                        ${question.product}
-                        <div class="linkedin-price-tag">${question.price}</div>
-                    </div>
-                </div>
-                <div class="action-buttons">
-                    <button class="action-btn like-btn" onclick="handleResponse(${question.id}, 'like')">👍 Like</button>
-                    <button class="action-btn share-btn" onclick="handleResponse(${question.id}, 'share')">🔄 Repost</button>
-                    <button class="action-btn buy-btn" onclick="handleResponse(${question.id}, 'buy')">🛒 Inquire</button>
-                </div>
-            `;
-        }
-
-        // Show TikTok card (full screen)
-        function showTikTokCard(index) {
-            if (index >= surveyQuestions.length) {
-                completeSurvey();
-                return;
-            }
-
-            const question = surveyQuestions[index];
-            const feedContainer = document.getElementById('feedContainer');
             
-            feedContainer.innerHTML = `
-                <div class="tiktok-card current visible">
-                    <div class="tiktok-background"></div>
-                    <div class="tiktok-image">${question.product}</div>
-                    <div class="tiktok-content">
-                        <div class="tiktok-brand">@${question.brand.toLowerCase().replace(/\s/g, '')}</div>
-                        <div class="tiktok-title">${question.description} #${question.category} #fyp</div>
-                        <div class="tiktok-price">${question.price}</div>
-                    </div>
-                    <div class="tiktok-actions">
-                        <button class="tiktok-action-btn" onclick="handleResponse(${question.id}, 'like')">❤️</button>
-                        <button class="tiktok-action-btn" onclick="handleResponse(${question.id}, 'share')">📤</button>
-                        <button class="tiktok-action-btn" onclick="handleResponse(${question.id}, 'buy')">🛒</button>
-                    </div>
-                </div>
-            `;
+            return post;
         }
 
         // Handle user response
         function handleResponse(questionId, action) {
-            console.log('Response triggered:', questionId, action); // Debug logging
-            
-            hasEngaged = true; // Mark that user has engaged
+            hasEngaged = true;
             
             const timestamp = new Date().toISOString();
             const responseTime = Date.now() - startTime;
             const question = surveyQuestions.find(q => q.id === questionId);
-            
-            if (!question) {
-                console.error('Question not found for ID:', questionId);
-                return;
-            }
-
-            // Record viewing time for this question
             const viewTime = recordQuestionViewTime(questionId);
             
             const response = {
@@ -1608,7 +1345,7 @@
                 action: action,
                 timestamp: timestamp,
                 responseTime: responseTime,
-                viewTime: viewTime, // Time spent viewing this question
+                viewTime: viewTime,
                 brand: question.brand,
                 product: question.product,
                 price: question.price,
@@ -1616,52 +1353,29 @@
             };
             
             responses.push(response);
-            console.log('Response recorded:', response); // Debug logging
-            console.log('Current responses count:', responses.length); // Debug logging
+            currentPost++;
             
-            // Disable buttons for this card (non-TikTok)
-            if (selectedInterface !== 'tiktok') {
-                const cardElement = event.target.closest('.fb-card, .ig-card, .linkedin-card');
-                if (cardElement) {
-                    const buttons = cardElement.querySelectorAll('.action-btn');
-                    buttons.forEach(btn => {
-                        btn.disabled = true;
-                        btn.style.opacity = '0.6';
-                    });
-                    
-                    // Highlight selected button
-                    event.target.classList.add('selected');
-                    
-                    // Increment counter AFTER processing response
-                    currentCard++;
-                    updateProgress();
-                    
-                    // Auto-scroll to next post after delay
-                    setTimeout(() => {
-                        scrollToNextPost();
-                    }, 800);
-                    
-                    // Check if survey complete
-                    if (currentCard >= surveyQuestions.length) {
-                        setTimeout(() => {
-                            attemptSurveyCompletion();
-                        }, 1500);
-                    }
-                }
-            } else {
-                // TikTok - increment and show next card
-                currentCard++;
-                updateProgress();
-                
-                if (currentCard >= surveyQuestions.length) {
-                    setTimeout(() => {
-                        attemptSurveyCompletion();
-                    }, 500);
-                } else {
-                    setTimeout(() => {
-                        showTikTokCard(currentCard);
-                    }, 500);
-                }
+            // Disable buttons and highlight selected
+            const postElement = event.target.closest('.post');
+            const buttons = postElement.querySelectorAll('.action-btn');
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                btn.style.opacity = '0.6';
+            });
+            
+            event.target.classList.add('selected');
+            updateProgress();
+            
+            // Auto-scroll to next post
+            setTimeout(() => {
+                scrollToNextPost();
+            }, 800);
+            
+            // Check if survey complete
+            if (currentPost >= surveyQuestions.length) {
+                setTimeout(() => {
+                    attemptSurveyCompletion();
+                }, 1500);
             }
         }
 
@@ -1677,20 +1391,32 @@
             return viewTime;
         }
 
-        // Track which questions are currently in view
-        function trackQuestionsInView() {
-            if (selectedInterface === 'tiktok') return; // TikTok handled separately
-            
+        // Start scroll tracking
+        function startScrollTracking() {
             const feedContainer = document.getElementById('feedContainer');
-            const cards = feedContainer.querySelectorAll('.fb-card, .ig-card, .linkedin-card');
+            
+            feedContainer.addEventListener('scroll', function() {
+                if (!isScrolling) {
+                    isScrolling = true;
+                    setTimeout(() => {
+                        trackQuestionsInView();
+                        isScrolling = false;
+                    }, 100);
+                }
+            });
+        }
+
+        // Track which questions are in view
+        function trackQuestionsInView() {
+            const feedContainer = document.getElementById('feedContainer');
+            const posts = feedContainer.querySelectorAll('.post');
             const containerRect = feedContainer.getBoundingClientRect();
             
-            cards.forEach((card, index) => {
-                const cardRect = card.getBoundingClientRect();
+            posts.forEach((post, index) => {
+                const postRect = post.getBoundingClientRect();
                 const questionId = surveyQuestions[index].id;
                 
-                // Check if card is in viewport
-                const isVisible = cardRect.top < containerRect.bottom && cardRect.bottom > containerRect.top;
+                const isVisible = postRect.top < containerRect.bottom && postRect.bottom > containerRect.top;
                 
                 if (isVisible && !questionFirstView[questionId]) {
                     questionFirstView[questionId] = Date.now();
@@ -1698,20 +1424,41 @@
             });
         }
 
+        // Scroll to next post
+        function scrollToNextPost() {
+            if (currentPost < surveyQuestions.length) {
+                const posts = document.querySelectorAll('.post');
+                const nextPost = posts[currentPost];
+                if (nextPost) {
+                    nextPost.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                }
+            }
+        }
+
+        // Update progress
+        function updateProgress() {
+            const progress = (currentPost / surveyQuestions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('currentPost').textContent = Math.min(currentPost + 1, surveyQuestions.length);
+            document.getElementById('totalPosts').textContent = surveyQuestions.length;
+        }
+
         // Attempt survey completion with validation
         function attemptSurveyCompletion() {
             const totalSurveyTime = Date.now() - surveyStartTime;
             const speedThreshold = 5000; // 5 seconds
             
-            // Check if user completed too quickly (less than 5 seconds)
+            // Check if completed too quickly
             if (totalSurveyTime < speedThreshold && hasEngaged) {
-                // Too fast completion - send back to top
                 console.log('Survey completed too quickly, sending back to top');
                 scrollToTop();
                 return;
             }
             
-            // Check if user hasn't engaged at all
+            // Check if no engagement
             if (!hasEngaged) {
                 showNoEngagementWarning();
                 return;
@@ -1721,12 +1468,12 @@
             completeSurvey();
         }
 
-        // Show warning for no engagement
+        // Show no engagement warning
         function showNoEngagementWarning() {
             document.getElementById('warningModal').style.display = 'flex';
         }
 
-        // Go back to feed from warning
+        // Go back to feed
         function goBackToFeed() {
             document.getElementById('warningModal').style.display = 'none';
             scrollToTop();
@@ -1736,7 +1483,6 @@
         function submitBlankSurvey() {
             document.getElementById('warningModal').style.display = 'none';
             
-            // Record blank survey submission
             responses.push({
                 type: 'blank_submission',
                 interface: selectedInterface,
@@ -1748,7 +1494,7 @@
             completeSurvey();
         }
 
-        // Scroll to top of feed
+        // Scroll to top
         function scrollToTop() {
             const feedContainer = document.getElementById('feedContainer');
             feedContainer.scrollTo({
@@ -1756,35 +1502,8 @@
                 behavior: 'smooth'
             });
             
-            // Reset engagement tracking
             hasEngaged = false;
             scrollStartTime = Date.now();
-        }
-        function scrollToNextPost() {
-            if (currentCard < surveyQuestions.length && selectedInterface !== 'tiktok') {
-                const feedContainer = document.getElementById('feedContainer');
-                const cards = feedContainer.querySelectorAll('.fb-card, .ig-card, .linkedin-card');
-                const nextCard = cards[currentCard];
-                
-                if (nextCard) {
-                    // Smooth scroll for feed-based platforms
-                    nextCard.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'center',
-                        inline: 'nearest'
-                    });
-                }
-            }
-        }
-
-        // Update progress indicator
-        function updateProgress() {
-            const progress = (currentCard / surveyQuestions.length) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
-            document.getElementById('currentCard').textContent = Math.min(currentCard + 1, surveyQuestions.length);
-            document.getElementById('totalCards').textContent = surveyQuestions.length;
-            
-            console.log('Progress updated:', currentCard + 1, '/', surveyQuestions.length); // Debug logging
         }
 
         // Complete survey
@@ -1794,58 +1513,15 @@
             document.getElementById('resultsScreen').style.display = 'flex';
             
             console.log('Survey Complete!');
+            console.log('Demographics:', demographicData);
             console.log('Interface:', selectedInterface);
             console.log('Responses:', responses);
-            
-            // Calculate analytics
-            const analytics = analyzeResponses();
-            console.log('Analytics:', analytics);
-        }
-
-        // Analyze responses
-        function analyzeResponses() {
-            const analytics = {
-                interface: selectedInterface,
-                totalResponses: responses.length,
-                actionBreakdown: {},
-                averageResponseTime: 0,
-                categoryBreakdown: {},
-                priceRangeAnalysis: {
-                    under50: 0,
-                    between50and100: 0,
-                    between100and200: 0,
-                    over200: 0
-                }
-            };
-            
-            let totalTime = 0;
-            
-            responses.forEach(response => {
-                // Action breakdown
-                analytics.actionBreakdown[response.action] = (analytics.actionBreakdown[response.action] || 0) + 1;
-                
-                // Category breakdown
-                analytics.categoryBreakdown[response.category] = (analytics.categoryBreakdown[response.category] || 0) + 1;
-                
-                // Price analysis
-                const price = parseInt(response.price.replace(', ''));
-                if (price < 50) analytics.priceRangeAnalysis.under50++;
-                else if (price < 100) analytics.priceRangeAnalysis.between50and100++;
-                else if (price < 200) analytics.priceRangeAnalysis.between100and200++;
-                else analytics.priceRangeAnalysis.over200++;
-                
-                totalTime += response.responseTime;
-            });
-            
-            analytics.averageResponseTime = totalTime / responses.length;
-            
-            return analytics;
         }
 
         // Download results
         function downloadResults() {
             const results = {
-                demographicData: demographicData, // Include demographic information
+                demographicData: demographicData,
                 surveyMetadata: {
                     interface: selectedInterface,
                     completedAt: new Date().toISOString(),
@@ -1855,8 +1531,7 @@
                     hasEngaged: hasEngaged
                 },
                 responses: responses,
-                questionViewTimes: questionViewTimes,
-                analytics: analyzeResponses()
+                questionViewTimes: questionViewTimes
             };
             
             const dataStr = JSON.stringify(results, null, 2);
@@ -1871,53 +1546,17 @@
             URL.revokeObjectURL(url);
         }
 
-        // Touch/swipe support for mobile
-        let touchStartY = 0;
-        let touchEndY = 0;
-
-        document.addEventListener('touchstart', function(e) {
-            touchStartY = e.changedTouches[0].screenY;
-        }, { passive: true });
-
-        document.addEventListener('touchend', function(e) {
-            touchEndY = e.changedTouches[0].screenY;
-            handleSwipe();
-        }, { passive: true });
-
-        function handleSwipe() {
-            const swipeThreshold = 50;
-            const diff = touchStartY - touchEndY;
-            
-            if (selectedInterface === 'tiktok' && Math.abs(diff) > swipeThreshold) {
-                if (diff > 0 && currentCard < surveyQuestions.length - 1) {
-                    // Swipe up - next video (auto-handled by showing next card)
-                } else if (diff < 0 && currentCard > 0) {
-                    // Swipe down - previous video (optional)
+        // Add event listeners for form validation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Demographics form validation
+            const demographicFields = ['participantName', 'ageRange', 'country', 'income', 'primaryPlatform', 'shoppingFrequency'];
+            demographicFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (field) {
+                    field.addEventListener('change', validateDemographics);
+                    field.addEventListener('input', validateDemographics);
                 }
-            }
-        }
-
-        // Keyboard shortcuts for desktop testing
-        document.addEventListener('keydown', function(e) {
-            if (selectedInterface && currentCard < surveyQuestions.length) {
-                switch(e.key) {
-                    case '1':
-                        if (document.querySelector('.action-btn:not(:disabled)')) {
-                            document.querySelector('.like-btn:not(:disabled)').click();
-                        }
-                        break;
-                    case '2':
-                        if (document.querySelector('.share-btn:not(:disabled)')) {
-                            document.querySelector('.share-btn:not(:disabled)').click();
-                        }
-                        break;
-                    case '3':
-                        if (document.querySelector('.buy-btn:not(:disabled)')) {
-                            document.querySelector('.buy-btn:not(:disabled)').click();
-                        }
-                        break;
-                }
-            }
+            });
         });
     </script>
 </body>
