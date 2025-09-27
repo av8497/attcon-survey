@@ -75,7 +75,107 @@
             color: #1c1e21;
         }
 
-        /* Interface Selection */
+        /* Demographic Form */
+        .demographic-form {
+            padding: 30px 20px;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-title {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .form-subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e6ed;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            background: white;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-radio-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .form-radio-option {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border: 2px solid #e0e6ed;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-radio-option:hover {
+            border-color: #667eea;
+        }
+
+        .form-radio-option.selected {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+
+        .form-radio-option input[type="radio"] {
+            margin-right: 8px;
+        }
+
+        .continue-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            margin-top: 20px;
+        }
+
+        .continue-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .continue-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
         .interface-selection {
             padding: 40px 20px;
             text-align: center;
@@ -678,7 +778,141 @@
             transform: translateY(-2px);
         }
 
-        /* Mobile Responsive Improvements */
+        /* Instruction Modal */
+        .instruction-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .instruction-content {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .instruction-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .instruction-text {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            font-size: 16px;
+        }
+
+        .instruction-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .instruction-btn {
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            border: none;
+        }
+
+        .instruction-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .primary-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .secondary-btn {
+            background: #f0f2f5;
+            color: #666;
+        }
+
+        /* Warning Modal */
+        .warning-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .warning-content {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .warning-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #e74c3c;
+            margin-bottom: 15px;
+        }
+
+        .warning-text {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            font-size: 15px;
+        }
+
+        .warning-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .warning-btn {
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            border: none;
+        }
+
+        .warning-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .continue-btn {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .go-back-btn {
+            background: #f0f2f5;
+            color: #666;
+        }
         @media (max-width: 768px) {
             .app-container {
                 margin: 0;
@@ -725,8 +959,120 @@
 </head>
 <body>
     <div class="app-container">
-        <!-- Interface Selection Screen -->
-        <div class="interface-selection" id="interfaceSelection">
+        <!-- Demographic Form -->
+        <div class="demographic-form" id="demographicForm">
+            <h1 class="form-title">Quick Background Info</h1>
+            <p class="form-subtitle">Help us understand your perspective with a few quick questions</p>
+            
+            <form id="demographicsFormData">
+                <div class="form-group">
+                    <label class="form-label">What's your age?</label>
+                    <select class="form-select" id="age" required>
+                        <option value="">Select your age range</option>
+                        <option value="18-24">18-24</option>
+                        <option value="25-34">25-34</option>
+                        <option value="35-44">35-44</option>
+                        <option value="45-54">45-54</option>
+                        <option value="55-64">55-64</option>
+                        <option value="65+">65+</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">What's your monthly income range? (USD)</label>
+                    <select class="form-select" id="income" required>
+                        <option value="">Select income range</option>
+                        <option value="under-2000">Under $2,000</option>
+                        <option value="2000-4000">$2,000 - $4,000</option>
+                        <option value="4000-6000">$4,000 - $6,000</option>
+                        <option value="6000-8000">$6,000 - $8,000</option>
+                        <option value="8000-12000">$8,000 - $12,000</option>
+                        <option value="12000+">$12,000+</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Where are you located?</label>
+                    <select class="form-select" id="location" required>
+                        <option value="">Select your location</option>
+                        <option value="UAE">United Arab Emirates</option>
+                        <option value="Saudi Arabia">Saudi Arabia</option>
+                        <option value="Qatar">Qatar</option>
+                        <option value="Kuwait">Kuwait</option>
+                        <option value="Bahrain">Bahrain</option>
+                        <option value="Oman">Oman</option>
+                        <option value="India">India</option>
+                        <option value="Pakistan">Pakistan</option>
+                        <option value="Bangladesh">Bangladesh</option>
+                        <option value="Philippines">Philippines</option>
+                        <option value="Egypt">Egypt</option>
+                        <option value="Jordan">Jordan</option>
+                        <option value="Lebanon">Lebanon</option>
+                        <option value="USA">United States</option>
+                        <option value="UK">United Kingdom</option>
+                        <option value="Canada">Canada</option>
+                        <option value="Australia">Australia</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">What's your gender?</label>
+                    <div class="form-radio-group">
+                        <div class="form-radio-option" onclick="selectGender('female')">
+                            <input type="radio" name="gender" value="female" id="female">
+                            <label for="female">Female</label>
+                        </div>
+                        <div class="form-radio-option" onclick="selectGender('male')">
+                            <input type="radio" name="gender" value="male" id="male">
+                            <label for="male">Male</label>
+                        </div>
+                        <div class="form-radio-option" onclick="selectGender('non-binary')">
+                            <input type="radio" name="gender" value="non-binary" id="non-binary">
+                            <label for="non-binary">Non-binary</label>
+                        </div>
+                        <div class="form-radio-option" onclick="selectGender('prefer-not-to-say')">
+                            <input type="radio" name="gender" value="prefer-not-to-say" id="prefer-not-to-say">
+                            <label for="prefer-not-to-say">Prefer not to say</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Which social media platform do you use most for discovering fashion/products?</label>
+                    <select class="form-select" id="primaryPlatform" required>
+                        <option value="">Select primary platform</option>
+                        <option value="Instagram">Instagram</option>
+                        <option value="TikTok">TikTok</option>
+                        <option value="Facebook">Facebook</option>
+                        <option value="LinkedIn">LinkedIn</option>
+                        <option value="YouTube">YouTube</option>
+                        <option value="Pinterest">Pinterest</option>
+                        <option value="Twitter/X">Twitter/X</option>
+                        <option value="Snapchat">Snapchat</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">How often do you shop online?</label>
+                    <select class="form-select" id="shoppingFrequency" required>
+                        <option value="">Select frequency</option>
+                        <option value="daily">Daily</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="monthly">Monthly</option>
+                        <option value="few-times-year">A few times a year</option>
+                        <option value="rarely">Rarely</option>
+                        <option value="never">Never</option>
+                    </select>
+                </div>
+            </form>
+            
+            <button class="continue-btn" id="continueBtn" onclick="submitDemographics()" disabled>Continue to Experience</button>
+        </div>
+
+        // Interface Selection Screen
+        <div class="interface-selection" id="interfaceSelection" style="display: none;">
             <h1 class="selection-title">Choose Your Platform</h1>
             <p class="selection-subtitle">Select the social media experience that feels most natural to you</p>
             
@@ -772,7 +1118,41 @@
             <!-- Dynamic content will be inserted here -->
         </div>
 
-        <!-- Results Screen -->
+        <!-- Instruction Modal -->
+        <div class="instruction-modal" id="instructionModal" style="display: none;">
+            <div class="instruction-content">
+                <h2 class="instruction-title">📱 How to Use This Feed</h2>
+                <div class="instruction-text">
+                    <p><strong>Scroll naturally</strong> through the feed just like you normally would on <span id="platformName">social media</span>.</p>
+                    <br>
+                    <p>You can react to posts by:</p>
+                    <p>❤️ <strong>Like</strong> • 💬 <strong>Comment</strong> • 📤 <strong>Share</strong> • 🛒 <strong>Buy Now</strong></p>
+                    <br>
+                    <p>Or simply <strong>scroll past</strong> if nothing interests you.</p>
+                    <br>
+                    <p><em>Take your time and interact naturally!</em></p>
+                </div>
+                <div class="instruction-actions">
+                    <button class="instruction-btn primary-btn" onclick="startSurveyExperience()">Got it! Start</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Warning Modal -->
+        <div class="warning-modal" id="warningModal">
+            <div class="warning-content">
+                <h2 class="warning-title">⚠️ No Engagement Detected</h2>
+                <div class="warning-text">
+                    <p>We noticed you haven't interacted with any posts yet.</p>
+                    <br>
+                    <p>Are you sure you want to submit a blank survey? Your natural reactions help us understand social media behavior better.</p>
+                </div>
+                <div class="warning-actions">
+                    <button class="warning-btn go-back-btn" onclick="goBackToFeed()">Go Back & Engage</button>
+                    <button class="warning-btn continue-btn" onclick="submitBlankSurvey()">Submit Blank Survey</button>
+                </div>
+            </div>
+        </div>
         <div class="results-screen" id="resultsScreen">
             <h2 class="results-title">🎉 Thank You!</h2>
             <div class="results-content">
@@ -788,6 +1168,13 @@
         let currentCard = 0;
         let responses = [];
         let startTime = Date.now();
+        let surveyStartTime = null;
+        let questionViewTimes = {}; // Track time spent viewing each question
+        let questionFirstView = {}; // Track when each question was first viewed
+        let hasEngaged = false; // Track if user has interacted with any post
+        let scrollStartTime = null;
+        let isScrolling = false;
+        let demographicData = {}; // Store demographic responses
 
         // Sample survey questions
         const surveyQuestions = [
@@ -913,7 +1300,67 @@
             }
         ];
 
-        // Interface selection logic
+        // Form validation and interactions
+        function selectGender(value) {
+            // Remove selected class from all options
+            document.querySelectorAll('.form-radio-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            event.currentTarget.classList.add('selected');
+            
+            // Check the radio button
+            document.getElementById(value).checked = true;
+            
+            validateForm();
+        }
+
+        // Validate form completion
+        function validateForm() {
+            const requiredFields = ['age', 'income', 'location', 'primaryPlatform', 'shoppingFrequency'];
+            const genderSelected = document.querySelector('input[name="gender"]:checked');
+            
+            const allFieldsFilled = requiredFields.every(field => {
+                const element = document.getElementById(field);
+                return element && element.value !== '';
+            });
+            
+            const isValid = allFieldsFilled && genderSelected;
+            document.getElementById('continueBtn').disabled = !isValid;
+        }
+
+        // Add event listeners for form validation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add change listeners to all form fields
+            const formFields = ['age', 'income', 'location', 'primaryPlatform', 'shoppingFrequency'];
+            formFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (field) {
+                    field.addEventListener('change', validateForm);
+                }
+            });
+        });
+
+        // Submit demographics and move to interface selection
+        function submitDemographics() {
+            // Collect demographic data
+            demographicData = {
+                age: document.getElementById('age').value,
+                income: document.getElementById('income').value,
+                location: document.getElementById('location').value,
+                gender: document.querySelector('input[name="gender"]:checked').value,
+                primaryPlatform: document.getElementById('primaryPlatform').value,
+                shoppingFrequency: document.getElementById('shoppingFrequency').value,
+                timestamp: new Date().toISOString()
+            };
+            
+            console.log('Demographics collected:', demographicData);
+            
+            // Hide demographic form and show interface selection
+            document.getElementById('demographicForm').style.display = 'none';
+            document.getElementById('interfaceSelection').style.display = 'block';
+        }
         document.querySelectorAll('.interface-option').forEach(option => {
             option.addEventListener('click', function() {
                 document.querySelectorAll('.interface-option').forEach(opt => opt.classList.remove('selected'));
@@ -929,13 +1376,36 @@
             document.getElementById('surveyHeader').style.display = 'block';
             document.getElementById('feedContainer').style.display = 'block';
             
-            initializeSurvey();
+            // Show instruction modal
+            showInstructionModal();
         });
+
+        // Show instruction modal
+        function showInstructionModal() {
+            const platformNames = {
+                'facebook': 'Facebook',
+                'instagram': 'Instagram',
+                'linkedin': 'LinkedIn',
+                'tiktok': 'TikTok'
+            };
+            
+            document.getElementById('platformName').textContent = platformNames[selectedInterface];
+            document.getElementById('instructionModal').style.display = 'flex';
+        }
+
+        // Start actual survey experience
+        function startSurveyExperience() {
+            document.getElementById('instructionModal').style.display = 'none';
+            surveyStartTime = Date.now();
+            scrollStartTime = Date.now();
+            initializeSurvey();
+        }
 
         // Initialize survey based on selected interface
         function initializeSurvey() {
             const feedContainer = document.getElementById('feedContainer');
             feedContainer.className = `feed-container ${selectedInterface}-feed`;
+            feedContainer.innerHTML = ''; // Clear any existing content
             
             // Set survey title based on platform
             const titles = {
@@ -946,18 +1416,34 @@
             };
             document.getElementById('surveyTitle').textContent = titles[selectedInterface];
             
+            // Reset current card counter
+            currentCard = 0;
+            
             // Generate all posts at once for smooth scrolling (except TikTok)
             if (selectedInterface !== 'tiktok') {
                 surveyQuestions.forEach((question, index) => {
                     const card = createCard(question, index);
                     feedContainer.appendChild(card);
                 });
+                
+                // Make sure first card is visible
+                setTimeout(() => {
+                    const firstCard = feedContainer.querySelector('.fb-card, .ig-card, .linkedin-card');
+                    if (firstCard) {
+                        firstCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }, 100);
             } else {
                 // TikTok shows one card at a time
                 showTikTokCard(0);
             }
             
             updateProgress();
+            
+            // Debug logging
+            console.log('Survey initialized with interface:', selectedInterface);
+            console.log('Feed container classes:', feedContainer.className);
+            console.log('Number of questions:', surveyQuestions.length);
         }
 
         // Create card based on interface
@@ -1100,9 +1586,21 @@
 
         // Handle user response
         function handleResponse(questionId, action) {
+            console.log('Response triggered:', questionId, action); // Debug logging
+            
+            hasEngaged = true; // Mark that user has engaged
+            
             const timestamp = new Date().toISOString();
             const responseTime = Date.now() - startTime;
             const question = surveyQuestions.find(q => q.id === questionId);
+            
+            if (!question) {
+                console.error('Question not found for ID:', questionId);
+                return;
+            }
+
+            // Record viewing time for this question
+            const viewTime = recordQuestionViewTime(questionId);
             
             const response = {
                 questionId: questionId,
@@ -1110,6 +1608,7 @@
                 action: action,
                 timestamp: timestamp,
                 responseTime: responseTime,
+                viewTime: viewTime, // Time spent viewing this question
                 brand: question.brand,
                 product: question.product,
                 price: question.price,
@@ -1117,7 +1616,8 @@
             };
             
             responses.push(response);
-            currentCard++;
+            console.log('Response recorded:', response); // Debug logging
+            console.log('Current responses count:', responses.length); // Debug logging
             
             // Disable buttons for this card (non-TikTok)
             if (selectedInterface !== 'tiktok') {
@@ -1132,29 +1632,134 @@
                     // Highlight selected button
                     event.target.classList.add('selected');
                     
+                    // Increment counter AFTER processing response
+                    currentCard++;
+                    updateProgress();
+                    
                     // Auto-scroll to next post after delay
                     setTimeout(() => {
                         scrollToNextPost();
                     }, 800);
+                    
+                    // Check if survey complete
+                    if (currentCard >= surveyQuestions.length) {
+                        setTimeout(() => {
+                            attemptSurveyCompletion();
+                        }, 1500);
+                    }
                 }
             } else {
-                // TikTok - show next card
-                setTimeout(() => {
-                    showTikTokCard(currentCard);
-                }, 500);
-            }
-            
-            updateProgress();
-            
-            // Check if survey complete
-            if (currentCard >= surveyQuestions.length) {
-                setTimeout(() => {
-                    completeSurvey();
-                }, selectedInterface === 'tiktok' ? 500 : 1500);
+                // TikTok - increment and show next card
+                currentCard++;
+                updateProgress();
+                
+                if (currentCard >= surveyQuestions.length) {
+                    setTimeout(() => {
+                        attemptSurveyCompletion();
+                    }, 500);
+                } else {
+                    setTimeout(() => {
+                        showTikTokCard(currentCard);
+                    }, 500);
+                }
             }
         }
 
-        // Enhanced smooth scrolling functions
+        // Track question viewing time
+        function recordQuestionViewTime(questionId) {
+            const now = Date.now();
+            if (!questionFirstView[questionId]) {
+                questionFirstView[questionId] = now;
+            }
+            
+            const viewTime = now - questionFirstView[questionId];
+            questionViewTimes[questionId] = viewTime;
+            return viewTime;
+        }
+
+        // Track which questions are currently in view
+        function trackQuestionsInView() {
+            if (selectedInterface === 'tiktok') return; // TikTok handled separately
+            
+            const feedContainer = document.getElementById('feedContainer');
+            const cards = feedContainer.querySelectorAll('.fb-card, .ig-card, .linkedin-card');
+            const containerRect = feedContainer.getBoundingClientRect();
+            
+            cards.forEach((card, index) => {
+                const cardRect = card.getBoundingClientRect();
+                const questionId = surveyQuestions[index].id;
+                
+                // Check if card is in viewport
+                const isVisible = cardRect.top < containerRect.bottom && cardRect.bottom > containerRect.top;
+                
+                if (isVisible && !questionFirstView[questionId]) {
+                    questionFirstView[questionId] = Date.now();
+                }
+            });
+        }
+
+        // Attempt survey completion with validation
+        function attemptSurveyCompletion() {
+            const totalSurveyTime = Date.now() - surveyStartTime;
+            const speedThreshold = 5000; // 5 seconds
+            
+            // Check if user completed too quickly (less than 5 seconds)
+            if (totalSurveyTime < speedThreshold && hasEngaged) {
+                // Too fast completion - send back to top
+                console.log('Survey completed too quickly, sending back to top');
+                scrollToTop();
+                return;
+            }
+            
+            // Check if user hasn't engaged at all
+            if (!hasEngaged) {
+                showNoEngagementWarning();
+                return;
+            }
+            
+            // Normal completion
+            completeSurvey();
+        }
+
+        // Show warning for no engagement
+        function showNoEngagementWarning() {
+            document.getElementById('warningModal').style.display = 'flex';
+        }
+
+        // Go back to feed from warning
+        function goBackToFeed() {
+            document.getElementById('warningModal').style.display = 'none';
+            scrollToTop();
+        }
+
+        // Submit blank survey
+        function submitBlankSurvey() {
+            document.getElementById('warningModal').style.display = 'none';
+            
+            // Record blank survey submission
+            responses.push({
+                type: 'blank_submission',
+                interface: selectedInterface,
+                timestamp: new Date().toISOString(),
+                totalTime: Date.now() - surveyStartTime,
+                reason: 'user_confirmed_blank'
+            });
+            
+            completeSurvey();
+        }
+
+        // Scroll to top of feed
+        function scrollToTop() {
+            const feedContainer = document.getElementById('feedContainer');
+            feedContainer.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            
+            // Reset engagement tracking
+            hasEngaged = false;
+            scrollStartTime = Date.now();
+        }
         function scrollToNextPost() {
             if (currentCard < surveyQuestions.length && selectedInterface !== 'tiktok') {
                 const feedContainer = document.getElementById('feedContainer');
@@ -1176,8 +1781,10 @@
         function updateProgress() {
             const progress = (currentCard / surveyQuestions.length) * 100;
             document.getElementById('progressFill').style.width = progress + '%';
-            document.getElementById('currentCard').textContent = currentCard + 1;
+            document.getElementById('currentCard').textContent = Math.min(currentCard + 1, surveyQuestions.length);
             document.getElementById('totalCards').textContent = surveyQuestions.length;
+            
+            console.log('Progress updated:', currentCard + 1, '/', surveyQuestions.length); // Debug logging
         }
 
         // Complete survey
@@ -1238,13 +1845,17 @@
         // Download results
         function downloadResults() {
             const results = {
+                demographicData: demographicData, // Include demographic information
                 surveyMetadata: {
                     interface: selectedInterface,
                     completedAt: new Date().toISOString(),
                     totalQuestions: surveyQuestions.length,
-                    completedResponses: responses.length
+                    completedResponses: responses.filter(r => r.type !== 'blank_submission').length,
+                    totalSurveyTime: surveyStartTime ? Date.now() - surveyStartTime : 0,
+                    hasEngaged: hasEngaged
                 },
                 responses: responses,
+                questionViewTimes: questionViewTimes,
                 analytics: analyzeResponses()
             };
             
@@ -1253,7 +1864,7 @@
             const url = URL.createObjectURL(dataBlob);
             const link = document.createElement('a');
             link.href = url;
-            link.download = `fashion_survey_${selectedInterface}_${Date.now()}.json`;
+            link.download = `fashion_survey_${demographicData.age}_${demographicData.gender}_${selectedInterface}_${Date.now()}.json`;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
