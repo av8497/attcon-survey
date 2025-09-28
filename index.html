@@ -930,7 +930,7 @@
     </div>
 
     <script>
-        // Survey state
+        // Survey state variables
         let selectedInterface = null;
         let currentPost = 0;
         let responses = [];
@@ -1179,39 +1179,20 @@
             });
         });
 
-        // Add event listeners when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Page loaded, setting up event listeners');
+        // Simple checkbox functionality
+        window.onload = function() {
+            const checkbox = document.getElementById('consentCheck');
+            const button = document.getElementById('continueBtn');
             
-            // Consent checkbox functionality
-            const consentCheckbox = document.getElementById('consentCheck');
-            const continueButton = document.getElementById('continueBtn');
-            
-            if (consentCheckbox && continueButton) {
-                console.log('Elements found, adding event listener');
-                consentCheckbox.addEventListener('change', function() {
-                    console.log('Checkbox changed, checked:', this.checked);
-                    continueButton.disabled = !this.checked;
-                    console.log('Button disabled:', continueButton.disabled);
+            if (checkbox && button) {
+                checkbox.addEventListener('change', function() {
+                    button.disabled = !this.checked;
                 });
-            } else {
-                console.error('Could not find consent checkbox or continue button');
             }
-            
-            // Demographics form validation
-            const demographicFields = ['participantName', 'ageRange', 'country', 'income', 'primaryPlatform', 'shoppingFrequency'];
-            demographicFields.forEach(fieldId => {
-                const field = document.getElementById(fieldId);
-                if (field) {
-                    field.addEventListener('change', validateDemographics);
-                    field.addEventListener('input', validateDemographics);
-                }
-            });
-        });
+        };
 
         // Show demographics form
         function showDemographics() {
-            console.log('showDemographics called');
             document.getElementById('disclaimerForm').style.display = 'none';
             document.getElementById('demographicForm').style.display = 'block';
         }
