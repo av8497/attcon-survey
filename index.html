@@ -759,12 +759,12 @@ function initSurvey() {
         var post = document.createElement('div');
         post.className = 'post';
         post.dataset.index = idx;
-        post.innerHTML = '<div class="post-header"><div class="post-avatar">B</div><div class="post-info"><div class="brand">BRAND</div><div class="time">2h ago</div></div></div><div class="post-image">' + q.image + '</div><div class="post-content"><div class="post-text">' + q.text + '</div><div class="post-price">' + price + '</div><div class="post-actions"><button class="action-btn like" onclick="answer(' + idx + ', \'like\')">❤️ ' + q.opts.like + '</button><button class="action-btn share" onclick="answer(' + idx + ', \'share\')">📤 ' + q.opts.share + '</button><button class="action-btn follow" onclick="answer(' + idx + ', \'follow\')">➕ ' + q.opts.follow + '</button></div></div>';
+        post.innerHTML = '<div class="post-header"><div class="post-avatar">B</div><div class="post-info"><div class="brand">BRAND</div><div class="time">2h ago</div></div></div><div class="post-image">' + q.image + '</div><div class="post-content"><div class="post-text">' + q.text + '</div><div class="post-price">' + price + '</div><div class="post-actions"><button class="action-btn like" onclick="answer(' + idx + ', \'like\')">❤️ ' + q.opts.like + '</button><button class="action-btn share" onclick="answer(' + idx + ', \'share\')">🔤 ' + q.opts.share + '</button><button class="action-btn follow" onclick="answer(' + idx + ', \'follow\')">➕ ' + q.opts.follow + '</button></div></div>';
         feed.appendChild(post);
     });
 }
 
-// Convert price based on country
+// Convert price based on country - FIXED VERSION
 function getPriceForCountry(usd, country) {
     var rates = {
         'AE': {r: 3.67, s: 'AED', after: true},
@@ -775,17 +775,6 @@ function getPriceForCountry(usd, country) {
         'UK': {r: 0.79, s: '£', after: false},
         'CA': {r: 1.35, s: 'CAD $', after: false},
         'AU': {r: 1.50, s: 'AUD $', after: false},
-// Convert price based on country
-function convertPrice(usd, country) {
-    var rates = {
-        'AE': {r: 3.67, s: 'AED', after: true},
-        'SA': {r: 3.75, s: 'SAR', after: true},
-        'IN': {r: 83, s: '₹', after: false},
-        'PK': {r: 280, s: 'PKR', after: true},
-        'US': {r: 1, s: ', after: false},
-        'UK': {r: 0.79, s: '£', after: false},
-        'CA': {r: 1.35, s: 'CAD , after: false},
-        'AU': {r: 1.50, s: 'AUD , after: false},
         'DE': {r: 0.92, s: '€', after: false},
         'FR': {r: 0.92, s: '€', after: false}
     };
