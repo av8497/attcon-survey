@@ -5,9 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Social Media Behaviour Survey</title>
 <style>
-/* ---------------------------------------------------- */
-/* --- 1. Base Styles (UNTOUCHED INITIAL FORMAT) --- */
-/* ---------------------------------------------------- */
 * {
     margin: 0;
     padding: 0;
@@ -18,7 +15,6 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
-    overflow-x: hidden;
 }
 
 .container {
@@ -162,6 +158,26 @@ body {
     border-color: #667eea;
 }
 
+.anon-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.anon-checkbox input[type="checkbox"] {
+    width: auto;
+    margin: 0;
+}
+
+.anon-checkbox label {
+    font-size: 13px;
+    color: #6a6a6a;
+    font-weight: normal;
+    margin: 0;
+    cursor: pointer;
+}
+
 .interface-screen {
     display: none;
     padding: 40px;
@@ -222,7 +238,6 @@ body {
     display: none;
     flex-direction: column;
     min-height: 100vh;
-    overflow: hidden; 
 }
 
 .survey-header {
@@ -232,7 +247,6 @@ body {
     position: sticky;
     top: 0;
     z-index: 100;
-    flex-shrink: 0;
 }
 
 .survey-header .progress-text {
@@ -255,201 +269,315 @@ body {
     transition: width 0.3s ease;
 }
 
-/* ---------------------------------------------------- */
-/* --- 2. Enhanced Platform-Specific CSS (HYBRID SCROLL) --- */
-/* ---------------------------------------------------- */
-
-/* Base Feed Styling */
 .feed {
     flex: 1;
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    padding: 0;
-    background: #f8f9fa; 
-    /* Default scroll for FB/IG/LI */
-    overflow-y: scroll;
-    height: calc(100vh - 54px); 
-    scroll-snap-type: none; /* Default: No snap */
+    padding: 16px;
+    background: #f8f9fa;
 }
 
-/* TikTok Feed: Overrides for swipe/snap experience */
+/* Platform-specific styling */
+.feed.instagram {
+    background: #fafafa;
+}
+
+.feed.facebook {
+    background: #f0f2f5;
+}
+
+.feed.linkedin {
+    background: #f3f2ef;
+}
+
 .feed.tiktok {
     background: #000;
-    scroll-snap-type: y mandatory; /* Enable snapping for TikTok */
-    overflow-y: scroll;
 }
 
-/* --- Post Card Styling --- */
+/* Post cards */
 .post {
     background: white;
     border-radius: 0;
-    margin-bottom: 0;
+    margin-bottom: 12px;
     overflow: hidden;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: auto; /* Default: Auto height for continuous scroll */
-    flex-shrink: 0;
-    margin-bottom: 12px; /* Add margin back for continuous scroll separation */
 }
 
-/* TikTok Post: Forced full-screen height and snap */
-.tiktok .post {
-    background: #000;
-    justify-content: flex-end;
-    height: calc(100vh - 54px); 
-    scroll-snap-align: start;
-    margin-bottom: 0;
-}
-
-/* Instagram Post */
 .instagram .post {
+    border-radius: 0;
     border: 1px solid #dbdbdb;
     margin-bottom: 24px;
 }
 
-/* Facebook Post */
 .facebook .post {
     border-radius: 8px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    margin: 12px auto;
-    max-width: 580px;
-    height: auto; 
-    display: block; 
+    margin-bottom: 16px;
 }
 
-/* LinkedIn Post */
 .linkedin .post {
     border-radius: 8px;
     border: 1px solid #e0e0e0;
-    margin: 8px auto;
-    max-width: 580px;
-    height: auto; 
-    display: block;
+    margin-bottom: 8px;
 }
 
+.tiktok .post {
+    border-radius: 0;
+    margin-bottom: 0;
+    border: none;
+}
 
-/* --- Post Header (Avatar/Brand Name) --- */
 .post-header {
     padding: 12px 16px;
     display: flex;
     align-items: center;
     gap: 12px;
-    z-index: 2;
-}
-
-.tiktok .post-header {
-    position: absolute;
-    bottom: 50px; 
-    width: 80%;
-    padding: 0 16px 8px;
-    color: white;
-    order: 3;
 }
 
 .post-avatar {
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background: #dcdcdc;
+    background: linear-gradient(135deg, #667eea, #764ba2);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #4a4a4a;
+    color: white;
     font-weight: 700;
     font-size: 16px;
-    flex-shrink: 0;
 }
 
 .instagram .post-avatar {
-    border: 2px solid #c13584; 
-    background: white;
-    color: #c13584;
+    border: 2px solid #c13584;
 }
 
-/* --- Post Image/Video --- */
+.post-info .brand {
+    font-size: 14px;
+    font-weight: 600;
+    color: #262626;
+}
+
+.post-info .time {
+    font-size: 12px;
+    color: #8e8e8e;
+}
+
 .post-image {
     width: 100%;
     height: 300px;
     background-size: cover;
     background-position: center;
     position: relative;
-    background-color: #eee;
-    flex-grow: 1; 
-}
-
-.facebook .post-image, 
-.linkedin .post-image {
-    height: 400px; /* Make images a bit taller on desktop-style feeds */
 }
 
 .tiktok .post-image {
-    height: 100%; 
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    box-shadow: inset 0 -100px 50px -50px rgba(0,0,0,0.8);
-    flex-grow: 0;
+    height: 500px;
 }
 
-
-/* --- Post Content, Actions, CTA (Styling remains the same, adjusted for layout) --- */
 .post-content {
     padding: 12px 16px;
-    position: relative;
-    z-index: 2;
-}
-.tiktok .post-content {
-    position: absolute;
-    bottom: 90px; 
-    left: 0;
-    width: 80%;
 }
 
+.post-text {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #262626;
+    margin-bottom: 12px;
+}
+
+.post-price {
+    font-size: 20px;
+    font-weight: 700;
+    color: #667eea;
+    margin-bottom: 12px;
+}
+
+/* Action buttons - platform specific */
 .post-actions {
     display: flex;
     gap: 16px;
     padding: 8px 16px;
     border-top: 1px solid #efefef;
-    position: relative;
-    z-index: 2;
-    flex-shrink: 0;
+}
+
+.instagram .post-actions {
+    border-top: none;
+    padding: 6px 16px 12px;
+    gap: 16px;
+}
+
+.facebook .post-actions {
+    border-top: 1px solid #e4e6eb;
+    padding: 4px 16px;
+    justify-content: space-around;
+}
+
+.linkedin .post-actions {
+    border-top: 1px solid #e0e0e0;
+    padding: 4px 8px;
+    justify-content: space-around;
 }
 
 .tiktok .post-actions {
     position: absolute;
     right: 12px;
-    bottom: 140px;
+    bottom: 100px;
     flex-direction: column;
     gap: 20px;
     border: none;
     padding: 0;
-    order: 1; 
 }
 
-.ad-cta-block {
-    padding: 0 16px 16px;
-    background: white;
-    border-top: 1px solid #e4e6eb;
-    flex-shrink: 0;
+.action-btn {
+    background: none;
+    border: none;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #65676b;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
-/* Hide action bar BUY button, except on IG/TT where it lives inside the bar/stack */
-.post-actions .buy-btn {
+.instagram .action-btn {
+    padding: 4px;
+    color: #262626;
+}
+
+.facebook .action-btn {
+    flex: 1;
+    justify-content: center;
+    color: #65676b;
+}
+
+.linkedin .action-btn {
+    flex: 1;
+    justify-content: center;
+    color: #00000099;
+}
+
+.tiktok .action-btn {
+    flex-direction: column;
+    color: white;
+    gap: 4px;
+    font-size: 11px;
+    padding: 0;
+}
+
+.action-btn:hover:not(:disabled) {
+    color: #667eea;
+}
+
+.instagram .action-btn:hover:not(:disabled) {
+    opacity: 0.6;
+}
+
+.facebook .action-btn:hover:not(:disabled) {
+    background: #f2f2f2;
+    border-radius: 4px;
+}
+
+.linkedin .action-btn:hover:not(:disabled) {
+    background: #f3f2ef;
+    border-radius: 4px;
+}
+
+.tiktok .action-btn:hover:not(:disabled) {
+    transform: scale(1.1);
+}
+
+.action-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.action-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.instagram .action-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.tiktok .action-icon {
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+}
+
+/* Buy Now button special styling */
+.buy-btn {
+    background: #667eea;
+    color: white;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-weight: 600;
+}
+
+.instagram .buy-btn {
+    background: #0095f6;
+}
+
+.facebook .buy-btn {
+    background: #1877f2;
+}
+
+.linkedin .buy-btn {
+    background: #0a66c2;
+}
+
+.tiktok .buy-btn {
+    background: #fe2c55;
+    border-radius: 4px;
+    padding: 8px 12px;
+}
+
+.buy-btn:hover:not(:disabled) {
+    opacity: 0.9;
+}
+
+.results-screen {
     display: none;
-}
-.instagram .post-actions .buy-btn,
-.tiktok .post-actions .buy-btn {
-    display: flex; 
-}
-
-/* Hide the entire CTA block for non-FB/LI posts */
-.instagram .ad-cta-block,
-.tiktok .ad-cta-block {
-    display: none;
+    padding: 40px;
+    min-height: 100vh;
+    text-align: center;
 }
 
+.results-screen h2 {
+    font-size: 28px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 20px;
+}
+
+.results-box {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    text-align: left;
+}
+
+.results-box h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+}
+
+.results-box p {
+    font-size: 15px;
+    color: #4a4a4a;
+    margin-bottom: 8px;
+}
 
 @media (max-width: 768px) {
     .screen {
@@ -468,496 +596,490 @@ body {
 </style>
 </head>
 <body>
-
 <div class="container">
-
-    <div id="consentScreen" class="screen">
-        <h1>Welcome to the Survey</h1>
-        <p>This is a study on social media shopping behavior. You will be asked to browse a simulated feed and interact with fashion-related posts.</p>
-        <p>Your participation is voluntary and all data will be analyzed anonymously unless you choose to provide demographic data.</p>
+    <div class="screen" id="consentScreen">
+        <h1>Social Media Behaviour Survey</h1>
+        <p style="text-align:center;color:#4a4a4a;margin-bottom:30px;font-style:italic;line-height:1.8">"Congratulations! You've been invited to participate in research that contributes to the potentially groundbreaking understanding of what will go on to be known as The Attention-Conversion Paradox. I'd like to extend my sincerest gratitude to each and every participant. You're the best!" - Aman Vasandani, 2025</p>
         
-        <div class="screen-subtitle">Instructions:</div>
+        <h2 class="screen-subtitle">About This Research</h2>
+        <p>This study examines how people interact with fashion content on different social media platforms. You'll experience realistic social feeds and can interact naturally.</p>
+        
+        <h2 class="screen-subtitle">What You'll Do</h2>
         <ul>
-            <li>You will see a mixture of **commercial (ad)** and **non-commercial (organic)** content on a single social media platform.</li>
-            <li>For posts you are interested in, you can choose to **Like**, **Comment**, **Share**, or **Buy Now** (for ads).</li>
-            <li>**The time you take to respond to a post you interact with will be recorded.**</li>
-            <li>You may scroll past any post without interacting.</li>
+            <li>Answer a few background questions (2 minutes)</li>
+            <li>Choose a social media platform style</li>
+            <li>Browse through posts and interact naturally</li>
         </ul>
         
+        <h2 class="screen-subtitle">Privacy & Data Use</h2>
+        <p>Your responses are anonymous and used only for academic research. No personal information is stored or shared.</p>
+        
         <div class="consent-box">
-            <input type="checkbox" id="consentCheckbox" onchange="document.getElementById('startDemoBtn').disabled = !this.checked">
-            <label for="consentCheckbox">I have read the information above and consent to participate in this study.</label>
+            <input type="checkbox" id="consentCheck">
+            <label for="consentCheck">I understand this is academic research and consent to participate. I understand my responses are anonymous and used only for research purposes.</label>
         </div>
         
-        <button id="startDemoBtn" class="btn" onclick="showScreen('demoScreen')" disabled>Start</button>
+        <button class="btn" id="startBtn" disabled>Start Survey</button>
     </div>
-    
-    <div id="demoScreen" class="demo-screen">
-        <h2>Demographic Information</h2>
-        <p>Please provide the following information. This data helps us analyze responses across different user groups.</p>
+
+    <div class="demo-screen" id="demoScreen">
+        <h2>About You</h2>
+        <p>Help us understand shopping patterns across demographics</p>
         
         <div class="form-group">
-            <label for="age">Age</label>
-            <input type="number" id="age" min="18" placeholder="e.g., 25" required>
+            <label for="nameInput">Name</label>
+            <input type="text" id="nameInput" placeholder="Your first name">
+            <div class="anon-checkbox">
+                <input type="checkbox" id="anonCheck">
+                <label for="anonCheck">I'd like to be anonymous (generates random ID)</label>
+            </div>
         </div>
-        
+
         <div class="form-group">
-            <label for="gender">Gender</label>
-            <select id="gender" required>
-                <option value="" disabled selected>Select...</option>
-                <option value="female">Female</option>
-                <option value="male">Male</option>
-                <option value="nonbinary">Non-binary</option>
-                <option value="prefer_not_say">Prefer not to say</option>
+            <label for="ageInput">Age Range</label>
+            <select id="ageInput">
+                <option value="">Select age range</option>
+                <option value="18-24">18-24</option>
+                <option value="25-29">25-29</option>
+                <option value="30-34">30-34</option>
+                <option value="35-39">35-39</option>
+                <option value="40-44">40-44</option>
+                <option value="45-50">45-50</option>
+                <option value="50+">50+</option>
             </select>
         </div>
 
         <div class="form-group">
-            <label for="country">Country of Residence (for pricing)</label>
-            <select id="country" required>
-                <option value="" disabled selected>Select...</option>
-                <option value="us">United States (USD)</option>
-                <option value="eu">Europe (EUR)</option>
-                <option value="uk">United Kingdom (GBP)</option>
-                <option value="ca">Canada (CAD)</option>
-                <option value="au">Australia (AUD)</option>
+            <label for="countryInput">Country</label>
+            <select id="countryInput">
+                <option value="">Select country</option>
+                <option value="AE">United Arab Emirates</option>
+                <option value="SA">Saudi Arabia</option>
+                <option value="IN">India</option>
+                <option value="PK">Pakistan</option>
+                <option value="US">United States</option>
+                <option value="UK">United Kingdom</option>
+                <option value="CA">Canada</option>
+                <option value="AU">Australia</option>
+                <option value="DE">Germany</option>
+                <option value="FR">France</option>
+                <option value="OTHER">Other</option>
             </select>
         </div>
-        
+
         <div class="form-group">
-            <label for="socialMediaUsage">How many hours per week do you spend on social media?</label>
-            <input type="number" id="socialMediaUsage" min="0" placeholder="e.g., 10" required>
+            <label for="incomeInput">Monthly Income <span id="currLabel">(USD)</span></label>
+            <select id="incomeInput">
+                <option value="">Select income range</option>
+            </select>
         </div>
-        
-        <button class="btn" onclick="saveDemographics()">Continue</button>
+
+        <div class="form-group">
+            <label for="genderInput">Gender</label>
+            <select id="genderInput">
+                <option value="">Select gender</option>
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+                <option value="Non-binary">Non-binary</option>
+                <option value="Prefer not to say">Prefer not to say</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="platformInput">Primary Social Media Platform for Fashion</label>
+            <select id="platformInput">
+                <option value="">Select platform</option>
+                <option value="Instagram">Instagram</option>
+                <option value="TikTok">TikTok</option>
+                <option value="Facebook">Facebook</option>
+                <option value="Pinterest">Pinterest</option>
+                <option value="YouTube">YouTube</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="freqInput">How often do you shop for fashion items?</label>
+            <select id="freqInput">
+                <option value="">Select frequency</option>
+                <option value="Daily">Daily</option>
+                <option value="Weekly">Weekly</option>
+                <option value="Monthly">Monthly</option>
+                <option value="Quarterly">Every few months</option>
+                <option value="Rarely">Rarely</option>
+            </select>
+        </div>
+
+        <button class="btn" id="demoBtn" disabled>Continue to Platform Selection</button>
     </div>
 
-    <div id="interfaceScreen" class="interface-screen">
-        <h2>Select a Social Media Interface</h2>
-        <p>To ensure a natural experience, please select the social media platform you are **most familiar** with for fashion/retail content.</p>
+    <div class="interface-screen" id="interfaceScreen">
+        <h2>Choose Your Experience</h2>
+        <p>Select which social media interface style you'd like to experience:</p>
         
         <div class="interface-grid">
-            <div class="interface-card" data-platform="facebook" onclick="selectPlatform(this)">
+            <div class="interface-card" data-platform="facebook">
                 <div class="icon">📘</div>
                 <div class="name">Facebook</div>
-                <div class="desc">The classic feed experience.</div>
+                <div class="desc">Detailed posts</div>
             </div>
-            <div class="interface-card" data-platform="instagram" onclick="selectPlatform(this)">
-                <div class="icon">📸</div>
+            
+            <div class="interface-card" data-platform="instagram">
+                <div class="icon">📷</div>
                 <div class="name">Instagram</div>
-                <div class="desc">Visual, high-quality images and shopping tags.</div>
+                <div class="desc">Visual-first</div>
             </div>
-            <div class="interface-card" data-platform="linkedin" onclick="selectPlatform(this)">
+            
+            <div class="interface-card" data-platform="linkedin">
                 <div class="icon">💼</div>
                 <div class="name">LinkedIn</div>
-                <div class="desc">A professional/business-focused feed.</div>
+                <div class="desc">Professional</div>
             </div>
-            <div class="interface-card" data-platform="tiktok" onclick="selectPlatform(this)">
+            
+            <div class="interface-card" data-platform="tiktok">
                 <div class="icon">🎵</div>
                 <div class="name">TikTok</div>
-                <div class="desc">Short-form vertical video feed.</div>
+                <div class="desc">Full-screen</div>
             </div>
         </div>
         
-        <button id="startSurveyBtn" class="btn" onclick="startSurvey()" disabled>Start Survey</button>
+        <button class="btn" id="interfaceBtn" disabled>Start Experience</button>
     </div>
 
-    <div id="surveyScreen" class="survey-screen">
+    <div class="survey-screen" id="surveyScreen">
         <div class="survey-header">
-            <div class="progress-text">Post <span id="qCurrent">0</span> of <span id="qTotal">0</span></div>
-            <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
+            <div class="progress-text">Question <span id="qNum">1</span> of <span id="qTotal">12</span></div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progFill"></div>
+            </div>
         </div>
-        
-        <div id="feed" class="feed">
-            </div>
-    </div>
-    
-    <div id="resultsScreen" class="results-screen">
-        <h2>Survey Complete!</h2>
-        <p>Thank you for completing the survey. Your responses have been recorded.</p>
-        
-        <div id="resultsBox" class="results-box">
-            </div>
-        
-        <button class="btn" onclick="downloadData()">Finish and Download Data</button>
+        <div class="feed" id="feed"></div>
     </div>
 
+    <div class="results-screen" id="resultsScreen">
+        <h2>Thank You!</h2>
+        <p style="font-size: 18px; margin-bottom: 24px;">Thank you for your participation!</p>
+        <div class="results-box" id="resultsBox"></div>
+        <button class="btn" onclick="downloadData()">Download Results</button>
+    </div>
 </div>
 
 <script>
-var currentQuestion = 0; // Tracks the current active index (for TikTok) or the highest answered index (for others)
-var selectedPlatform = '';
-var startTime = null;
-var answers = [];
+// Global variables
 var userData = {};
-var isScrolling = false; // Flag to debounce TikTok scroll events
-var answeredCount = 0; // Tracks the number of explicit interactions
+var selectedPlatform = '';
+var answers = [];
+var startTime = Date.now();
 
-// --- POST DATA (6 ADs, 6 ORGANIC, STABLE IMAGE URLS) ---
-var posts = [
-    // AD POSTS (6) - Shoppable Survey Items
-    { id: 1, type: 'ad', shortText: 'The perfect minimalist tee to pair with anything. ✨', longText: 'Discover the ultimate minimalist tee: a versatile staple designed for effortless style. Made from 100% organic cotton, this shirt offers unparalleled comfort and sustainability. Perfect for a casual Friday or layering under a blazer. Click to shop our eco-friendly collection.', price: { us: 35, eu: 30, uk: 28, ca: 45, au: 50 }, brand: '@BrandThreads', avatar: 'B', imageUrl: 'https://picsum.photos/id/111/600/600' },
-    { id: 2, type: 'ad', shortText: 'Stepping up the white sneaker game. Limited stock!', longText: 'Introducing our new line of eco-friendly, all-white urban sneakers. Engineered for comfort and designed for city life, these kicks feature recycled materials and a non-slip grip. Join the waitlist—limited stock available for the first drop.', price: { us: 120, eu: 105, uk: 95, ca: 155, au: 170 }, brand: '@UrbanKicksHQ', avatar: 'U', imageUrl: 'https://picsum.photos/id/112/600/600' },
-    { id: 3, type: 'ad', shortText: 'Your new office favorite: the elegant tote. 👜', longText: 'Elevate your professional look with our spacious and elegant leather tote bag. Featuring a padded laptop sleeve and multiple internal pockets, it\'s the functional yet stylish accessory for the new season. Secure yours today and experience the blend of luxury and utility.', price: { us: 250, eu: 220, uk: 190, ca: 320, au: 350 }, brand: '@PouchLuxury', avatar: 'P', imageUrl: 'https://picsum.photos/id/113/600/600' },
-    { id: 4, type: 'ad', shortText: 'The essential white shirt, redefined for comfort.', longText: 'The Classic button-down white shirt: Essential workwear redefined for modern comfort. Our innovative fabric blend is wrinkle-resistant and breathable, ensuring you look sharp from your first meeting to your last. A timeless investment for every wardrobe.', price: { us: 60, eu: 55, uk: 50, ca: 75, au: 85 }, brand: '@SharpWorkwear', avatar: 'W', imageUrl: 'https://picsum.photos/id/114/600/600' },
-    { id: 5, type: 'ad', shortText: 'Oversized comfort in slate gray. Layer up!', longText: 'Unisex oversized hoodie in slate gray. Perfect for layering, this hoodie blends high-quality fleece with a modern streetwear fit. Durable, ultra-soft, and designed to last. Available in sizes XS-XXL. Shop the full color range now.', price: { us: 75, eu: 68, uk: 62, ca: 95, au: 110 }, brand: '@ChillStreetwear', avatar: 'C', imageUrl: 'https://picsum.photos/id/115/600/600' },
-    { id: 6, type: 'ad', shortText: 'Run faster, feel better. New leggings drop! 🏃‍♀️', longText: 'Introducing our High-waisted running leggings, engineered with superior four-way stretch and advanced moisture-wicking technology. Designed to keep you comfortable through the toughest workouts. Reviewers say they are completely squat-proof!', price: { us: 90, eu: 80, uk: 75, ca: 115, au: 130 }, brand: '@ActiveProGear', avatar: 'A', imageUrl: 'https://picsum.photos/id/116/600/600' },
-    
-    // ORGANIC POSTS (6) - Non-commercial, Random Content
-    { id: 7, type: 'organic', shortText: 'Check out my review of the new sci-fi movie!', longText: 'Just posted a detailed review of "Cosmic Echoes" on my blog. The plot twists were incredible! Link in comments. What did everyone else think? #scifi #movieReview', price: null, brand: '@film_junkie_daily', avatar: 'R', imageUrl: 'https://picsum.photos/id/201/600/600' },
-    { id: 8, type: 'organic', shortText: 'A beautiful sunset after the rain. Never tire of this view.', longText: 'Captured this stunning sunset right after the storm cleared. Sometimes you just have to stop and appreciate the simple beauty of nature. Tag someone who needs to see this! #sunset #naturephotography #citylife', price: null, brand: '@urban_explorer', avatar: 'T', imageUrl: 'https://picsum.photos/id/202/600/600' },
-    { id: 9, type: 'organic', shortText: 'Recipe test failed, but the kitchen smells amazing. 😅', longText: 'Tried that viral sourdough recipe, and well... it looks more like a frisbee than a loaf. Any expert bakers out there have tips? Send help (and flour). Full recipe link below!', price: null, brand: '@home_chef_fails', avatar: 'F', imageUrl: 'https://picsum.photos/id/203/600/600' },
-    { id: 10, type: 'organic', shortText: 'Thoughts on the latest tech industry restructuring?', longText: 'The recent wave of large-scale industry restructuring raises interesting questions about future workforce models and remote integration. What impact do you see this having on innovation over the next 5 years? Share your professional insights.', price: null, brand: '@TechInsights_Global', avatar: 'G', imageUrl: 'https://picsum.photos/id/204/600/600' },
-    { id: 11, type: 'organic', shortText: 'Just finished coding a new project! So satisfying.', longText: 'Spent the weekend wrapping up a big project integrating Python and React. The feeling of deploying clean code is unmatched. Excited to share the open-source repo soon! #codinglife #developer #webdev', price: null, brand: '@CodeFlow_Max', avatar: 'D', imageUrl: 'https://picsum.photos/id/205/600/600' },
-    { id: 12, type: 'organic', shortText: 'Five essential books for entrepreneurs under 30. Link in bio!', longText: 'If you\'re starting your journey as an entrepreneur, these five books are non-negotiable reading. They cover everything from financing to mindset. Which book changed the way you think about business? Drop your favorites below!', price: null, brand: '@StartupMentor_HQ', avatar: 'M', imageUrl: 'https://picsum.photos/id/206/600/600' }
+// Product images with CSS gradients
+var productImages = [
+    'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+    'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+    'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+    'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+    'linear-gradient(135deg, #30cfd0 0%, #330867 100%)',
+    'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
+    'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)',
+    'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)',
+    'linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%)',
+    'linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)',
+    'linear-gradient(135deg, #f8b195 0%, #f67280 100%)'
 ];
 
-// --- ICONS (UNCHANGED) ---
+// 12 Survey questions
+var questions = [
+    {text: 'When you discover new brands on social media, which platforms make you feel most confident about their quality?', image: 'Cotton T-Shirt', price: 45},
+    {text: 'Think about your last purchase discovered through social media. How many times did you see it before buying?', image: 'Eco Sneakers', price: 89},
+    {text: 'What is the biggest gap between what catches your attention online and what you actually purchase?', image: 'Designer Handbag', price: 156},
+    {text: 'How do you balance quality vs quantity when shopping online?', image: 'White Shirt', price: 67},
+    {text: 'Do likes or comments on a fashion post influence your perception of whether it is worth buying?', image: 'Hoodie', price: 125},
+    {text: 'When you see influencers or friends wearing something, does that make you more likely to buy it compared to ads?', image: 'Leggings', price: 78},
+    {text: 'Do you research products on multiple platforms before buying, or do you make impulse purchases?', image: 'Vintage Jacket', price: 95},
+    {text: 'When buying accessories, do you prioritize brands you have seen multiple times on social media?', image: 'Watch', price: 189},
+    {text: 'Are you more likely to buy trending seasonal items or classic pieces that appear less frequently?', image: 'Summer Dress', price: 72},
+    {text: 'Do promotional posts with discount codes make you more likely to buy immediately?', image: 'Sweatshirt Set', price: 85},
+    {text: 'When you see the same product across multiple platforms, does that increase your trust in it?', image: 'Blazer', price: 145},
+    {text: 'Final question: Which type of content makes you most likely to actually purchase?', image: 'Sneakers', price: 110}
+];
+
+// SVG icons for different platforms
 var icons = {
     like: {
-        facebook: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 11V21H17V11L14.5 7.5L15 4H9.5C9.25 4 9.04992 4.15008 9 4.4L8.7 6.4L7 11Z" fill="#65676B"/></svg>',
-        instagram: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 21.35L10.55 20.03C5.4 15.36 2 12.27 2 8.5C2 5.41 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.41 22 8.5C22 12.27 18.6 15.36 13.45 20.03L12 21.35Z" fill="#262626"/></svg>',
-        linkedin: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 21C7.817 21 4.303 18.005 3.123 14H2V9H6V21H2V14.18C3.178 18.04 7.218 21 12 21C17.523 21 22 16.523 22 11C22 5.477 17.523 1 12 1C6.477 1 2 5.477 2 11H6C6 7.686 8.686 5 12 5C15.314 5 18 7.686 18 11C18 14.314 15.314 17 12 17H8V9H12C14.21 9 16 10.79 16 13C16 15.21 14.21 17 12 17Z" fill="#00000099"/></svg>',
-        tiktok: '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 21.35L10.55 20.03C5.4 15.36 2 12.27 2 8.5C2 5.41 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.41 22 8.5C22 12.27 18.6 15.36 13.45 20.03L12 21.35Z" fill="white"/></svg>'
+        instagram: '<svg aria-label="Like" color="rgb(38, 38, 38)" fill="rgb(38, 38, 38)" height="24" viewBox="0 0 48 48" width="24"><path d="M34.6 6.1c5.7 0 10.4 4.7 10.4 10.4 0 10.8-10.9 19.3-21.3 28.5C13.2 35.8 2.2 27.2 2.2 16.5c0-5.7 4.7-10.4 10.4-10.4 4.1 0 6.9 2 8.7 3.8l.1.1.1-.1c1.8-1.8 4.6-3.8 8.7-3.8zm0-3c-5.8 0-9.8 4-11.4 5.6C21.4 7.1 17.5 3.1 11.6 3.1 5.3 3.1.2 8.2.2 14.5c0 10.6 10.1 19 20.2 28l1.4 1.2c.2.1.4.2.6.2.2 0 .4-.1.6-.2l1.4-1.2C37.7 33.5 47.8 25.1 47.8 14.5c0-6.3-5.1-11.4-11.2-11.4z"></path></svg>',
+        facebook: '<svg fill="#1877F2" viewBox="0 0 24 24" width="20" height="20"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-6h2v6zm0-8h-2V6h2v2z"/></svg>', 
+        linkedin: '<svg fill="#00000099" viewBox="0 0 24 24" width="20" height="20"><path d="M12 2C6.48 2 2 6.48 2 12c0 5.52 4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zm1 14h-2v-6h2v6zm0-8h-2V6h2v2z"/></svg>', 
+        tiktok: '<svg fill="currentColor" viewBox="0 0 48 48" width="32" height="32"><path d="M34.6 6.1c-1.6 0-2.9 1.3-2.9 2.9v20.3c0 6.4-5.2 11.6-11.6 11.6s-11.6-5.2-11.6-11.6 5.2-11.6 11.6-11.6c.3 0 .7 0 1 .1v-5.2c-.3 0-.7-.1-1-.1-9.2 0-16.7 7.5-16.7 16.7S10.9 46 20.1 46s16.7-7.5 16.7-16.7V15.8c2.6 1.9 5.8 3 9.2 3V13.6c-5.8 0-10.5-4.7-10.5-10.5h-5.1z"/></svg>'
     },
     comment: {
-        facebook: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 4C22 2.9 21.1 2 20 2H4C2.9 2 2 2.9 2 4V16C2 17.1 2.9 18 4 18H18L22 22V4Z" fill="#65676B"/></svg>',
-        instagram: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 2H4C2.9 2 2 2.9 2 4V16C2 17.1 2.9 18 4 18H18L22 22V4C22 2.9 21.1 2 20 2ZM11 11H7V9H11V11ZM17 11H13V9H17V11Z" fill="#262626"/></svg>',
-        linkedin: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 4C22 2.9 21.1 2 20 2H4C2.9 2 2 2.9 2 4V16C2 17.1 2.9 18 4 18H18L22 22V4Z" fill="#00000099"/></svg>',
-        tiktok: '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 2H4C2.9 2 2 2.9 2 4V16C2 17.1 2.9 18 4 18H18L22 22V4C22 2.9 21.1 2 20 2Z" fill="white"/></svg>'
+        instagram: '<svg aria-label="Comment" color="rgb(38, 38, 38)" fill="rgb(38, 38, 38)" height="24" viewBox="0 0 48 48" width="24"><path d="M47.5 46.1l-2.8-11c1.8-3.3 2.8-7.3 2.8-11.4C47.5 11 37.5 1 24 1S.5 11 .5 24c0 12.8 9.2 23.6 21.6 25.4l.6.6.6-.6c.7-.6 1.7-1 2.8-1.1h.4c.5 0 .9.1 1.3.3l11.4 2.8zM24 45.1C13.2 45.1 4.5 36.4 4.5 25.6c0-10.8 8.7-19.5 19.5-19.5s19.5 8.7 19.5 19.5c0 4-.9 7.8-2.6 11.3l.1.1-2.4 9.6-11.8-2.9h-.6c-.5 0-.9 0-1.3-.1z"></path></svg>',
+        facebook: '<svg fill="#65676B" viewBox="0 0 24 24" width="20" height="20"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V6h2v6z"/></svg>', 
+        linkedin: '<svg fill="#00000099" viewBox="0 0 24 24" width="20" height="20"><path d="M12 2C6.48 2 2 6.48 2 12c0 5.52 4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V6h2v6z"/></svg>', 
+        tiktok: '<svg fill="currentColor" viewBox="0 0 48 48" width="32" height="32"><path d="M24 4C12.95 4 4 12.95 4 24s8.95 20 20 20 20-8.95 20-20S35.05 4 24 4zm0 36c-8.82 0-16-7.18-16-16S15.18 8 24 8s16 7.18 16 16-7.18 16-16 16zm-2-6h4v4h-4zm0-16h4v12h-4z"/></svg>'
     },
     share: {
-        facebook: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L8 5H11V14H13V5H16L12 1ZM4 19H20V21H4V19Z" fill="#65676B"/></svg>',
-        instagram: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 3V10.59L17.17 12L2 13.41V21L22 12L2 3Z" fill="#262626"/></svg>',
-        linkedin: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L8 5H11V14H13V5H16L12 1ZM4 19H20V21H4V19Z" fill="#00000099"/></svg>',
-        tiktok: '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 1L8 5H11V14H13V5H16L12 1ZM4 19H20V21H4V19Z" fill="white"/></svg>'
+        instagram: '<svg aria-label="Share Post" color="rgb(38, 38, 38)" fill="rgb(38, 38, 38)" height="24" viewBox="0 0 48 48" width="24"><path d="M46.8 3.1c-.2-.2-.5-.3-.7-.3h-44c-.3 0-.6.1-.8.3-.3.2-.4.5-.3.8l.2 16c0 .3.2.6.5.8l14.9 8.2-14.8 8.1c-.3.2-.4.5-.3.8.1.3.3.6.7.7h29c.2 0 .4-.1.6-.2l14.9-8.1c.3-.2.5-.5.5-.8v-16c0-.3-.1-.6-.4-.8zM43.7 39.5c-.1.1-.3.2-.5.2h-27.8l16.2-8.9c.2-.1.4-.2.6-.2h.1c.3 0 .5.1.7.2l11.4 6.2v.1zM43.7 8.5v15.5l-11.4-6.2c-.2-.1-.4-.2-.6-.2h-.1c-.3 0-.5.1-.7.2L15.4 31.9H4.3c-.2 0-.3-.1-.4-.2L19.4 12.5h24.3c.1 0 .2.1.3.2z"></path></svg>',
+        facebook: '<svg fill="#65676B" viewBox="0 0 24 24" width="20" height="20"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>',
+        linkedin: '<svg fill="#00000099" viewBox="0 0 24 24" width="20" height="20"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>',
+        tiktok: '<svg fill="currentColor" viewBox="0 0 48 48" width="32" height="32"><path d="M36 20v-4c-3.31 0-6-2.69-6-6h-4v20c0 3.31-2.69 6-6 6s-6-2.69-6-6 2.69-6 6-6v-4c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10V16c2.48 1.53 5.39 2.44 8.5 2.44z"/></svg>'
     }
 };
 
-// --- HELPER FUNCTIONS (ORIGINAL) ---
-function showScreen(id) {
-    document.querySelectorAll('.screen, .demo-screen, .interface-screen, .survey-screen, .results-screen').forEach(function(screen) {
-        screen.style.display = 'none';
+// Consent checkbox
+document.getElementById('consentCheck').addEventListener('change', function() {
+    document.getElementById('startBtn').disabled = !this.checked;
+});
+
+document.getElementById('startBtn').addEventListener('click', function() {
+    document.getElementById('consentScreen').style.display = 'none';
+    document.getElementById('demoScreen').style.display = 'block';
+});
+
+// Form validation
+var demoFields = ['nameInput', 'ageInput', 'countryInput', 'incomeInput', 'genderInput', 'platformInput', 'freqInput'];
+
+demoFields.forEach(function(id) {
+    var el = document.getElementById(id);
+    el.addEventListener('change', validateDemo);
+    el.addEventListener('input', validateDemo);
+});
+
+function validateDemo() {
+    var filled = demoFields.every(function(id) {
+        return document.getElementById(id).value.trim() !== '';
     });
-    document.getElementById(id).style.display = id === 'surveyScreen' ? 'flex' : 'block';
+    document.getElementById('demoBtn').disabled = !filled;
 }
 
-function getPriceForCountry(priceObj, country) {
-    if (!priceObj) return '';
-    var price = priceObj[country] || priceObj.us;
-    var symbol = { us: '$', eu: '€', uk: '£', ca: 'C$', au: 'A$' }[country] || '$';
-    return symbol + price;
-}
-
-// --- CORE LOGIC ---
-function saveDemographics() {
-    var age = document.getElementById('age').value;
-    var gender = document.getElementById('gender').value;
-    var country = document.getElementById('country').value;
-    var usage = document.getElementById('socialMediaUsage').value;
-    
-    if (age && gender && country && usage) {
-        userData = { age: age, gender: gender, country: country, socialMediaUsage: usage };
-        showScreen('interfaceScreen');
+// Anonymous checkbox
+document.getElementById('anonCheck').addEventListener('change', function() {
+    var nameInput = document.getElementById('nameInput');
+    if (this.checked) {
+        var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        var id = 'ANON';
+        for (var i = 0; i < 8; i++) {
+            id += chars[Math.random() * chars.length];
+        }
+        nameInput.value = id;
+        nameInput.readOnly = true;
     } else {
-        alert('Please fill in all demographic fields.');
+        nameInput.value = '';
+        nameInput.readOnly = false;
     }
-}
+    validateDemo();
+});
 
-function selectPlatform(card) {
-    document.querySelectorAll('.interface-card').forEach(function(c) {
-        c.classList.remove('selected');
+// Currency conversion
+document.getElementById('countryInput').addEventListener('change', function() {
+    var country = this.value;
+    var label = document.getElementById('currLabel');
+    var select = document.getElementById('incomeInput');
+    
+    select.innerHTML = '<option value="">Select income range</option>';
+    
+    var currData = {
+        'AE': {curr: 'AED', ranges: ['Under 3,000', '3,000-5,000', '5,000-8,000', '8,000-12,000', '12,000-18,000', 'Over 18,000']},
+        'SA': {curr: 'SAR', ranges: ['Under 3,000', '3,000-5,000', '5,000-8,000', '8,000-12,000', '12,000-18,000', 'Over 18,000']},
+        'IN': {curr: 'INR', ranges: ['Under 25,000', '25,000-50,000', '50,000-75,000', '75,000-100,000', '100,000-150,000', 'Over 150,000']},
+        'PK': {curr: 'PKR', ranges: ['Under 50,000', '50,000-75,000', '75,000-100,000', '100,000-150,000', '150,000-200,000', 'Over 200,000']},
+        'UK': {curr: 'GBP', ranges: ['Under 2,000', '2,000-3,000', '3,000-4,000', '4,000-5,000', '5,000-7,000', 'Over 7,000']},
+        'CA': {curr: 'CAD', ranges: ['Under 2,500', '2,500-4,000', '4,000-5,500', '5,500-7,000', '7,000-9,000', 'Over 9,000']},
+        'AU': {curr: 'AUD', ranges: ['Under 2,500', '2,500-4,000', '4,000-5,500', '5,500-7,000', '7,000-9,000', 'Over 9,000']},
+        'DE': {curr: 'EUR', ranges: ['Under 2,000', '2,000-3,000', '3,000-4,000', '4,000-5,000', '5,000-7,000', 'Over 7,000']},
+        'FR': {curr: 'EUR', ranges: ['Under 2,000', '2,000-3,000', '3,000-4,000', '4,000-5,000', '5,000-7,000', 'Over 7,000']}
+    };
+    
+    var info = currData[country] || {curr: 'USD', ranges: ['Under 2,000', '2,000-3,500', '3,500-5,000', '5,000-7,000', '7,000-10,000', 'Over 10,000']};
+    label.textContent = '(' + info.curr + ')';
+    
+    info.ranges.forEach(function(r) {
+        var opt = document.createElement('option');
+        opt.value = r;
+        opt.textContent = r;
+        select.appendChild(opt);
     });
-    card.classList.add('selected');
-    selectedPlatform = card.dataset.platform;
-    document.getElementById('startSurveyBtn').disabled = false;
-}
+});
 
-function startSurvey() {
-    if (!selectedPlatform) {
-        alert('Please select a platform.');
-        return;
-    }
+document.getElementById('demoBtn').addEventListener('click', function() {
+    userData = {
+        name: document.getElementById('nameInput').value,
+        age: document.getElementById('ageInput').value,
+        country: document.getElementById('countryInput').value,
+        income: document.getElementById('incomeInput').value,
+        gender: document.getElementById('genderInput').value,
+        platform: document.getElementById('platformInput').value,
+        frequency: document.getElementById('freqInput').value,
+        anonymous: document.getElementById('anonCheck').checked
+    };
     
-    // Randomize post order once at the start
-    for (let i = posts.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [posts[i], posts[j]] = [posts[j], posts[i]];
-    }
-    
-    // Initialize answers array with null/empty objects
-    answers = Array(posts.length).fill(null).map((_, index) => ({
-        postId: posts[index].id,
-        postType: posts[index].type,
-        action: null, // Default: no action taken yet
-        reactionTimeMs: 0,
-        price: posts[index].price ? (posts[index].price[userData.country] || posts[index].price.us) : null,
-        platform: selectedPlatform
-    }));
-    
-    // Reset counters
-    currentQuestion = 0;
-    answeredCount = 0;
-    
+    document.getElementById('demoScreen').style.display = 'none';
+    document.getElementById('interfaceScreen').style.display = 'block';
+});
+
+// Interface selection
+document.querySelectorAll('.interface-card').forEach(function(card) {
+    card.addEventListener('click', function() {
+        document.querySelectorAll('.interface-card').forEach(function(c) {
+            c.classList.remove('selected');
+        });
+        this.classList.add('selected');
+        selectedPlatform = this.dataset.platform;
+        document.getElementById('interfaceBtn').disabled = false;
+    });
+});
+
+document.getElementById('interfaceBtn').addEventListener('click', function() {
+    document.getElementById('interfaceScreen').style.display = 'none';
+    document.getElementById('surveyScreen').style.display = 'flex';
     initSurvey();
-    showScreen('surveyScreen');
-    
-    // Start total time tracking from this moment
-    startTime = Date.now();
-    updateProgressDisplay(0);
+});
 
-    // Conditionally set up the scroll handler only for TikTok
-    if (selectedPlatform === 'tiktok') {
-        document.getElementById('feed').addEventListener('scroll', handleTikTokScroll);
-    }
-}
-
-// --- CORE LOGIC: POST GENERATION ---
+// Initialize survey
 function initSurvey() {
     var feed = document.getElementById('feed');
     feed.innerHTML = '';
     feed.className = 'feed ' + selectedPlatform;
     
-    document.getElementById('qTotal').textContent = posts.length;
+    document.getElementById('qTotal').textContent = questions.length;
     
-    posts.forEach(function(p, idx) {
-        var isAd = p.type === 'ad';
-        var price = getPriceForCountry(p.price, userData.country);
-        var isTikTok = selectedPlatform === 'tiktok';
-        var isInstagram = selectedPlatform === 'instagram';
-        var isDescriptive = selectedPlatform === 'facebook' || selectedPlatform === 'linkedin';
+    questions.forEach(function(q, idx) {
+        var price = getPriceForCountry(q.price, userData.country);
+        var imageGradient = productImages[idx % productImages.length];
         
-        var postText = isDescriptive ? (isAd ? p.longText : p.longText + ' #organic') : p.shortText;
-
         var post = document.createElement('div');
-        post.className = 'post ' + (isAd ? 'ad-post' : 'organic-post');
+        post.className = 'post';
         post.dataset.index = idx;
         
-        // --- Action Buttons HTML Generation ---
         var actionsHTML = '';
-        
-        if (isTikTok) {
+        var iconSet = icons;
+
+        if (selectedPlatform === 'tiktok') {
             actionsHTML = '<div class="post-actions">' +
-                '<button class="action-btn" onclick="answer(' + idx + ', \'like\')"><div class="action-icon">' + icons.like.tiktok + '</div><span>' + Math.floor(Math.random() * 500 + 1) + 'K</span></button>' +
-                '<button class="action-btn" onclick="answer(' + idx + ', \'comment\')"><div class="action-icon">' + icons.comment.tiktok + '</div><span>' + Math.floor(Math.random() * 50 + 1) + 'K</span></button>' +
-                '<button class="action-btn" onclick="answer(' + idx + ', \'share\')"><div class="action-icon">' + icons.share.tiktok + '</div><span>' + Math.floor(Math.random() * 5 + 1) + 'K</span></button>' +
-                (isAd ? '<button class="action-btn buy-btn" onclick="answer(' + idx + ', \'buy\')"><span>Shop</span></button>' : '') +
+                '<button class="action-btn" onclick="answer(' + idx + ', \'like\')"><div class="action-icon">' + iconSet.like.tiktok + '</div><span>Like</span></button>' +
+                '<button class="action-btn" onclick="answer(' + idx + ', \'comment\')"><div class="action-icon">' + iconSet.comment.tiktok + '</div><span>Comment</span></button>' +
+                '<button class="action-btn" onclick="answer(' + idx + ', \'share\')"><div class="action-icon">' + iconSet.share.tiktok + '</div><span>Share</span></button>' +
+                '<button class="action-btn buy-btn" onclick="answer(' + idx + ', \'buy\')"><span>Buy Now</span></button>' +
                 '</div>';
         } else {
             actionsHTML = '<div class="post-actions">' +
-                '<button class="action-btn" onclick="answer(' + idx + ', \'like\')"><div class="action-icon">' + icons.like[selectedPlatform] + '</div><span>' + (isInstagram ? '' : 'Like') + '</span></button>' +
-                '<button class="action-btn" onclick="answer(' + idx + ', \'comment\')"><div class="action-icon">' + icons.comment[selectedPlatform] + '</div><span>' + (isInstagram ? '' : 'Comment') + '</span></button>' +
-                '<button class="action-btn" onclick="answer(' + idx + ', \'share\')"><div class="action-icon">' + icons.share[selectedPlatform] + '</div><span>' + (isInstagram ? '' : 'Share') + '</span></button>' +
-                (isAd && isInstagram ? '<button class="action-btn buy-btn" onclick="answer(' + idx + ', \'buy\')">Shop Now</button>' : '') +
+                '<button class="action-btn" onclick="answer(' + idx + ', \'like\')"><div class="action-icon">' + iconSet.like[selectedPlatform] + '</div><span>Like</span></button>' +
+                '<button class="action-btn" onclick="answer(' + idx + ', \'comment\')"><div class="action-icon">' + iconSet.comment[selectedPlatform] + '</div><span>Comment</span></button>' +
+                '<button class="action-btn" onclick="answer(' + idx + ', \'share\')"><div class="action-icon">' + iconSet.share[selectedPlatform] + '</div><span>Share</span></button>' +
+                '<button class="action-btn buy-btn" onclick="answer(' + idx + ', \'buy\')">Buy Now</button>' +
                 '</div>';
         }
-
-        // --- Post Header HTML Generation ---
-        var headerHTML = '<div class="post-header">' +
-            '<div class="post-avatar">' + p.avatar + '</div>' +
+        
+        post.innerHTML = '<div class="post-header">' +
+            '<div class="post-avatar">B</div>' +
             '<div class="post-info">' +
-            '<div class="brand">' + p.brand + (isDescriptive ? ' <span style="font-weight:400; color:#888;">• ' + (isAd ? 'Ad' : (selectedPlatform === 'linkedin' ? '2nd' : 'Following')) + '</span>' : '') + '</div>' + 
-            '<div class="time">' + (isTikTok ? '@trendyshop' : '2h ago') + '</div>' + 
+            '<div class="brand">BRAND</div>' +
+            '<div class="time">2h ago</div>' +
             '</div>' +
-            (isAd ? '<div class="sponsored-label">Sponsored</div>' : '') +
-            '</div>';
-
-        // --- Post Content HTML Generation ---
-        var contentHTML = '<div class="post-content">' +
-            '<div class="post-text">' + postText + '</div>' +
-            (isAd ? '<div class="post-price">' + price + '</div>' : '') +
-            '</div>';
-        
-        // --- Image Div ---
-        var imageDiv = '<div class="post-image" style="background-image: url(\'' + p.imageUrl + '\');"></div>';
-        
-        // --- Full Post Assembly ---
-        if (isTikTok) {
-            post.innerHTML = imageDiv + actionsHTML + contentHTML + headerHTML;
-        } else if (isInstagram) {
-            post.innerHTML = headerHTML + imageDiv + actionsHTML + contentHTML; 
-        } else {
-            post.innerHTML = headerHTML + contentHTML + imageDiv + actionsHTML;
-            if (isAd) {
-                post.innerHTML += '<div class="ad-cta-block"><button class="btn buy-btn" onclick="answer(' + idx + ', \'buy\')">Buy Now</button></div>';
-            }
-        }
+            '</div>' +
+            '<div class="post-image" style="background: ' + imageGradient + ';"></div>' +
+            '<div class="post-content">' +
+            '<div class="post-text">' + q.text + '</div>' +
+            '<div class="post-price">' + price + '</div>' +
+            '</div>' +
+            actionsHTML;
         
         feed.appendChild(post);
     });
-
-    // Manually scroll to the first post for TikTok (since it's not the top of the feed)
-    if (selectedPlatform === 'tiktok') {
-        document.querySelector('.post[data-index="0"]').scrollIntoView();
-    }
 }
 
-// Function to update the progress bar/text
-function updateProgressDisplay(index) {
-    document.getElementById('qCurrent').textContent = index + 1;
-    // Progress bar uses total posts, regardless of whether an action was taken
-    document.getElementById('progressFill').style.width = ((index + 1) / posts.length) * 100 + '%';
-}
-
-
-// --- TIKTOK SPECIFIC NAVIGATION LOGIC (Swipe/Snap) ---
-function handleTikTokScroll() {
-    if (isScrolling) return; 
-    isScrolling = true;
-
-    setTimeout(() => {
-        var feed = document.getElementById('feed');
-        var snapDistance = feed.clientHeight;
-        var visibleIndex = Math.round(feed.scrollTop / snapDistance); 
-        var newQuestionIndex = visibleIndex;
-
-        // If the user scrolled to a new post
-        if (newQuestionIndex !== currentQuestion) {
-            
-            // 1. Record 'none' action for the *previous* question if unanswered
-            if (answers[currentQuestion].action === null && currentQuestion < posts.length) {
-                const reactionTime = Date.now() - startTime;
-                answers[currentQuestion].action = 'none';
-                answers[currentQuestion].reactionTimeMs = reactionTime;
-                answeredCount++;
-                // No visual highlight for a skip
-            }
-
-            // 2. Set the new current question and reset timer
-            currentQuestion = newQuestionIndex;
-            
-            if (currentQuestion >= posts.length) {
-                 showResults(); // End survey when scrolling past the last post
-                 return;
-            }
-
-            startTime = Date.now();
-            updateProgressDisplay(currentQuestion);
-        }
-
-        isScrolling = false;
-    }, 150); // Small delay for scroll-snap transition
-}
-
-
-// --- INTERACTION LOGIC (Applicable to ALL platforms) ---
-function answer(questionIndex, action) {
+// Convert price based on country
+function getPriceForCountry(usd, country) {
+    var rates = {
+        'AE': {r: 3.67, s: 'AED', after: true},
+        'SA': {r: 3.75, s: 'SAR', after: true},
+        'IN': {r: 83, s: '₹', after: false},
+        'PK': {r: 280, s: 'PKR', after: true},
+        'US': {r: 1, s: '$', after: false},
+        'UK': {r: 0.79, s: '£', after: false},
+        'CA': {r: 1.35, s: 'CAD $', after: false},
+        'AU': {r: 1.50, s: 'AUD $', after: false},
+        'DE': {r: 0.92, s: '€', after: false},
+        'FR': {r: 0.92, s: '€', after: false}
+    };
     
-    // Only record if an action hasn't been taken on this post yet
-    if (answers[questionIndex] && answers[questionIndex].action === null) {
-        const reactionTime = Date.now() - startTime;
-        
-        // Update the answers data
-        answers[questionIndex].action = action;
-        answers[questionIndex].reactionTimeMs = reactionTime;
-        answeredCount++;
+    var info = rates[country] || rates['US'];
+    var amt = Math.round(usd * info.r);
+    return info.after ? (amt + ' ' + info.s) : (info.s + amt);
+}
 
-        // Visual feedback and disable buttons
-        highlightAnswer(questionIndex, action);
+// Answer question
+function answer(idx, choice) {
+    var now = Date.now();
+    // Ensure answers array is initialized or large enough to prevent sparse array issues when counting
+    if (!answers[idx]) {
+        // Only record if not already recorded (i.e. first interaction)
+        answers[idx] = {answer: choice, time: now - startTime};
         
-        // --- HYBRID LOGIC ---
-        if (selectedPlatform === 'tiktok') {
-            // TikTok: Force scroll to the next post immediately after explicit interaction
-            currentQuestion = questionIndex; // Ensure currentQuestion is correct for the logic below
-            if (currentQuestion < posts.length - 1) {
-                // Manually scroll down to the next post
-                const feed = document.getElementById('feed');
-                feed.scrollBy({ top: feed.clientHeight, behavior: 'smooth' });
-                // handleTikTokScroll will pick up the new position and reset the timer
-            } else {
-                // Last post answered
-                showResults();
-            }
+        var post = document.querySelector('[data-index="' + idx + '"]');
+        var btns = post.querySelectorAll('.action-btn');
+        btns.forEach(function(b) {
+            b.disabled = true;
+        });
+        
+        updateProgress();
+        
+        var count = 0;
+        for (var i = 0; i < questions.length; i++) {
+            if (answers[i]) count++;
         }
         
-        // For FB/IG/LI: Timer is not reset until the end, only the action is recorded.
-        // Progress bar updates only on explicit action for continuous feeds
-        if (selectedPlatform !== 'tiktok') {
-            updateProgressDisplay(questionIndex);
+        if (count === questions.length) {
+            // Survey is complete, show results after a short delay
+            setTimeout(showResults, 1000);
+        } else if (idx < questions.length - 1) {
+            // Scroll to the next post
+            setTimeout(function() {
+                var next = document.querySelector('[data-index="' + (idx + 1) + '"]');
+                if (next) {
+                    next.scrollIntoView({behavior: 'smooth', block: 'start'});
+                }
+            }, 500);
         }
     }
 }
 
-// Helper to visually confirm an action and disable other buttons
-function highlightAnswer(questionIndex, action) {
-    var currentPost = document.querySelector('.post[data-index="' + questionIndex + '"]');
-    
-    if (!currentPost) return;
-
-    // Disable all buttons for this post once answered
-    currentPost.querySelectorAll('button').forEach(btn => {
-        btn.disabled = true;
-        btn.style.opacity = 0.4;
-    });
-
-    // Highlight the button that was pressed
-    currentPost.querySelectorAll('button').forEach(btn => {
-        const btnText = btn.textContent.toLowerCase();
-        
-        let isMatch = false;
-        if (action === 'like' && btnText.includes('like')) isMatch = true;
-        if (action === 'comment' && btnText.includes('comment')) isMatch = true;
-        if (action === 'share' && btnText.includes('share')) isMatch = true;
-        if (action === 'buy' && (btnText.includes('buy now') || btnText.includes('shop'))) isMatch = true;
-
-        if (isMatch) {
-            btn.style.opacity = 1;
-            btn.style.color = selectedPlatform === 'tiktok' ? '#FE2C55' : (selectedPlatform === 'facebook' ? '#1877f2' : (selectedPlatform === 'linkedin' ? '#0a66c2' : '#c13584'));
-        }
-    });
+// Update progress
+function updateProgress() {
+    var count = 0;
+    for (var i = 0; i < questions.length; i++) {
+        if (answers[i]) count++;
+    }
+    var pct = (count / questions.length) * 100;
+    document.getElementById('qNum').textContent = count + 1;
+    document.getElementById('progFill').style.width = pct + '%';
 }
 
-// --- RESULTS & DATA EXPORT (UNTOUCHED ANALYTICS) ---
+// Show results
 function showResults() {
-    // For FB/IG/LI, we mark remaining unclicked posts as 'none' with the average time taken for explicit clicks.
-    // For TikTok, all times are already individually recorded by the scroll listener.
-    const finalAnswers = answers.filter(a => a.action !== null);
+    document.getElementById('surveyScreen').style.display = 'none';
+    document.getElementById('resultsScreen').style.display = 'block';
     
-    // Total elapsed time from start to finish
-    const totalSurveyDuration = Date.now() - startTime;
-    
-    // Calculate total time from recorded actions (excluding 'none' for FB/IG/LI)
-    let totalTimeFromActions = answers.filter(a => a.action !== 'none').reduce((sum, a) => sum + a.reactionTimeMs, 0);
-    
-    // If no actions were taken, use the total duration for average calculation.
-    if (totalTimeFromActions === 0) {
-        totalTimeFromActions = totalSurveyDuration;
+    var totalTime = Math.floor((Date.now() - startTime) / 1000);
+    var totalResponseTime = 0;
+    for (var i = 0; i < answers.length; i++) {
+        if (answers[i]) totalResponseTime += answers[i].time;
     }
-
-    // Replace all 'null' actions with 'none' and assign the average time taken for explicit action to the reactionTimeMs for the 'none' entries.
-    // This is the accepted "slightly inaccurate" data compensation.
-    const totalExplicitActions = answers.filter(a => a.action !== null && a.action !== 'none').length;
-    const avgExplicitTime = totalExplicitActions > 0 ? totalTimeFromActions / totalExplicitActions : 0;
+    var avgTime = totalResponseTime / answers.length / 1000;
     
-    answers.forEach(a => {
-        if (a.action === null) {
-            a.action = 'none';
-            a.reactionTimeMs = avgExplicitTime;
-        }
-    });
-    
-    // Recalculate total time after filling in 'none' gaps
-    const finalTotalTimeMs = answers.reduce((sum, a) => sum + a.reactionTimeMs, 0);
-    const finalTotalTimeS = finalTotalTimeMs / 1000;
-    const finalAvgTimeS = finalTotalTimeS / posts.length;
-
-
-    showScreen('resultsScreen');
-    
-    document.getElementById('resultsBox').innerHTML = '<h3>Summary</h3><p><strong>Platform:</strong> ' + selectedPlatform.charAt(0).toUpperCase() + selectedPlatform.slice(1) + '</p><p><strong>Posts Viewed:</strong> ' + posts.length + '</p><p><strong>Total Time:</strong> ' + Math.floor(finalTotalTimeS / 60) + ':' + String(Math.floor(finalTotalTimeS % 60)).padStart(2, '0') + ' mins</p><p><strong>Average Response:</strong> ' + finalAvgTimeS.toFixed(1) + 's</p><p style="margin-top:16px;font-style:italic;">Thank you for contributing to fashion retail research!</p>';
+    document.getElementById('resultsBox').innerHTML = '<h3>Survey Data Summary</h3><p><strong>Platform Used:</strong> ' + selectedPlatform.charAt(0).toUpperCase() + selectedPlatform.slice(1) + '</p><p><strong>Questions Answered:</strong> ' + questions.length + '</p><p><strong>Total Time Spent:</strong> ' + Math.floor(totalTime / 60) + 'm ' + String(totalTime % 60).padStart(2, '0') + 's</p><p><strong>Average Interaction Time:</strong> ' + avgTime.toFixed(1) + 's</p><p style="margin-top:16px;font-style:italic;">Detailed results will be downloaded. Thank you for contributing to fashion retail research!</p>';
 }
 
+// Download data
 function downloadData() {
-    // The answers array has now been fully processed by showResults()
     var data = {
         demographics: userData,
         platform: selectedPlatform,
         answers: answers,
-        totalTime: answers.reduce((sum, a) => sum + a.reactionTimeMs, 0),
+        totalTime: Date.now() - startTime,
         timestamp: new Date().toISOString()
     };
     
-    // NOTE: REPLACE 'YOUR_GOOGLE_SCRIPT_URL_HERE' with your actual Google Apps Script URL
+    // REPLACE 'YOUR_GOOGLE_SCRIPT_URL_HERE' WITH YOUR ACTUAL GOOGLE APPS SCRIPT URL
     fetch('YOUR_GOOGLE_SCRIPT_URL_HERE', {
         method: 'POST',
         mode: 'no-cors',
@@ -972,16 +1094,12 @@ function downloadData() {
     var url = URL.createObjectURL(blob);
     var a = document.createElement('a');
     a.href = url;
-    a.download = 'survey-data-' + Date.now() + '.json';
+    a.download = 'survey-' + userData.age + '-' + userData.gender + '-' + selectedPlatform + '-' + Date.now() + '.json';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+    URL.revokeObjectURL(url);
 }
-
-// Initial display setup
-document.addEventListener('DOMContentLoaded', function() {
-    showScreen('consentScreen');
-});
 </script>
 </body>
 </html>
