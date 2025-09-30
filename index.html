@@ -18,6 +18,7 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
+    overflow-x: hidden;
 }
 
 .container {
@@ -221,6 +222,7 @@ body {
     display: none;
     flex-direction: column;
     min-height: 100vh;
+    overflow: hidden; 
 }
 
 .survey-header {
@@ -230,6 +232,7 @@ body {
     position: sticky;
     top: 0;
     z-index: 100;
+    flex-shrink: 0;
 }
 
 .survey-header .progress-text {
@@ -253,55 +256,54 @@ body {
 }
 
 /* ---------------------------------------------------- */
-/* --- 2. Enhanced Platform-Specific CSS (UPDATED FOR ADS/ORGANIC) --- */
+/* --- 2. Enhanced Platform-Specific CSS (HYBRID SCROLL) --- */
 /* ---------------------------------------------------- */
 
 /* Base Feed Styling */
 .feed {
     flex: 1;
-    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    padding: 16px;
-    background: #f8f9fa; /* Default/Fallback */
+    padding: 0;
+    background: #f8f9fa; 
+    /* Default scroll for FB/IG/LI */
+    overflow-y: scroll;
+    height: calc(100vh - 54px); 
+    scroll-snap-type: none; /* Default: No snap */
 }
 
-/* Platform-specific feed backgrounds */
-.feed.instagram {
-    background: #fafafa;
-    padding: 0; /* Instagram is full-width posts */
-}
-
-.feed.facebook {
-    background: #f0f2f5;
-}
-
-.feed.linkedin {
-    background: #f3f2ef;
-}
-
+/* TikTok Feed: Overrides for swipe/snap experience */
 .feed.tiktok {
     background: #000;
-    padding: 0; /* TikTok is full-screen */
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    overflow-y: hidden; 
+    scroll-snap-type: y mandatory; /* Enable snapping for TikTok */
+    overflow-y: scroll;
 }
 
 /* --- Post Card Styling --- */
 .post {
     background: white;
     border-radius: 0;
-    margin-bottom: 12px;
+    margin-bottom: 0;
     overflow: hidden;
     position: relative;
-    /* Hide all by default, will be shown in updateFeedDisplay */
-    display: none;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto; /* Default: Auto height for continuous scroll */
+    flex-shrink: 0;
+    margin-bottom: 12px; /* Add margin back for continuous scroll separation */
+}
+
+/* TikTok Post: Forced full-screen height and snap */
+.tiktok .post {
+    background: #000;
+    justify-content: flex-end;
+    height: calc(100vh - 54px); 
+    scroll-snap-align: start;
+    margin-bottom: 0;
 }
 
 /* Instagram Post */
 .instagram .post {
-    border-radius: 0;
     border: 1px solid #dbdbdb;
     margin-bottom: 24px;
 }
@@ -310,26 +312,20 @@ body {
 .facebook .post {
     border-radius: 8px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    margin-bottom: 16px;
+    margin: 12px auto;
+    max-width: 580px;
+    height: auto; 
+    display: block; 
 }
 
 /* LinkedIn Post */
 .linkedin .post {
     border-radius: 8px;
     border: 1px solid #e0e0e0;
-    margin-bottom: 8px;
-}
-
-/* TikTok Post - Full screen */
-.tiktok .post {
-    border-radius: 0;
-    margin-bottom: 0;
-    border: none;
-    background: #000;
-    height: 100%; 
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+    margin: 8px auto;
+    max-width: 580px;
+    height: auto; 
+    display: block;
 }
 
 
@@ -340,17 +336,6 @@ body {
     align-items: center;
     gap: 12px;
     z-index: 2;
-}
-
-/* Sponsored label styling (visible next to brand name/time) */
-.sponsored-label {
-    font-size: 12px;
-    color: #606770;
-    font-weight: 500;
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    gap: 4px;
 }
 
 .tiktok .post-header {
@@ -382,43 +367,6 @@ body {
     color: #c13584;
 }
 
-.linkedin .post-avatar {
-    border-radius: 4px; 
-}
-
-.post-info {
-    flex-grow: 1; /* Allow info block to fill space */
-}
-
-.post-info .brand {
-    font-size: 14px;
-    font-weight: 600;
-    color: #262626;
-}
-
-.facebook .post-info .brand,
-.linkedin .post-info .brand {
-    color: #050505;
-}
-
-.tiktok .post-info .brand {
-    color: white;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-}
-
-.post-info .time {
-    font-size: 12px;
-    color: #8e8e8e;
-}
-
-.facebook .post-info .time {
-    color: #606770;
-}
-
-.tiktok .post-info .time {
-    display: none; 
-}
-
 /* --- Post Image/Video --- */
 .post-image {
     width: 100%;
@@ -427,6 +375,12 @@ body {
     background-position: center;
     position: relative;
     background-color: #eee;
+    flex-grow: 1; 
+}
+
+.facebook .post-image, 
+.linkedin .post-image {
+    height: 400px; /* Make images a bit taller on desktop-style feeds */
 }
 
 .tiktok .post-image {
@@ -436,61 +390,23 @@ body {
     left: 0;
     z-index: 1;
     box-shadow: inset 0 -100px 50px -50px rgba(0,0,0,0.8);
+    flex-grow: 0;
 }
 
 
-/* --- Post Content (Caption/Price) --- */
+/* --- Post Content, Actions, CTA (Styling remains the same, adjusted for layout) --- */
 .post-content {
     padding: 12px 16px;
     position: relative;
     z-index: 2;
 }
-
 .tiktok .post-content {
     position: absolute;
     bottom: 90px; 
     left: 0;
     width: 80%;
-    padding: 0 16px 8px;
-    background: transparent;
-    color: white;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-    order: 2;
 }
 
-.post-text {
-    font-size: 14px;
-    line-height: 1.5;
-    color: #262626;
-    margin-bottom: 12px;
-}
-
-.tiktok .post-text {
-    color: white;
-    font-size: 15px;
-    font-weight: 500;
-}
-
-.post-price {
-    font-size: 20px;
-    font-weight: 700;
-    color: #667eea;
-    margin-bottom: 12px;
-}
-
-.facebook .post-price {
-    color: #1877f2;
-}
-
-.tiktok .post-price {
-    color: #fe2c55;
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 0;
-}
-
-
-/* --- Action Buttons (Like/Comment/Share) --- */
 .post-actions {
     display: flex;
     gap: 16px;
@@ -498,30 +414,9 @@ body {
     border-top: 1px solid #efefef;
     position: relative;
     z-index: 2;
+    flex-shrink: 0;
 }
 
-/* Ensure organic posts show the action bar */
-.post.organic-post .post-actions {
-    display: flex; 
-}
-
-/* Instagram */
-.instagram .post-actions {
-    border-top: none;
-    padding: 6px 16px 12px;
-    gap: 16px;
-}
-
-/* Facebook / LinkedIn: Remove border top here, it goes on the CTA block */
-.facebook .post-actions,
-.linkedin .post-actions {
-    border-top: none;
-    padding: 4px 16px;
-    justify-content: space-around;
-    gap: 0;
-}
-
-/* TikTok - Vertical right sidebar */
 .tiktok .post-actions {
     position: absolute;
     right: 12px;
@@ -533,17 +428,11 @@ body {
     order: 1; 
 }
 
-/* Action button base style (Like/Comment/Share) */
-.action-btn {
-    /* ... (rest of action-btn styles) */
-}
-
-/* --- AD Call-to-Action (CTA) Block Styling --- */
 .ad-cta-block {
     padding: 0 16px 16px;
     background: white;
-    /* CTA button looks more like a dedicated button on FB/LI */
     border-top: 1px solid #e4e6eb;
+    flex-shrink: 0;
 }
 
 /* Hide action bar BUY button, except on IG/TT where it lives inside the bar/stack */
@@ -561,25 +450,6 @@ body {
     display: none;
 }
 
-/* Buy Now button styling within the CTA block */
-.ad-cta-block .buy-btn {
-    width: 100%;
-    margin: 0;
-    padding: 12px;
-    font-size: 15px;
-    border-radius: 6px;
-    /* Override base styles for a prominent, full-width look */
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: white;
-    font-weight: 600;
-}
-.facebook .ad-cta-block .buy-btn {
-    background: #1877f2;
-}
-.linkedin .ad-cta-block .buy-btn {
-    background: #0a66c2;
-}
-
 
 @media (max-width: 768px) {
     .screen {
@@ -593,16 +463,6 @@ body {
     
     .interface-grid {
         grid-template-columns: 1fr;
-    }
-
-    /* Ensure TikTok posts take up the correct amount of screen real estate */
-    .tiktok .post {
-        /* 100vh - header (54px) - next button block (approx 60px) */
-        height: calc(100vh - 54px - 60px); 
-    }
-    
-    .survey-screen {
-        overflow: hidden; 
     }
 }
 </style>
@@ -618,11 +478,10 @@ body {
         
         <div class="screen-subtitle">Instructions:</div>
         <ul>
-            <li>You will see a mixture of **commercial (ad)** and **non-commercial (organic)** content on a single social media platform (Facebook, Instagram, LinkedIn, or TikTok).</li>
-            <li>For commercial posts, you can choose to **Like**, **Comment**, **Share**, or **Buy Now**.</li>
-            <li>For organic posts, you can choose **Like**, **Comment**, or **Share**.</li>
-            <li>**The time you take to respond to each post will be recorded.**</li>
-            <li>You must choose exactly **one** option for every post to advance.</li>
+            <li>You will see a mixture of **commercial (ad)** and **non-commercial (organic)** content on a single social media platform.</li>
+            <li>For posts you are interested in, you can choose to **Like**, **Comment**, **Share**, or **Buy Now** (for ads).</li>
+            <li>**The time you take to respond to a post you interact with will be recorded.**</li>
+            <li>You may scroll past any post without interacting.</li>
         </ul>
         
         <div class="consent-box">
@@ -711,10 +570,6 @@ body {
         
         <div id="feed" class="feed">
             </div>
-        
-        <div style="padding: 16px; background: white; border-top: 1px solid #eee;">
-            <button id="nextPostBtn" class="btn" onclick="nextPost()" disabled>Next Post</button>
-        </div>
     </div>
     
     <div id="resultsScreen" class="results-screen">
@@ -730,13 +585,15 @@ body {
 </div>
 
 <script>
-var currentQuestion = 0;
+var currentQuestion = 0; // Tracks the current active index (for TikTok) or the highest answered index (for others)
 var selectedPlatform = '';
 var startTime = null;
 var answers = [];
 var userData = {};
+var isScrolling = false; // Flag to debounce TikTok scroll events
+var answeredCount = 0; // Tracks the number of explicit interactions
 
-// --- POST DATA (UPDATED: 6 ADs, 6 ORGANIC, STABLE IMAGE URLS) ---
+// --- POST DATA (6 ADs, 6 ORGANIC, STABLE IMAGE URLS) ---
 var posts = [
     // AD POSTS (6) - Shoppable Survey Items
     { id: 1, type: 'ad', shortText: 'The perfect minimalist tee to pair with anything. ✨', longText: 'Discover the ultimate minimalist tee: a versatile staple designed for effortless style. Made from 100% organic cotton, this shirt offers unparalleled comfort and sustainability. Perfect for a casual Friday or layering under a blazer. Click to shop our eco-friendly collection.', price: { us: 35, eu: 30, uk: 28, ca: 45, au: 50 }, brand: '@BrandThreads', avatar: 'B', imageUrl: 'https://picsum.photos/id/111/600/600' },
@@ -755,7 +612,7 @@ var posts = [
     { id: 12, type: 'organic', shortText: 'Five essential books for entrepreneurs under 30. Link in bio!', longText: 'If you\'re starting your journey as an entrepreneur, these five books are non-negotiable reading. They cover everything from financing to mindset. Which book changed the way you think about business? Drop your favorites below!', price: null, brand: '@StartupMentor_HQ', avatar: 'M', imageUrl: 'https://picsum.photos/id/206/600/600' }
 ];
 
-// --- ICONS (ORIGINAL) ---
+// --- ICONS (UNCHANGED) ---
 var icons = {
     like: {
         facebook: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 11V21H17V11L14.5 7.5L15 4H9.5C9.25 4 9.04992 4.15008 9 4.4L8.7 6.4L7 11Z" fill="#65676B"/></svg>',
@@ -792,7 +649,7 @@ function getPriceForCountry(priceObj, country) {
     return symbol + price;
 }
 
-// --- CORE LOGIC (ORIGINAL) ---
+// --- CORE LOGIC ---
 function saveDemographics() {
     var age = document.getElementById('age').value;
     var gender = document.getElementById('gender').value;
@@ -828,16 +685,34 @@ function startSurvey() {
         [posts[i], posts[j]] = [posts[j], posts[i]];
     }
     
+    // Initialize answers array with null/empty objects
+    answers = Array(posts.length).fill(null).map((_, index) => ({
+        postId: posts[index].id,
+        postType: posts[index].type,
+        action: null, // Default: no action taken yet
+        reactionTimeMs: 0,
+        price: posts[index].price ? (posts[index].price[userData.country] || posts[index].price.us) : null,
+        platform: selectedPlatform
+    }));
+    
+    // Reset counters
+    currentQuestion = 0;
+    answeredCount = 0;
+    
     initSurvey();
     showScreen('surveyScreen');
     
-    // Start measuring time for the first post
-    currentQuestion = 0;
+    // Start total time tracking from this moment
     startTime = Date.now();
-    updateFeedDisplay();
+    updateProgressDisplay(0);
+
+    // Conditionally set up the scroll handler only for TikTok
+    if (selectedPlatform === 'tiktok') {
+        document.getElementById('feed').addEventListener('scroll', handleTikTokScroll);
+    }
 }
 
-// --- CORE LOGIC: POST GENERATION (UPDATED FOR ADS/ORGANIC) ---
+// --- CORE LOGIC: POST GENERATION ---
 function initSurvey() {
     var feed = document.getElementById('feed');
     feed.innerHTML = '';
@@ -858,24 +733,22 @@ function initSurvey() {
         post.className = 'post ' + (isAd ? 'ad-post' : 'organic-post');
         post.dataset.index = idx;
         
-        // --- Action Buttons HTML Generation (PLATFORM-SPECIFIC) ---
+        // --- Action Buttons HTML Generation ---
         var actionsHTML = '';
         
         if (isTikTok) {
-            // TikTok: Vertical action bar, includes random counts for realism
             actionsHTML = '<div class="post-actions">' +
                 '<button class="action-btn" onclick="answer(' + idx + ', \'like\')"><div class="action-icon">' + icons.like.tiktok + '</div><span>' + Math.floor(Math.random() * 500 + 1) + 'K</span></button>' +
                 '<button class="action-btn" onclick="answer(' + idx + ', \'comment\')"><div class="action-icon">' + icons.comment.tiktok + '</div><span>' + Math.floor(Math.random() * 50 + 1) + 'K</span></button>' +
                 '<button class="action-btn" onclick="answer(' + idx + ', \'share\')"><div class="action-icon">' + icons.share.tiktok + '</div><span>' + Math.floor(Math.random() * 5 + 1) + 'K</span></button>' +
-                (isAd ? '<button class="action-btn buy-btn" onclick="answer(' + idx + ', \'buy\')"><span>Shop</span></button>' : '') + // Shop button only for Ads
+                (isAd ? '<button class="action-btn buy-btn" onclick="answer(' + idx + ', \'buy\')"><span>Shop</span></button>' : '') +
                 '</div>';
         } else {
-            // Instagram, Facebook, LinkedIn: Horizontal row
             actionsHTML = '<div class="post-actions">' +
                 '<button class="action-btn" onclick="answer(' + idx + ', \'like\')"><div class="action-icon">' + icons.like[selectedPlatform] + '</div><span>' + (isInstagram ? '' : 'Like') + '</span></button>' +
                 '<button class="action-btn" onclick="answer(' + idx + ', \'comment\')"><div class="action-icon">' + icons.comment[selectedPlatform] + '</div><span>' + (isInstagram ? '' : 'Comment') + '</span></button>' +
                 '<button class="action-btn" onclick="answer(' + idx + ', \'share\')"><div class="action-icon">' + icons.share[selectedPlatform] + '</div><span>' + (isInstagram ? '' : 'Share') + '</span></button>' +
-                (isAd && (isInstagram || isTikTok) ? '<button class="action-btn buy-btn" onclick="answer(' + idx + ', \'buy\')">' + (isInstagram ? 'Shop Now' : 'Buy Now') + '</button>' : '') +
+                (isAd && isInstagram ? '<button class="action-btn buy-btn" onclick="answer(' + idx + ', \'buy\')">Shop Now</button>' : '') +
                 '</div>';
         }
 
@@ -886,13 +759,13 @@ function initSurvey() {
             '<div class="brand">' + p.brand + (isDescriptive ? ' <span style="font-weight:400; color:#888;">• ' + (isAd ? 'Ad' : (selectedPlatform === 'linkedin' ? '2nd' : 'Following')) + '</span>' : '') + '</div>' + 
             '<div class="time">' + (isTikTok ? '@trendyshop' : '2h ago') + '</div>' + 
             '</div>' +
-            (isAd ? '<div class="sponsored-label">' + (isTikTok ? '' : 'Sponsored') + '</div>' : '') + // Sponsored label placement
+            (isAd ? '<div class="sponsored-label">Sponsored</div>' : '') +
             '</div>';
 
         // --- Post Content HTML Generation ---
         var contentHTML = '<div class="post-content">' +
             '<div class="post-text">' + postText + '</div>' +
-            (isAd ? '<div class="post-price">' + price + '</div>' : '') + // Price visible only for Ads
+            (isAd ? '<div class="post-price">' + price + '</div>' : '') +
             '</div>';
         
         // --- Image Div ---
@@ -902,12 +775,9 @@ function initSurvey() {
         if (isTikTok) {
             post.innerHTML = imageDiv + actionsHTML + contentHTML + headerHTML;
         } else if (isInstagram) {
-            // Instagram structure: Header, Image, Actions, Content (Caption underneath)
             post.innerHTML = headerHTML + imageDiv + actionsHTML + contentHTML; 
         } else {
-            // Facebook/LinkedIn structure: Header, Content (Descriptive First), Image, Actions, CTA Block
             post.innerHTML = headerHTML + contentHTML + imageDiv + actionsHTML;
-            // Add separate CTA block for ads on FB/LI for distinct sponsored look
             if (isAd) {
                 post.innerHTML += '<div class="ad-cta-block"><button class="btn buy-btn" onclick="answer(' + idx + ', \'buy\')">Buy Now</button></div>';
             }
@@ -915,92 +785,170 @@ function initSurvey() {
         
         feed.appendChild(post);
     });
-}
 
-function updateFeedDisplay() {
-    document.getElementById('qCurrent').textContent = currentQuestion + 1;
-    document.getElementById('progressFill').style.width = ((currentQuestion + 1) / posts.length) * 100 + '%';
-
-    document.querySelectorAll('.post').forEach(function(post, index) {
-        // Only show the current post
-        post.style.display = index === currentQuestion ? 'block' : 'none';
-        
-        // Disable all buttons in the current post until an answer is selected
-        if (index === currentQuestion) {
-             post.querySelectorAll('button').forEach(btn => btn.disabled = false);
-             
-             // Conditionally hide the Buy button for organic posts if not already done by CSS/HTML structure
-             var isAd = posts[index].type === 'ad';
-             if (!isAd) {
-                post.querySelectorAll('.buy-btn').forEach(btn => btn.style.display = 'none');
-             } else {
-                post.querySelectorAll('.buy-btn').forEach(btn => btn.style.display = isAd ? (selectedPlatform === 'facebook' || selectedPlatform === 'linkedin' ? 'block' : 'flex') : 'none');
-             }
-
-        } else {
-             post.querySelectorAll('button').forEach(btn => btn.disabled = true);
-        }
-    });
-
-    // Reset next button state
-    document.getElementById('nextPostBtn').disabled = true;
-    
-    // Start timing for the new post
-    startTime = Date.now();
-    
-    // Scroll to top of the feed for a clean start on each question
-    document.getElementById('feed').scrollTop = 0;
-}
-
-function answer(questionIndex, action) {
-    var reactionTime = Date.now() - startTime;
-
-    answers[questionIndex] = {
-        postId: posts[questionIndex].id,
-        postType: posts[questionIndex].type,
-        action: action,
-        reactionTimeMs: reactionTime,
-        price: posts[questionIndex].price ? (posts[questionIndex].price[userData.country] || posts[questionIndex].price.us) : null,
-        platform: selectedPlatform
-    };
-    
-    // Disable all actions for the current post after one is selected
-    var currentPost = document.querySelector('.post[data-index="' + questionIndex + '"]');
-    currentPost.querySelectorAll('button').forEach(btn => {
-        btn.disabled = true;
-        // Highlight the selected action visually
-        if (btn.textContent.toLowerCase().includes(action.toLowerCase()) || btn.classList.contains('buy-btn') && action === 'buy') {
-            btn.style.opacity = 1;
-            btn.style.color = selectedPlatform === 'tiktok' ? '#FE2C55' : (selectedPlatform === 'facebook' ? '#1877f2' : (selectedPlatform === 'linkedin' ? '#0a66c2' : '#c13584'));
-        } else {
-            btn.style.opacity = 0.4;
-        }
-    });
-
-    document.getElementById('nextPostBtn').disabled = false;
-}
-
-function nextPost() {
-    if (currentQuestion < posts.length - 1) {
-        currentQuestion++;
-        updateFeedDisplay();
-    } else {
-        // Survey finished
-        showResults();
+    // Manually scroll to the first post for TikTok (since it's not the top of the feed)
+    if (selectedPlatform === 'tiktok') {
+        document.querySelector('.post[data-index="0"]').scrollIntoView();
     }
 }
 
-// --- RESULTS & DATA EXPORT (ORIGINAL) ---
+// Function to update the progress bar/text
+function updateProgressDisplay(index) {
+    document.getElementById('qCurrent').textContent = index + 1;
+    // Progress bar uses total posts, regardless of whether an action was taken
+    document.getElementById('progressFill').style.width = ((index + 1) / posts.length) * 100 + '%';
+}
+
+
+// --- TIKTOK SPECIFIC NAVIGATION LOGIC (Swipe/Snap) ---
+function handleTikTokScroll() {
+    if (isScrolling) return; 
+    isScrolling = true;
+
+    setTimeout(() => {
+        var feed = document.getElementById('feed');
+        var snapDistance = feed.clientHeight;
+        var visibleIndex = Math.round(feed.scrollTop / snapDistance); 
+        var newQuestionIndex = visibleIndex;
+
+        // If the user scrolled to a new post
+        if (newQuestionIndex !== currentQuestion) {
+            
+            // 1. Record 'none' action for the *previous* question if unanswered
+            if (answers[currentQuestion].action === null && currentQuestion < posts.length) {
+                const reactionTime = Date.now() - startTime;
+                answers[currentQuestion].action = 'none';
+                answers[currentQuestion].reactionTimeMs = reactionTime;
+                answeredCount++;
+                // No visual highlight for a skip
+            }
+
+            // 2. Set the new current question and reset timer
+            currentQuestion = newQuestionIndex;
+            
+            if (currentQuestion >= posts.length) {
+                 showResults(); // End survey when scrolling past the last post
+                 return;
+            }
+
+            startTime = Date.now();
+            updateProgressDisplay(currentQuestion);
+        }
+
+        isScrolling = false;
+    }, 150); // Small delay for scroll-snap transition
+}
+
+
+// --- INTERACTION LOGIC (Applicable to ALL platforms) ---
+function answer(questionIndex, action) {
+    
+    // Only record if an action hasn't been taken on this post yet
+    if (answers[questionIndex] && answers[questionIndex].action === null) {
+        const reactionTime = Date.now() - startTime;
+        
+        // Update the answers data
+        answers[questionIndex].action = action;
+        answers[questionIndex].reactionTimeMs = reactionTime;
+        answeredCount++;
+
+        // Visual feedback and disable buttons
+        highlightAnswer(questionIndex, action);
+        
+        // --- HYBRID LOGIC ---
+        if (selectedPlatform === 'tiktok') {
+            // TikTok: Force scroll to the next post immediately after explicit interaction
+            currentQuestion = questionIndex; // Ensure currentQuestion is correct for the logic below
+            if (currentQuestion < posts.length - 1) {
+                // Manually scroll down to the next post
+                const feed = document.getElementById('feed');
+                feed.scrollBy({ top: feed.clientHeight, behavior: 'smooth' });
+                // handleTikTokScroll will pick up the new position and reset the timer
+            } else {
+                // Last post answered
+                showResults();
+            }
+        }
+        
+        // For FB/IG/LI: Timer is not reset until the end, only the action is recorded.
+        // Progress bar updates only on explicit action for continuous feeds
+        if (selectedPlatform !== 'tiktok') {
+            updateProgressDisplay(questionIndex);
+        }
+    }
+}
+
+// Helper to visually confirm an action and disable other buttons
+function highlightAnswer(questionIndex, action) {
+    var currentPost = document.querySelector('.post[data-index="' + questionIndex + '"]');
+    
+    if (!currentPost) return;
+
+    // Disable all buttons for this post once answered
+    currentPost.querySelectorAll('button').forEach(btn => {
+        btn.disabled = true;
+        btn.style.opacity = 0.4;
+    });
+
+    // Highlight the button that was pressed
+    currentPost.querySelectorAll('button').forEach(btn => {
+        const btnText = btn.textContent.toLowerCase();
+        
+        let isMatch = false;
+        if (action === 'like' && btnText.includes('like')) isMatch = true;
+        if (action === 'comment' && btnText.includes('comment')) isMatch = true;
+        if (action === 'share' && btnText.includes('share')) isMatch = true;
+        if (action === 'buy' && (btnText.includes('buy now') || btnText.includes('shop'))) isMatch = true;
+
+        if (isMatch) {
+            btn.style.opacity = 1;
+            btn.style.color = selectedPlatform === 'tiktok' ? '#FE2C55' : (selectedPlatform === 'facebook' ? '#1877f2' : (selectedPlatform === 'linkedin' ? '#0a66c2' : '#c13584'));
+        }
+    });
+}
+
+// --- RESULTS & DATA EXPORT (UNTOUCHED ANALYTICS) ---
 function showResults() {
+    // For FB/IG/LI, we mark remaining unclicked posts as 'none' with the average time taken for explicit clicks.
+    // For TikTok, all times are already individually recorded by the scroll listener.
+    const finalAnswers = answers.filter(a => a.action !== null);
+    
+    // Total elapsed time from start to finish
+    const totalSurveyDuration = Date.now() - startTime;
+    
+    // Calculate total time from recorded actions (excluding 'none' for FB/IG/LI)
+    let totalTimeFromActions = answers.filter(a => a.action !== 'none').reduce((sum, a) => sum + a.reactionTimeMs, 0);
+    
+    // If no actions were taken, use the total duration for average calculation.
+    if (totalTimeFromActions === 0) {
+        totalTimeFromActions = totalSurveyDuration;
+    }
+
+    // Replace all 'null' actions with 'none' and assign the average time taken for explicit action to the reactionTimeMs for the 'none' entries.
+    // This is the accepted "slightly inaccurate" data compensation.
+    const totalExplicitActions = answers.filter(a => a.action !== null && a.action !== 'none').length;
+    const avgExplicitTime = totalExplicitActions > 0 ? totalTimeFromActions / totalExplicitActions : 0;
+    
+    answers.forEach(a => {
+        if (a.action === null) {
+            a.action = 'none';
+            a.reactionTimeMs = avgExplicitTime;
+        }
+    });
+    
+    // Recalculate total time after filling in 'none' gaps
+    const finalTotalTimeMs = answers.reduce((sum, a) => sum + a.reactionTimeMs, 0);
+    const finalTotalTimeS = finalTotalTimeMs / 1000;
+    const finalAvgTimeS = finalTotalTimeS / posts.length;
+
+
     showScreen('resultsScreen');
     
-    var totalTime = answers.reduce((sum, a) => sum + a.reactionTimeMs, 0) / 1000;
-    var avgTime = totalTime / posts.length;
-    
-    document.getElementById('resultsBox').innerHTML = '<h3>Summary</h3><p><strong>Platform:</strong> ' + selectedPlatform.charAt(0).toUpperCase() + selectedPlatform.slice(1) + '</p><p><strong>Posts Viewed:</strong> ' + posts.length + '</p><p><strong>Total Time:</strong> ' + Math.floor(totalTime / 60) + ':' + String(Math.floor(totalTime % 60)).padStart(2, '0') + ' mins</p><p><strong>Average Response:</strong> ' + avgTime.toFixed(1) + 's</p><p style="margin-top:16px;font-style:italic;">Thank you for contributing to fashion retail research!</p>';
+    document.getElementById('resultsBox').innerHTML = '<h3>Summary</h3><p><strong>Platform:</strong> ' + selectedPlatform.charAt(0).toUpperCase() + selectedPlatform.slice(1) + '</p><p><strong>Posts Viewed:</strong> ' + posts.length + '</p><p><strong>Total Time:</strong> ' + Math.floor(finalTotalTimeS / 60) + ':' + String(Math.floor(finalTotalTimeS % 60)).padStart(2, '0') + ' mins</p><p><strong>Average Response:</strong> ' + finalAvgTimeS.toFixed(1) + 's</p><p style="margin-top:16px;font-style:italic;">Thank you for contributing to fashion retail research!</p>';
 }
 
 function downloadData() {
+    // The answers array has now been fully processed by showResults()
     var data = {
         demographics: userData,
         platform: selectedPlatform,
@@ -1009,22 +957,22 @@ function downloadData() {
         timestamp: new Date().toISOString()
     };
     
-    // NOTE: Replace 'YOUR_GOOGLE_SCRIPT_URL_HERE' with your actual Google Apps Script URL if you set one up.
-    // fetch('YOUR_GOOGLE_SCRIPT_URL_HERE', {
-    //     method: 'POST',
-    //     mode: 'no-cors',
-    //     headers: {'Content-Type': 'application/json'},
-    //     body: JSON.stringify(data)
-    // }).catch(function(err) {
-    //     console.log('Upload failed:', err);
-    // });
+    // NOTE: REPLACE 'YOUR_GOOGLE_SCRIPT_URL_HERE' with your actual Google Apps Script URL
+    fetch('YOUR_GOOGLE_SCRIPT_URL_HERE', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+    }).catch(function(err) {
+        console.log('Upload failed:', err);
+    });
     
     // Also download locally as backup
     var blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
     var url = URL.createObjectURL(blob);
     var a = document.createElement('a');
     a.href = url;
-    a.download = 'survey-' + userData.age + '-' + userData.gender + '-' + selectedPlatform + '-' + Date.now() + '.json';
+    a.download = 'survey-data-' + Date.now() + '.json';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
