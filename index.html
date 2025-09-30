@@ -1,25 +1,3 @@
-I apologize for misunderstanding the core mechanic. You are absolutely correct—the posts should flow naturally like a real feed, not interrupt the experience with explicit "questions." The goal is a seamless, platform-mimicking feed where the post *is* the question.
-
-I have made crucial changes to the **JavaScript (Questions, Content, and Initialization)** and slightly refined the **CSS (Instagram/TikTok Feed Structure)** to achieve the following:
-
-1.  **Uniform Posts:** The post data is now comprehensive enough to support different presentation styles, ensuring all 12 products are shown across all four platforms.
-2.  **Platform-Specific Content:**
-      * **Facebook & LinkedIn:** Utilize a longer, descriptive `longText` for a professional/informative feel.
-      * **Instagram & TikTok:** Use the short `shortText` for punchy captions/visual focus.
-3.  **Refined Structures:**
-      * **Instagram:** Confirmed **Image-First** display, followed by action icons and a single caption line.
-      * **TikTok:** Confirmed **Full-Screen Card** display with overlaid text at the bottom.
-4.  **No Scrolling/Paging:** TikTok simulation is now closer to a swipe experience (one post per screen), while others remain scrollable feeds.
-
-Please find the **complete, updated HTML code** below, ready for copy-pasting.
-
------
-
-## Complete Updated Survey Code
-
-You can replace the entire content of your `.html` file with the code below.
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -183,26 +161,6 @@ body {
     border-color: #667eea;
 }
 
-.anon-checkbox {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 8px;
-}
-
-.anon-checkbox input[type="checkbox"] {
-    width: auto;
-    margin: 0;
-}
-
-.anon-checkbox label {
-    font-size: 13px;
-    color: #6a6a6a;
-    font-weight: normal;
-    margin: 0;
-    cursor: pointer;
-}
-
 .interface-screen {
     display: none;
     padding: 40px;
@@ -295,7 +253,7 @@ body {
 }
 
 /* ---------------------------------------------------- */
-/* --- 2. Enhanced Platform-Specific CSS (NEW/UPDATED) --- */
+/* --- 2. Enhanced Platform-Specific CSS (UPDATED FOR ADS/ORGANIC) --- */
 /* ---------------------------------------------------- */
 
 /* Base Feed Styling */
@@ -327,7 +285,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 0;
-    overflow-y: hidden; /* Prevent scrolling within the feed container */
+    overflow-y: hidden; 
 }
 
 /* --- Post Card Styling --- */
@@ -368,7 +326,7 @@ body {
     margin-bottom: 0;
     border: none;
     background: #000;
-    height: 100%; /* Take up the entire feed area */
+    height: 100%; 
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -384,13 +342,23 @@ body {
     z-index: 2;
 }
 
+/* Sponsored label styling (visible next to brand name/time) */
+.sponsored-label {
+    font-size: 12px;
+    color: #606770;
+    font-weight: 500;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
 .tiktok .post-header {
     position: absolute;
-    bottom: 50px; /* Position at the bottom left */
+    bottom: 50px; 
     width: 80%;
     padding: 0 16px 8px;
     color: white;
-    /* Adjust order for TikTok to appear below content */
     order: 3;
 }
 
@@ -409,13 +377,17 @@ body {
 }
 
 .instagram .post-avatar {
-    border: 2px solid #c13584; /* Instagram story ring */
+    border: 2px solid #c13584; 
     background: white;
     color: #c13584;
 }
 
 .linkedin .post-avatar {
-    border-radius: 4px; /* LinkedIn's more corporate look */
+    border-radius: 4px; 
+}
+
+.post-info {
+    flex-grow: 1; /* Allow info block to fill space */
 }
 
 .post-info .brand {
@@ -444,7 +416,7 @@ body {
 }
 
 .tiktok .post-info .time {
-    display: none; /* TikTok doesn't typically show time here */
+    display: none; 
 }
 
 /* --- Post Image/Video --- */
@@ -458,12 +430,11 @@ body {
 }
 
 .tiktok .post-image {
-    height: 100%; /* Take up all available space */
+    height: 100%; 
     position: absolute;
     top: 0;
     left: 0;
     z-index: 1;
-    /* Dark gradient to mimic video controls/text visibility */
     box-shadow: inset 0 -100px 50px -50px rgba(0,0,0,0.8);
 }
 
@@ -477,7 +448,7 @@ body {
 
 .tiktok .post-content {
     position: absolute;
-    bottom: 90px; /* Position above the header on TikTok */
+    bottom: 90px; 
     left: 0;
     width: 80%;
     padding: 0 16px 8px;
@@ -519,7 +490,7 @@ body {
 }
 
 
-/* --- Action Buttons (Like/Comment/Share/Buy) --- */
+/* --- Action Buttons (Like/Comment/Share) --- */
 .post-actions {
     display: flex;
     gap: 16px;
@@ -529,6 +500,11 @@ body {
     z-index: 2;
 }
 
+/* Ensure organic posts show the action bar */
+.post.organic-post .post-actions {
+    display: flex; 
+}
+
 /* Instagram */
 .instagram .post-actions {
     border-top: none;
@@ -536,18 +512,11 @@ body {
     gap: 16px;
 }
 
-/* Facebook */
-.facebook .post-actions {
-    border-top: 1px solid #e4e6eb;
-    padding: 4px 16px;
-    justify-content: space-around;
-    gap: 0;
-}
-
-/* LinkedIn */
+/* Facebook / LinkedIn: Remove border top here, it goes on the CTA block */
+.facebook .post-actions,
 .linkedin .post-actions {
-    border-top: 1px solid #e0e0e0;
-    padding: 4px 8px;
+    border-top: none;
+    padding: 4px 16px;
     justify-content: space-around;
     gap: 0;
 }
@@ -561,197 +530,56 @@ body {
     gap: 20px;
     border: none;
     padding: 0;
-    order: 1; /* Place above the content in the flex order */
+    order: 1; 
 }
 
+/* Action button base style (Like/Comment/Share) */
 .action-btn {
-    background: none;
-    border: none;
-    padding: 8px 12px;
-    font-size: 13px;
-    font-weight: 500;
-    color: #65676b;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    /* ... (rest of action-btn styles) */
 }
 
-.instagram .action-btn {
-    padding: 4px;
-    color: #262626;
-    font-size: 14px;
-    font-weight: 400;
+/* --- AD Call-to-Action (CTA) Block Styling --- */
+.ad-cta-block {
+    padding: 0 16px 16px;
+    background: white;
+    /* CTA button looks more like a dedicated button on FB/LI */
+    border-top: 1px solid #e4e6eb;
 }
 
-.facebook .action-btn {
-    flex: 1;
-    justify-content: center;
-    color: #65676b;
-}
-
-.linkedin .action-btn {
-    flex: 1;
-    justify-content: center;
-    color: #00000099;
-}
-
-.tiktok .action-btn {
-    flex-direction: column;
-    color: white;
-    gap: 4px;
-    font-size: 11px;
-    padding: 0;
-}
-
-.action-btn:hover:not(:disabled) {
-    color: #667eea;
-}
-
-.instagram .action-btn:hover:not(:disabled) {
-    opacity: 0.6;
-    color: #262626;
-}
-
-.facebook .action-btn:hover:not(:disabled) {
-    background: #f2f2f2;
-    border-radius: 4px;
-    color: #65676b;
-}
-
-.linkedin .action-btn:hover:not(:disabled) {
-    background: #f3f2ef;
-    border-radius: 4px;
-    color: #00000099;
-}
-
-.tiktok .action-btn:hover:not(:disabled) {
-    transform: scale(1.1);
-}
-
-.action-btn:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-}
-
-.action-icon {
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.instagram .action-icon {
-    width: 24px;
-    height: 24px;
-}
-
-.tiktok .action-icon {
-    width: 36px;
-    height: 36px;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 50%;
-}
-
-/* Buy Now button special styling */
-.buy-btn {
-    background: #667eea;
-    color: white;
-    border-radius: 6px;
-    padding: 8px 16px;
-    font-weight: 600;
-    margin-left: auto;
-}
-
-/* Platforms with a row of action buttons */
-.instagram .post-actions > .buy-btn,
-.facebook .post-actions > .buy-btn,
-.linkedin .post-actions > .buy-btn {
-    margin-left: 16px;
-}
-
-/* Facebook/LinkedIn: Buy button in action row */
-.facebook .post-actions > .buy-btn,
-.linkedin .post-actions > .buy-btn {
-    margin-left: auto;
-    flex: unset;
-}
-
-.instagram .buy-btn {
-    background: #0095f6;
-    padding: 6px 14px;
-    align-self: center;
-}
-
-.facebook .buy-btn {
-    background: #1877f2;
-    padding: 6px 14px;
-}
-
-.linkedin .buy-btn {
-    background: #0a66c2;
-    padding: 6px 14px;
-}
-
-/* TikTok: Buy button is part of the vertical action stack */
-.tiktok .buy-btn {
-    background: #fe2c55;
-    border-radius: 4px;
-    padding: 8px 12px;
-    font-weight: 500;
-    margin-top: 20px;
-}
-
-.buy-btn:hover:not(:disabled) {
-    opacity: 0.9;
-}
-
-/* TikTok-specific element positioning */
-.tiktok .post-image + .post-content { /* Target content below image */
-    position: absolute;
-    bottom: 90px;
-    left: 0;
-    width: 80%;
-    padding: 0 16px 8px;
-    z-index: 2;
-}
-
-.results-screen {
+/* Hide action bar BUY button, except on IG/TT where it lives inside the bar/stack */
+.post-actions .buy-btn {
     display: none;
-    padding: 40px;
-    min-height: 100vh;
-    text-align: center;
+}
+.instagram .post-actions .buy-btn,
+.tiktok .post-actions .buy-btn {
+    display: flex; 
 }
 
-.results-screen h2 {
-    font-size: 28px;
-    font-weight: 600;
-    color: #1a1a1a;
-    margin-bottom: 20px;
+/* Hide the entire CTA block for non-FB/LI posts */
+.instagram .ad-cta-block,
+.tiktok .ad-cta-block {
+    display: none;
 }
 
-.results-box {
-    background: #f8f9fa;
-    border-radius: 12px;
-    padding: 24px;
-    margin-bottom: 24px;
-    text-align: left;
-}
-
-.results-box h3 {
-    font-size: 18px;
-    font-weight: 600;
-    color: #1a1a1a;
-    margin-bottom: 16px;
-}
-
-.results-box p {
+/* Buy Now button styling within the CTA block */
+.ad-cta-block .buy-btn {
+    width: 100%;
+    margin: 0;
+    padding: 12px;
     font-size: 15px;
-    color: #4a4a4a;
-    margin-bottom: 8px;
+    border-radius: 6px;
+    /* Override base styles for a prominent, full-width look */
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    font-weight: 600;
 }
+.facebook .ad-cta-block .buy-btn {
+    background: #1877f2;
+}
+.linkedin .ad-cta-block .buy-btn {
+    background: #0a66c2;
+}
+
 
 @media (max-width: 768px) {
     .screen {
@@ -769,11 +597,12 @@ body {
 
     /* Ensure TikTok posts take up the correct amount of screen real estate */
     .tiktok .post {
-        height: calc(100vh - 54px - 60px); /* 100vh minus header and next button area */
+        /* 100vh - header (54px) - next button block (approx 60px) */
+        height: calc(100vh - 54px - 60px); 
     }
     
     .survey-screen {
-        overflow: hidden; /* Prevent body scroll if TikTok is full-screen */
+        overflow: hidden; 
     }
 }
 </style>
@@ -789,8 +618,9 @@ body {
         
         <div class="screen-subtitle">Instructions:</div>
         <ul>
-            <li>You will see posts from a single social media platform (Facebook, Instagram, LinkedIn, or TikTok).</li>
-            <li>For each post, you can choose to **Like**, **Comment**, **Share**, or **Buy Now**.</li>
+            <li>You will see a mixture of **commercial (ad)** and **non-commercial (organic)** content on a single social media platform (Facebook, Instagram, LinkedIn, or TikTok).</li>
+            <li>For commercial posts, you can choose to **Like**, **Comment**, **Share**, or **Buy Now**.</li>
+            <li>For organic posts, you can choose **Like**, **Comment**, or **Share**.</li>
             <li>**The time you take to respond to each post will be recorded.**</li>
             <li>You must choose exactly **one** option for every post to advance.</li>
         </ul>
@@ -906,36 +736,23 @@ var startTime = null;
 var answers = [];
 var userData = {};
 
-// --- QUESTION DATA (UPDATED: Contains longText for FB/LI and shortText for IG/TT) ---
+// --- POST DATA (UPDATED: 6 ADs, 6 ORGANIC, STABLE IMAGE URLS) ---
 var posts = [
-    { id: 1, shortText: 'The perfect minimalist tee to pair with anything. ✨', longText: 'Discover the ultimate minimalist tee: a versatile staple designed for effortless style. Made from 100% organic cotton, this shirt offers unparalleled comfort and sustainability. Perfect for a casual Friday or layering under a blazer. Click to shop our eco-friendly collection.', price: { us: 35, eu: 30, uk: 28, ca: 45, au: 50 } },
-    { id: 2, shortText: 'Stepping up the white sneaker game. Limited stock!', longText: 'Introducing our new line of eco-friendly, all-white urban sneakers. Engineered for comfort and designed for city life, these kicks feature recycled materials and a non-slip grip. Join the waitlist—limited stock available for the first drop.', price: { us: 120, eu: 105, uk: 95, ca: 155, au: 170 } },
-    { id: 3, shortText: 'Your new office favorite: the elegant tote. 👜', longText: 'Elevate your professional look with our spacious and elegant leather tote bag. Featuring a padded laptop sleeve and multiple internal pockets, it\'s the functional yet stylish accessory for the new season. Secure yours today and experience the blend of luxury and utility.', price: { us: 250, eu: 220, uk: 190, ca: 320, au: 350 } },
-    { id: 4, shortText: 'The essential white shirt, redefined for comfort.', longText: 'The Classic button-down white shirt: Essential workwear redefined for modern comfort. Our innovative fabric blend is wrinkle-resistant and breathable, ensuring you look sharp from your first meeting to your last. A timeless investment for every wardrobe.', price: { us: 60, eu: 55, uk: 50, ca: 75, au: 85 } },
-    { id: 5, shortText: 'Oversized comfort in slate gray. Layer up!', longText: 'Unisex oversized hoodie in slate gray. Perfect for layering, this hoodie blends high-quality fleece with a modern streetwear fit. Durable, ultra-soft, and designed to last. Available in sizes XS-XXL. Shop the full color range now.', price: { us: 75, eu: 68, uk: 62, ca: 95, au: 110 } },
-    { id: 6, shortText: 'Run faster, feel better. New leggings drop! 🏃‍♀️', longText: 'Introducing our High-waisted running leggings, engineered with superior four-way stretch and advanced moisture-wicking technology. Designed to keep you comfortable through the toughest workouts. Reviewers say they are completely squat-proof!', price: { us: 90, eu: 80, uk: 75, ca: 115, au: 130 } },
-    { id: 7, shortText: 'That perfect vintage wash. Denim jacket goals.', longText: 'Own a piece of history with our vintage-inspired denim jacket, perfectly distressed and crafted for a worn-in feel from day one. This timeless piece pairs effortlessly with anything and gets better with age. Sustainable fashion meets classic style.', price: { us: 110, eu: 95, uk: 88, ca: 140, au: 155 } },
-    { id: 8, shortText: 'Timeless luxury for the modern professional.', longText: 'The Luxury stainless steel automatic wristwatch. Featuring a precision Swiss movement and a sapphire crystal face, this timepiece is a symbol of enduring quality and sophistication. The perfect accessory to complete any professional ensemble.', price: { us: 450, eu: 400, uk: 370, ca: 580, au: 620 } },
-    { id: 9, shortText: 'Picnic-ready perfection: The floral summer dress. 🌸', longText: 'The flowy floral summer dress you need: breathable, lightweight fabric that keeps you cool on hot days. Ideal for picnics, garden parties, or a relaxing day out. Ethically sourced materials. Find your perfect fit in our new collection.', price: { us: 70, eu: 65, uk: 60, ca: 90, au: 100 } },
-    { id: 10, shortText: 'The only loungewear set you\'ll ever need.', longText: 'Find ultimate comfort at home with our matching loungewear set (sweatshirt and joggers). Made from a premium soft-touch blend, it\'s comfort without compromising style. Perfect for working from home or relaxing on the weekend. Available in three colors.', price: { us: 85, eu: 75, uk: 70, ca: 108, au: 125 } },
-    { id: 11, shortText: 'Instant sophistication. Meet the tailored blazer.', longText: 'Step into any meeting with confidence in our sharp, tailored black blazer. Cut for a contemporary fit, it offers instant sophistication and is crafted from a comfortable performance stretch fabric. Essential formal wear that moves with you.', price: { us: 130, eu: 115, uk: 105, ca: 170, au: 185 } },
-    { id: 12, shortText: 'Pop of color for your daily commute. 👟', longText: 'Add a pop of color to your daily commute with our Retro runner sneakers (color-block). Combining 90s nostalgia with modern cushioning technology for a truly comfortable and stylish stride. Free shipping on all sneaker orders this week.', price: { us: 100, eu: 90, uk: 85, ca: 130, au: 145 } }
-];
-
-// --- UPDATED: Placeholder Image URLs for Fashion content ---
-var productImages = [
-    'https://source.unsplash.com/random/600x600/?fashion,model', // 1: T-Shirt
-    'https://source.unsplash.com/random/600x600/?sneakers,minimal', // 2: Sneakers
-    'https://source.unsplash.com/random/600x600/?handbag,designer', // 3: Handbag
-    'https://source.unsplash.com/random/600x600/?whiteshirt,minimal', // 4: White Shirt
-    'https://source.unsplash.com/random/600x600/?hoodie,streetwear', // 5: Hoodie
-    'https://source.unsplash.com/random/600x600/?leggings,fitness', // 6: Leggings
-    'https://source.unsplash.com/random/600x600/?vintagejacket,style', // 7: Vintage Jacket
-    'https://source.unsplash.com/random/600x600/?wristwatch,luxury', // 8: Watch
-    'https://source.unsplash.com/random/600x600/?summerdress,outfit', // 9: Summer Dress
-    'https://source.unsplash.com/random/600x600/?sweatshirt,set', // 10: Sweatshirt Set
-    'https://source.unsplash.com/random/600x600/?blazer,suit', // 11: Blazer
-    'https://source.unsplash.com/random/600x600/?newbalance,sneakers', // 12: Sneakers (different style)
+    // AD POSTS (6) - Shoppable Survey Items
+    { id: 1, type: 'ad', shortText: 'The perfect minimalist tee to pair with anything. ✨', longText: 'Discover the ultimate minimalist tee: a versatile staple designed for effortless style. Made from 100% organic cotton, this shirt offers unparalleled comfort and sustainability. Perfect for a casual Friday or layering under a blazer. Click to shop our eco-friendly collection.', price: { us: 35, eu: 30, uk: 28, ca: 45, au: 50 }, brand: '@BrandThreads', avatar: 'B', imageUrl: 'https://picsum.photos/id/111/600/600' },
+    { id: 2, type: 'ad', shortText: 'Stepping up the white sneaker game. Limited stock!', longText: 'Introducing our new line of eco-friendly, all-white urban sneakers. Engineered for comfort and designed for city life, these kicks feature recycled materials and a non-slip grip. Join the waitlist—limited stock available for the first drop.', price: { us: 120, eu: 105, uk: 95, ca: 155, au: 170 }, brand: '@UrbanKicksHQ', avatar: 'U', imageUrl: 'https://picsum.photos/id/112/600/600' },
+    { id: 3, type: 'ad', shortText: 'Your new office favorite: the elegant tote. 👜', longText: 'Elevate your professional look with our spacious and elegant leather tote bag. Featuring a padded laptop sleeve and multiple internal pockets, it\'s the functional yet stylish accessory for the new season. Secure yours today and experience the blend of luxury and utility.', price: { us: 250, eu: 220, uk: 190, ca: 320, au: 350 }, brand: '@PouchLuxury', avatar: 'P', imageUrl: 'https://picsum.photos/id/113/600/600' },
+    { id: 4, type: 'ad', shortText: 'The essential white shirt, redefined for comfort.', longText: 'The Classic button-down white shirt: Essential workwear redefined for modern comfort. Our innovative fabric blend is wrinkle-resistant and breathable, ensuring you look sharp from your first meeting to your last. A timeless investment for every wardrobe.', price: { us: 60, eu: 55, uk: 50, ca: 75, au: 85 }, brand: '@SharpWorkwear', avatar: 'W', imageUrl: 'https://picsum.photos/id/114/600/600' },
+    { id: 5, type: 'ad', shortText: 'Oversized comfort in slate gray. Layer up!', longText: 'Unisex oversized hoodie in slate gray. Perfect for layering, this hoodie blends high-quality fleece with a modern streetwear fit. Durable, ultra-soft, and designed to last. Available in sizes XS-XXL. Shop the full color range now.', price: { us: 75, eu: 68, uk: 62, ca: 95, au: 110 }, brand: '@ChillStreetwear', avatar: 'C', imageUrl: 'https://picsum.photos/id/115/600/600' },
+    { id: 6, type: 'ad', shortText: 'Run faster, feel better. New leggings drop! 🏃‍♀️', longText: 'Introducing our High-waisted running leggings, engineered with superior four-way stretch and advanced moisture-wicking technology. Designed to keep you comfortable through the toughest workouts. Reviewers say they are completely squat-proof!', price: { us: 90, eu: 80, uk: 75, ca: 115, au: 130 }, brand: '@ActiveProGear', avatar: 'A', imageUrl: 'https://picsum.photos/id/116/600/600' },
+    
+    // ORGANIC POSTS (6) - Non-commercial, Random Content
+    { id: 7, type: 'organic', shortText: 'Check out my review of the new sci-fi movie!', longText: 'Just posted a detailed review of "Cosmic Echoes" on my blog. The plot twists were incredible! Link in comments. What did everyone else think? #scifi #movieReview', price: null, brand: '@film_junkie_daily', avatar: 'R', imageUrl: 'https://picsum.photos/id/201/600/600' },
+    { id: 8, type: 'organic', shortText: 'A beautiful sunset after the rain. Never tire of this view.', longText: 'Captured this stunning sunset right after the storm cleared. Sometimes you just have to stop and appreciate the simple beauty of nature. Tag someone who needs to see this! #sunset #naturephotography #citylife', price: null, brand: '@urban_explorer', avatar: 'T', imageUrl: 'https://picsum.photos/id/202/600/600' },
+    { id: 9, type: 'organic', shortText: 'Recipe test failed, but the kitchen smells amazing. 😅', longText: 'Tried that viral sourdough recipe, and well... it looks more like a frisbee than a loaf. Any expert bakers out there have tips? Send help (and flour). Full recipe link below!', price: null, brand: '@home_chef_fails', avatar: 'F', imageUrl: 'https://picsum.photos/id/203/600/600' },
+    { id: 10, type: 'organic', shortText: 'Thoughts on the latest tech industry restructuring?', longText: 'The recent wave of large-scale industry restructuring raises interesting questions about future workforce models and remote integration. What impact do you see this having on innovation over the next 5 years? Share your professional insights.', price: null, brand: '@TechInsights_Global', avatar: 'G', imageUrl: 'https://picsum.photos/id/204/600/600' },
+    { id: 11, type: 'organic', shortText: 'Just finished coding a new project! So satisfying.', longText: 'Spent the weekend wrapping up a big project integrating Python and React. The feeling of deploying clean code is unmatched. Excited to share the open-source repo soon! #codinglife #developer #webdev', price: null, brand: '@CodeFlow_Max', avatar: 'D', imageUrl: 'https://picsum.photos/id/205/600/600' },
+    { id: 12, type: 'organic', shortText: 'Five essential books for entrepreneurs under 30. Link in bio!', longText: 'If you\'re starting your journey as an entrepreneur, these five books are non-negotiable reading. They cover everything from financing to mindset. Which book changed the way you think about business? Drop your favorites below!', price: null, brand: '@StartupMentor_HQ', avatar: 'M', imageUrl: 'https://picsum.photos/id/206/600/600' }
 ];
 
 // --- ICONS (ORIGINAL) ---
@@ -969,6 +786,7 @@ function showScreen(id) {
 }
 
 function getPriceForCountry(priceObj, country) {
+    if (!priceObj) return '';
     var price = priceObj[country] || priceObj.us;
     var symbol = { us: '$', eu: '€', uk: '£', ca: 'C$', au: 'A$' }[country] || '$';
     return symbol + price;
@@ -1004,6 +822,12 @@ function startSurvey() {
         return;
     }
     
+    // Randomize post order once at the start
+    for (let i = posts.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [posts[i], posts[j]] = [posts[j], posts[i]];
+    }
+    
     initSurvey();
     showScreen('surveyScreen');
     
@@ -1013,7 +837,7 @@ function startSurvey() {
     updateFeedDisplay();
 }
 
-// --- CORE LOGIC: POST GENERATION (UPDATED FOR PLATFORM CONTENT) ---
+// --- CORE LOGIC: POST GENERATION (UPDATED FOR ADS/ORGANIC) ---
 function initSurvey() {
     var feed = document.getElementById('feed');
     feed.innerHTML = '';
@@ -1022,16 +846,16 @@ function initSurvey() {
     document.getElementById('qTotal').textContent = posts.length;
     
     posts.forEach(function(p, idx) {
+        var isAd = p.type === 'ad';
         var price = getPriceForCountry(p.price, userData.country);
-        var imageUrl = productImages[idx % productImages.length];
         var isTikTok = selectedPlatform === 'tiktok';
         var isInstagram = selectedPlatform === 'instagram';
         var isDescriptive = selectedPlatform === 'facebook' || selectedPlatform === 'linkedin';
         
-        var postText = isDescriptive ? p.longText : p.shortText;
+        var postText = isDescriptive ? (isAd ? p.longText : p.longText + ' #organic') : p.shortText;
 
         var post = document.createElement('div');
-        post.className = 'post';
+        post.className = 'post ' + (isAd ? 'ad-post' : 'organic-post');
         post.dataset.index = idx;
         
         // --- Action Buttons HTML Generation (PLATFORM-SPECIFIC) ---
@@ -1043,7 +867,7 @@ function initSurvey() {
                 '<button class="action-btn" onclick="answer(' + idx + ', \'like\')"><div class="action-icon">' + icons.like.tiktok + '</div><span>' + Math.floor(Math.random() * 500 + 1) + 'K</span></button>' +
                 '<button class="action-btn" onclick="answer(' + idx + ', \'comment\')"><div class="action-icon">' + icons.comment.tiktok + '</div><span>' + Math.floor(Math.random() * 50 + 1) + 'K</span></button>' +
                 '<button class="action-btn" onclick="answer(' + idx + ', \'share\')"><div class="action-icon">' + icons.share.tiktok + '</div><span>' + Math.floor(Math.random() * 5 + 1) + 'K</span></button>' +
-                '<button class="action-btn buy-btn" onclick="answer(' + idx + ', \'buy\')"><span>Shop</span></button>' +
+                (isAd ? '<button class="action-btn buy-btn" onclick="answer(' + idx + ', \'buy\')"><span>Shop</span></button>' : '') + // Shop button only for Ads
                 '</div>';
         } else {
             // Instagram, Facebook, LinkedIn: Horizontal row
@@ -1051,39 +875,42 @@ function initSurvey() {
                 '<button class="action-btn" onclick="answer(' + idx + ', \'like\')"><div class="action-icon">' + icons.like[selectedPlatform] + '</div><span>' + (isInstagram ? '' : 'Like') + '</span></button>' +
                 '<button class="action-btn" onclick="answer(' + idx + ', \'comment\')"><div class="action-icon">' + icons.comment[selectedPlatform] + '</div><span>' + (isInstagram ? '' : 'Comment') + '</span></button>' +
                 '<button class="action-btn" onclick="answer(' + idx + ', \'share\')"><div class="action-icon">' + icons.share[selectedPlatform] + '</div><span>' + (isInstagram ? '' : 'Share') + '</span></button>' +
-                '<button class="action-btn buy-btn" onclick="answer(' + idx + ', \'buy\')">' + (isInstagram ? 'Shop Now' : 'Buy Now') + '</button>' +
+                (isAd && (isInstagram || isTikTok) ? '<button class="action-btn buy-btn" onclick="answer(' + idx + ', \'buy\')">' + (isInstagram ? 'Shop Now' : 'Buy Now') + '</button>' : '') +
                 '</div>';
         }
 
         // --- Post Header HTML Generation ---
         var headerHTML = '<div class="post-header">' +
-            '<div class="post-avatar">B</div>' +
+            '<div class="post-avatar">' + p.avatar + '</div>' +
             '<div class="post-info">' +
-            '<div class="brand">@fashionbrand' + (idx + 1) + (isDescriptive ? ' <span style="font-weight:400; color:#888;">• Following</span>' : '') + '</div>' + // LinkedIn/FB may show connection status
-            '<div class="time">' + (isTikTok ? '@trendyshop' : '2h ago') + '</div>' + // Tweak time for TikTok realism
+            '<div class="brand">' + p.brand + (isDescriptive ? ' <span style="font-weight:400; color:#888;">• ' + (isAd ? 'Ad' : (selectedPlatform === 'linkedin' ? '2nd' : 'Following')) + '</span>' : '') + '</div>' + 
+            '<div class="time">' + (isTikTok ? '@trendyshop' : '2h ago') + '</div>' + 
             '</div>' +
+            (isAd ? '<div class="sponsored-label">' + (isTikTok ? '' : 'Sponsored') + '</div>' : '') + // Sponsored label placement
             '</div>';
 
         // --- Post Content HTML Generation ---
         var contentHTML = '<div class="post-content">' +
             '<div class="post-text">' + postText + '</div>' +
-            '<div class="post-price">' + price + '</div>' +
+            (isAd ? '<div class="post-price">' + price + '</div>' : '') + // Price visible only for Ads
             '</div>';
         
         // --- Image Div ---
-        var imageDiv = '<div class="post-image" style="background-image: url(\'' + imageUrl + '\');"></div>';
-
-
-        // --- Full Post Assembly (PLATFORM-SPECIFIC ORDER) ---
+        var imageDiv = '<div class="post-image" style="background-image: url(\'' + p.imageUrl + '\');"></div>';
+        
+        // --- Full Post Assembly ---
         if (isTikTok) {
-            // TikTok structure: Image (Full Screen), then Content/Header/Actions are overlaid on the bottom
             post.innerHTML = imageDiv + actionsHTML + contentHTML + headerHTML;
         } else if (isInstagram) {
-            // Instagram structure: Header, Image (Visual First), Actions (icons only), Content (Caption underneath)
-            post.innerHTML = headerHTML + imageDiv + actionsHTML + contentHTML.replace('<div class="post-price">', '<div class="post-price" style="display:none;">'); // Price less prominent on IG
+            // Instagram structure: Header, Image, Actions, Content (Caption underneath)
+            post.innerHTML = headerHTML + imageDiv + actionsHTML + contentHTML; 
         } else {
-            // Facebook/LinkedIn structure: Header, Content (Descriptive First), Image, Actions (with text)
+            // Facebook/LinkedIn structure: Header, Content (Descriptive First), Image, Actions, CTA Block
             post.innerHTML = headerHTML + contentHTML + imageDiv + actionsHTML;
+            // Add separate CTA block for ads on FB/LI for distinct sponsored look
+            if (isAd) {
+                post.innerHTML += '<div class="ad-cta-block"><button class="btn buy-btn" onclick="answer(' + idx + ', \'buy\')">Buy Now</button></div>';
+            }
         }
         
         feed.appendChild(post);
@@ -1101,6 +928,15 @@ function updateFeedDisplay() {
         // Disable all buttons in the current post until an answer is selected
         if (index === currentQuestion) {
              post.querySelectorAll('button').forEach(btn => btn.disabled = false);
+             
+             // Conditionally hide the Buy button for organic posts if not already done by CSS/HTML structure
+             var isAd = posts[index].type === 'ad';
+             if (!isAd) {
+                post.querySelectorAll('.buy-btn').forEach(btn => btn.style.display = 'none');
+             } else {
+                post.querySelectorAll('.buy-btn').forEach(btn => btn.style.display = isAd ? (selectedPlatform === 'facebook' || selectedPlatform === 'linkedin' ? 'block' : 'flex') : 'none');
+             }
+
         } else {
              post.querySelectorAll('button').forEach(btn => btn.disabled = true);
         }
@@ -1121,9 +957,10 @@ function answer(questionIndex, action) {
 
     answers[questionIndex] = {
         postId: posts[questionIndex].id,
+        postType: posts[questionIndex].type,
         action: action,
         reactionTimeMs: reactionTime,
-        price: posts[questionIndex].price[userData.country] || posts[questionIndex].price.us,
+        price: posts[questionIndex].price ? (posts[questionIndex].price[userData.country] || posts[questionIndex].price.us) : null,
         platform: selectedPlatform
     };
     
@@ -1200,4 +1037,3 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
-```
