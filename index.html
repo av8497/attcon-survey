@@ -300,6 +300,7 @@ body {
     border-radius: 0;
     margin-bottom: 12px;
     overflow: hidden;
+    position: relative; /* For TikTok actions positioning */
 }
 
 .instagram .post {
@@ -324,6 +325,10 @@ body {
     border-radius: 0;
     margin-bottom: 0;
     border: none;
+    min-height: 80vh; /* Make TikTok posts large */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }
 
 .post-header {
@@ -331,6 +336,16 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
+}
+
+.tiktok .post-header {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 5;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    padding: 6px 12px;
 }
 
 .post-avatar {
@@ -356,9 +371,17 @@ body {
     color: #262626;
 }
 
+.tiktok .post-info .brand {
+    color: white;
+}
+
 .post-info .time {
     font-size: 12px;
     color: #8e8e8e;
+}
+
+.tiktok .post-info .time {
+    color: #ccc;
 }
 
 .post-image {
@@ -367,14 +390,29 @@ body {
     background-size: cover;
     background-position: center;
     position: relative;
+    flex-grow: 1; 
 }
 
 .tiktok .post-image {
-    height: 500px;
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
 }
 
 .post-content {
     padding: 12px 16px;
+}
+
+.tiktok .post-content {
+    position: relative;
+    z-index: 2;
+    padding: 16px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    color: white;
 }
 
 .post-text {
@@ -384,11 +422,21 @@ body {
     margin-bottom: 12px;
 }
 
+.tiktok .post-text {
+    color: white;
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+
 .post-price {
     font-size: 20px;
     font-weight: 700;
     color: #667eea;
     margin-bottom: 12px;
+}
+
+.tiktok .post-price {
+    color: #ff4d60; /* TikTok color */
 }
 
 /* Action buttons - platform specific */
@@ -420,11 +468,12 @@ body {
 .tiktok .post-actions {
     position: absolute;
     right: 12px;
-    bottom: 100px;
+    bottom: 80px;
     flex-direction: column;
     gap: 20px;
     border: none;
     padding: 0;
+    z-index: 5;
 }
 
 .action-btn {
@@ -446,15 +495,12 @@ body {
     color: #262626;
 }
 
-.facebook .action-btn {
+.facebook .action-btn, .linkedin .action-btn {
     flex: 1;
     justify-content: center;
-    color: #65676b;
 }
 
 .linkedin .action-btn {
-    flex: 1;
-    justify-content: center;
     color: #00000099;
 }
 
@@ -501,11 +547,6 @@ body {
     justify-content: center;
 }
 
-.instagram .action-icon {
-    width: 24px;
-    height: 24px;
-}
-
 .tiktok .action-icon {
     width: 36px;
     height: 36px;
@@ -520,10 +561,14 @@ body {
     border-radius: 6px;
     padding: 8px 16px;
     font-weight: 600;
+    display: block; /* Make it take full width in non-tiktok */
+    margin: 12px 16px;
 }
 
-.instagram .buy-btn {
-    background: #0095f6;
+.facebook .buy-btn, .linkedin .buy-btn, .instagram .buy-btn {
+    flex: none; /* Override flex on button itself */
+    width: auto;
+    margin: 0;
 }
 
 .facebook .buy-btn {
@@ -534,16 +579,25 @@ body {
     background: #0a66c2;
 }
 
+.instagram .buy-btn {
+    background: #0095f6;
+    margin-top: 12px;
+}
+
 .tiktok .buy-btn {
     background: #fe2c55;
     border-radius: 4px;
     padding: 8px 12px;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
 }
 
 .buy-btn:hover:not(:disabled) {
     opacity: 0.9;
 }
 
+/* Results Screen Styling */
 .results-screen {
     display: none;
     padding: 40px;
@@ -787,41 +841,37 @@ var productImages = [
     'linear-gradient(135deg, #f8b195 0%, #f67280 100%)'
 ];
 
-// 12 Survey questions
-var questions = [
-    {text: 'When you discover new brands on social media, which platforms make you feel most confident about their quality?', image: 'Cotton T-Shirt', price: 45},
-    {text: 'Think about your last purchase discovered through social media. How many times did you see it before buying?', image: 'Eco Sneakers', price: 89},
-    {text: 'What is the biggest gap between what catches your attention online and what you actually purchase?', image: 'Designer Handbag', price: 156},
-    {text: 'How do you balance quality vs quantity when shopping online?', image: 'White Shirt', price: 67},
-    {text: 'Do likes or comments on a fashion post influence your perception of whether it is worth buying?', image: 'Hoodie', price: 125},
-    {text: 'When you see influencers or friends wearing something, does that make you more likely to buy it compared to ads?', image: 'Leggings', price: 78},
-    {text: 'Do you research products on multiple platforms before buying, or do you make impulse purchases?', image: 'Vintage Jacket', price: 95},
-    {text: 'When buying accessories, do you prioritize brands you have seen multiple times on social media?', image: 'Watch', price: 189},
-    {text: 'Are you more likely to buy trending seasonal items or classic pieces that appear less frequently?', image: 'Summer Dress', price: 72},
-    {text: 'Do promotional posts with discount codes make you more likely to buy immediately?', image: 'Sweatshirt Set', price: 85},
-    {text: 'When you see the same product across multiple platforms, does that increase your trust in it?', image: 'Blazer', price: 145},
-    {text: 'Final question: Which type of content makes you most likely to actually purchase?', image: 'Sneakers', price: 110}
+// 12 Survey questions (now with captions)
+var initialQuestions = [
+    {id: 0, caption: 'Elevate your wardrobe with our organic cotton essentials. Comfort meets sustainability. #SustainableFashion', image: 'Cotton T-Shirt', price: 45},
+    {id: 1, caption: 'Spotted! These new eco-friendly sneakers are dropping next week. Tap to set a reminder! How many pairs are you getting? #NewDrop', image: 'Eco Sneakers', price: 89},
+    {id: 2, caption: 'Invest in quality. This stunning designer handbag is the perfect statement piece for your next event. Shop now via link in bio.', image: 'Designer Handbag', price: 156},
+    {id: 3, caption: 'The perfect white shirt, redefined for comfort. Quality over quantity, always. What\'s your favorite way to style it? #Workwear', image: 'White Shirt', price: 67},
+    {id: 4, caption: 'Cozy up in our best-selling hoodie! Double tap if you love this colour. Let us know in the comments below! #Streetwear', image: 'Hoodie', price: 125},
+    {id: 5, caption: 'Power through your day with our high-performance leggings. As seen on fitness influencer @SarahMoves. Your next workout starts here. #Activewear', image: 'Leggings', price: 78},
+    {id: 6, caption: 'Flashback Friday! We\'re bringing back this iconic vintage jacket for a limited time. Don\'t miss out—shop the archive collection now. #VintageStyle', image: 'Vintage Jacket', price: 95},
+    {id: 7, caption: 'Time to shine! Our new minimalist watch collection is the accessory you need. Join the waitlist and be the first to know. #Minimalist', image: 'Watch', price: 189},
+    {id: 8, caption: 'Summer is calling! This flowy dress is a seasonal must-have. Which beach are you taking it to? Click to buy and ship globally. #SummerVibes', image: 'Summer Dress', price: 72},
+    {id: 9, caption: 'Matchy-matchy! Get 20% off our comfortable sweatshirt set with code FASHION20. Limited time offer! Treat yourself. #SaleAlert', image: 'Sweatshirt Set', price: 85},
+    {id: 10, caption: 'Dress to impress. A sharp blazer that means business. Professional wear that doesn\'t compromise on style. See our full collection. #BusinessCasual', image: 'Blazer', price: 145},
+    {id: 11, caption: 'Walk into the new season in style. These sneakers are everything. Tag a friend who needs a new pair! #ShoeGameStrong', image: 'Sneakers', price: 110}
 ];
 
-// SVG icons for different platforms
+var questions = JSON.parse(JSON.stringify(initialQuestions)); // Deep copy for randomization
+
+// SVG icons - Standardized for consistency
 var icons = {
     like: {
-        instagram: '<svg aria-label="Like" color="rgb(38, 38, 38)" fill="rgb(38, 38, 38)" height="24" viewBox="0 0 48 48" width="24"><path d="M34.6 6.1c5.7 0 10.4 4.7 10.4 10.4 0 10.8-10.9 19.3-21.3 28.5C13.2 35.8 2.2 27.2 2.2 16.5c0-5.7 4.7-10.4 10.4-10.4 4.1 0 6.9 2 8.7 3.8l.1.1.1-.1c1.8-1.8 4.6-3.8 8.7-3.8zm0-3c-5.8 0-9.8 4-11.4 5.6C21.4 7.1 17.5 3.1 11.6 3.1 5.3 3.1.2 8.2.2 14.5c0 10.6 10.1 19 20.2 28l1.4 1.2c.2.1.4.2.6.2.2 0 .4-.1.6-.2l1.4-1.2C37.7 33.5 47.8 25.1 47.8 14.5c0-6.3-5.1-11.4-11.2-11.4z"></path></svg>',
-        facebook: '<svg fill="#1877F2" viewBox="0 0 24 24" width="20" height="20"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-6h2v6zm0-8h-2V6h2v2z"/></svg>', 
-        linkedin: '<svg fill="#00000099" viewBox="0 0 24 24" width="20" height="20"><path d="M12 2C6.48 2 2 6.48 2 12c0 5.52 4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zm1 14h-2v-6h2v6zm0-8h-2V6h2v2z"/></svg>', 
-        tiktok: '<svg fill="currentColor" viewBox="0 0 48 48" width="32" height="32"><path d="M34.6 6.1c-1.6 0-2.9 1.3-2.9 2.9v20.3c0 6.4-5.2 11.6-11.6 11.6s-11.6-5.2-11.6-11.6 5.2-11.6 11.6-11.6c.3 0 .7 0 1 .1v-5.2c-.3 0-.7-.1-1-.1-9.2 0-16.7 7.5-16.7 16.7S10.9 46 20.1 46s16.7-7.5 16.7-16.7V15.8c2.6 1.9 5.8 3 9.2 3V13.6c-5.8 0-10.5-4.7-10.5-10.5h-5.1z"/></svg>'
+        all: '<svg fill="currentColor" viewBox="0 0 24 24" width="24" height="24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>'
     },
     comment: {
-        instagram: '<svg aria-label="Comment" color="rgb(38, 38, 38)" fill="rgb(38, 38, 38)" height="24" viewBox="0 0 48 48" width="24"><path d="M47.5 46.1l-2.8-11c1.8-3.3 2.8-7.3 2.8-11.4C47.5 11 37.5 1 24 1S.5 11 .5 24c0 12.8 9.2 23.6 21.6 25.4l.6.6.6-.6c.7-.6 1.7-1 2.8-1.1h.4c.5 0 .9.1 1.3.3l11.4 2.8zM24 45.1C13.2 45.1 4.5 36.4 4.5 25.6c0-10.8 8.7-19.5 19.5-19.5s19.5 8.7 19.5 19.5c0 4-.9 7.8-2.6 11.3l.1.1-2.4 9.6-11.8-2.9h-.6c-.5 0-.9 0-1.3-.1z"></path></svg>',
-        facebook: '<svg fill="#65676B" viewBox="0 0 24 24" width="20" height="20"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V6h2v6z"/></svg>', 
-        linkedin: '<svg fill="#00000099" viewBox="0 0 24 24" width="20" height="20"><path d="M12 2C6.48 2 2 6.48 2 12c0 5.52 4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V6h2v6z"/></svg>', 
-        tiktok: '<svg fill="currentColor" viewBox="0 0 48 48" width="32" height="32"><path d="M24 4C12.95 4 4 12.95 4 24s8.95 20 20 20 20-8.95 20-20S35.05 4 24 4zm0 36c-8.82 0-16-7.18-16-16S15.18 8 24 8s16 7.18 16 16-7.18 16-16 16zm-2-6h4v4h-4zm0-16h4v12h-4z"/></svg>'
+        all: '<svg fill="currentColor" viewBox="0 0 24 24" width="24" height="24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H4V4h16v12z"/></svg>'
     },
     share: {
-        instagram: '<svg aria-label="Share Post" color="rgb(38, 38, 38)" fill="rgb(38, 38, 38)" height="24" viewBox="0 0 48 48" width="24"><path d="M46.8 3.1c-.2-.2-.5-.3-.7-.3h-44c-.3 0-.6.1-.8.3-.3.2-.4.5-.3.8l.2 16c0 .3.2.6.5.8l14.9 8.2-14.8 8.1c-.3.2-.4.5-.3.8.1.3.3.6.7.7h29c.2 0 .4-.1.6-.2l14.9-8.1c.3-.2.5-.5.5-.8v-16c0-.3-.1-.6-.4-.8zM43.7 39.5c-.1.1-.3.2-.5.2h-27.8l16.2-8.9c.2-.1.4-.2.6-.2h.1c.3 0 .5.1.7.2l11.4 6.2v.1zM43.7 8.5v15.5l-11.4-6.2c-.2-.1-.4-.2-.6-.2h-.1c-.3 0-.5.1-.7.2L15.4 31.9H4.3c-.2 0-.3-.1-.4-.2L19.4 12.5h24.3c.1 0 .2.1.3.2z"></path></svg>',
-        facebook: '<svg fill="#65676B" viewBox="0 0 24 24" width="20" height="20"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>',
-        linkedin: '<svg fill="#00000099" viewBox="0 0 24 24" width="20" height="20"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>',
-        tiktok: '<svg fill="currentColor" viewBox="0 0 48 48" width="32" height="32"><path d="M36 20v-4c-3.31 0-6-2.69-6-6h-4v20c0 3.31-2.69 6-6 6s-6-2.69-6-6 2.69-6 6-6v-4c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10V16c2.48 1.53 5.39 2.44 8.5 2.44z"/></svg>'
+        all: '<svg fill="currentColor" viewBox="0 0 24 24" width="24" height="24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>'
+    },
+    tiktok_share: {
+        all: '<svg fill="currentColor" viewBox="0 0 48 48" width="32" height="32"><path d="M36 20v-4c-3.31 0-6-2.69-6-6h-4v20c0 3.31-2.69 6-6 6s-6-2.69-6-6 2.69-6 6-6v-4c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10V16c2.48 1.53 5.39 2.44 8.5 2.44z"/></svg>'
     }
 };
 
@@ -856,9 +906,10 @@ document.getElementById('anonCheck').addEventListener('change', function() {
     var nameInput = document.getElementById('nameInput');
     if (this.checked) {
         var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-        var id = 'ANON';
+        var id = 'ANON-';
         for (var i = 0; i < 8; i++) {
-            id += chars[Math.random() * chars.length];
+            // FIX: Use Math.floor() to get an integer index
+            id += chars[Math.floor(Math.random() * chars.length)];
         }
         nameInput.value = id;
         nameInput.readOnly = true;
@@ -934,58 +985,113 @@ document.getElementById('interfaceBtn').addEventListener('click', function() {
     initSurvey();
 });
 
+// Fisher-Yates shuffle algorithm
+function shuffle(array) {
+    let currentIndex = array.length, randomIndex;
+    while (currentIndex != 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+        [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+    }
+    return array;
+}
+
 // Initialize survey
 function initSurvey() {
+    // 1. Shuffle the posts for randomization
+    questions = shuffle(questions);
+    
     var feed = document.getElementById('feed');
     feed.innerHTML = '';
     feed.className = 'feed ' + selectedPlatform;
     
+    // Reset answers array based on shuffled order
+    answers = new Array(questions.length).fill(null); 
+
     document.getElementById('qTotal').textContent = questions.length;
+    document.getElementById('qNum').textContent = 1;
+    document.getElementById('progFill').style.width = '0%';
     
     questions.forEach(function(q, idx) {
         var price = getPriceForCountry(q.price, userData.country);
-        var imageGradient = productImages[idx % productImages.length];
+        var imageGradient = productImages[q.id % productImages.length]; // Use original ID for image consistency
         
         var post = document.createElement('div');
         post.className = 'post';
-        post.dataset.index = idx;
+        post.dataset.index = idx; // Index in the *current* randomized array
+        post.dataset.postid = q.id; // Original ID for data tracking
         
         var actionsHTML = '';
-        var iconSet = icons;
+        var likeIcon = icons.like.all;
+        var commentIcon = icons.comment.all;
+        var shareIcon = (selectedPlatform === 'tiktok') ? icons.tiktok_share.all : icons.share.all;
 
+        // Custom action layout for TikTok
         if (selectedPlatform === 'tiktok') {
             actionsHTML = '<div class="post-actions">' +
-                '<button class="action-btn" onclick="answer(' + idx + ', \'like\')"><div class="action-icon">' + iconSet.like.tiktok + '</div><span>Like</span></button>' +
-                '<button class="action-btn" onclick="answer(' + idx + ', \'comment\')"><div class="action-icon">' + iconSet.comment.tiktok + '</div><span>Comment</span></button>' +
-                '<button class="action-btn" onclick="answer(' + idx + ', \'share\')"><div class="action-icon">' + iconSet.share.tiktok + '</div><span>Share</span></button>' +
-                '<button class="action-btn buy-btn" onclick="answer(' + idx + ', \'buy\')"><span>Buy Now</span></button>' +
+                '<button class="action-btn" onclick="answer(' + idx + ', \'like\')"><div class="action-icon">' + likeIcon + '</div><span>1.2K</span></button>' +
+                '<button class="action-btn" onclick="answer(' + idx + ', \'comment\')"><div class="action-icon">' + commentIcon + '</div><span>45</span></button>' +
+                '<button class="action-btn" onclick="answer(' + idx + ', \'share\')"><div class="action-icon">' + shareIcon + '</div><span>Share</span></button>' +
                 '</div>';
-        } else {
-            actionsHTML = '<div class="post-actions">' +
-                '<button class="action-btn" onclick="answer(' + idx + ', \'like\')"><div class="action-icon">' + iconSet.like[selectedPlatform] + '</div><span>Like</span></button>' +
-                '<button class="action-btn" onclick="answer(' + idx + ', \'comment\')"><div class="action-icon">' + iconSet.comment[selectedPlatform] + '</div><span>Comment</span></button>' +
-                '<button class="action-btn" onclick="answer(' + idx + ', \'share\')"><div class="action-icon">' + iconSet.share[selectedPlatform] + '</div><span>Share</span></button>' +
-                '<button class="action-btn buy-btn" onclick="answer(' + idx + ', \'buy\')">Buy Now</button>' +
+        } 
+        // Standard action layout for other platforms
+        var buyButton = '<button class="buy-btn" onclick="answer(' + idx + ', \'buy\')">Buy Now</button>';
+        
+        if (selectedPlatform !== 'tiktok') {
+             actionsHTML = '<div class="post-actions">' +
+                '<button class="action-btn" onclick="answer(' + idx + ', \'like\')"><div class="action-icon">' + likeIcon + '</div><span>Like</span></button>' +
+                '<button class="action-btn" onclick="answer(' + idx + ', \'comment\')"><div class="action-icon">' + commentIcon + '</div><span>Comment</span></button>' +
+                '<button class="action-btn" onclick="answer(' + idx + ', \'share\')"><div class="action-icon">' + shareIcon + '</div><span>Share</span></button>' +
                 '</div>';
         }
+
+        // Construct post HTML
+        var postHTML = '';
         
-        post.innerHTML = '<div class="post-header">' +
-            '<div class="post-avatar">B</div>' +
-            '<div class="post-info">' +
-            '<div class="brand">BRAND</div>' +
-            '<div class="time">2h ago</div>' +
+        if (selectedPlatform === 'tiktok') {
+            postHTML = 
+            '<div class="post-image" style="background: ' + imageGradient + '; background-size: cover;"></div>' +
+            '<div class="post-header">' +
+                '<div class="post-avatar">B</div>' +
+                '<div class="post-info">' +
+                '<div class="brand">@brand</div>' +
+                '</div>' +
             '</div>' +
-            '</div>' +
-            '<div class="post-image" style="background: ' + imageGradient + ';"></div>' +
+            actionsHTML + 
             '<div class="post-content">' +
-            '<div class="post-text">' + q.text + '</div>' +
-            '<div class="post-price">' + price + '</div>' +
+                '<div class="post-text">#' + q.image.replace(/\s/g, '') + ' | ' + q.caption + '</div>' +
+                '<div class="post-price">' + price + '</div>' +
+                buyButton + 
+            '</div>';
+        } else {
+            postHTML = 
+            '<div class="post-header">' +
+                '<div class="post-avatar">B</div>' +
+                '<div class="post-info">' +
+                '<div class="brand">BRAND Name</div>' +
+                '<div class="time">Sponsored &middot; 2h ago</div>' +
+                '</div>' +
             '</div>' +
-            actionsHTML;
+            '<div class="post-image" style="background: ' + imageGradient + '; background-size: cover;"></div>' +
+            '<div class="post-content">' +
+                '<div class="post-text"><strong>BRAND Name</strong> ' + q.caption + '</div>' +
+                '<div class="post-price">' + price + '</div>' +
+            '</div>' +
+            actionsHTML +
+            buyButton; 
+
+            // Put buy button inside actions for Facebook/LinkedIn/Instagram style
+            if (selectedPlatform === 'facebook' || selectedPlatform === 'linkedin') {
+                 postHTML = postHTML.replace(buyButton, '') + '<div class="post-buy-action" style="padding: 0 16px 12px; border-top: 1px solid #efefef;">' + buyButton + '</div>';
+            }
+        }
         
+        post.innerHTML = postHTML;
         feed.appendChild(post);
     });
 }
+
 
 // Convert price based on country
 function getPriceForCountry(usd, country) {
@@ -1010,23 +1116,27 @@ function getPriceForCountry(usd, country) {
 // Answer question
 function answer(idx, choice) {
     var now = Date.now();
-    // Ensure answers array is initialized or large enough to prevent sparse array issues when counting
+    
+    // Check if the current post (by randomized index) has been answered
     if (!answers[idx]) {
-        // Only record if not already recorded (i.e. first interaction)
-        answers[idx] = {answer: choice, time: now - startTime};
+        // Record answer: includes action, time, and original post ID for post-wise analysis
+        answers[idx] = {
+            action: choice, 
+            time_ms: now - startTime,
+            post_id: questions[idx].id,
+            display_order: idx + 1
+        };
         
         var post = document.querySelector('[data-index="' + idx + '"]');
-        var btns = post.querySelectorAll('.action-btn');
+        var btns = post.querySelectorAll('.action-btn, .buy-btn');
         btns.forEach(function(b) {
             b.disabled = true;
+            b.style.opacity = '0.5'; // Visual feedback for disabled
         });
         
         updateProgress();
         
-        var count = 0;
-        for (var i = 0; i < questions.length; i++) {
-            if (answers[i]) count++;
-        }
+        var count = answers.filter(a => a !== null).length;
         
         if (count === questions.length) {
             // Survey is complete, show results after a short delay
@@ -1045,12 +1155,17 @@ function answer(idx, choice) {
 
 // Update progress
 function updateProgress() {
-    var count = 0;
-    for (var i = 0; i < questions.length; i++) {
-        if (answers[i]) count++;
+    var count = answers.filter(a => a !== null).length;
+    var total = questions.length;
+    var pct = (count / total) * 100;
+    
+    // Update progress text. Only update if not on the last question.
+    if (count < total) {
+        document.getElementById('qNum').textContent = count + 1;
+    } else {
+        document.getElementById('qNum').textContent = total;
     }
-    var pct = (count / questions.length) * 100;
-    document.getElementById('qNum').textContent = count + 1;
+    
     document.getElementById('progFill').style.width = pct + '%';
 }
 
@@ -1060,10 +1175,7 @@ function showResults() {
     document.getElementById('resultsScreen').style.display = 'block';
     
     var totalTime = Math.floor((Date.now() - startTime) / 1000);
-    var totalResponseTime = 0;
-    for (var i = 0; i < answers.length; i++) {
-        if (answers[i]) totalResponseTime += answers[i].time;
-    }
+    var totalResponseTime = answers.reduce((sum, a) => sum + (a ? a.time_ms : 0), 0);
     var avgTime = totalResponseTime / answers.length / 1000;
     
     document.getElementById('resultsBox').innerHTML = '<h3>Survey Data Summary</h3><p><strong>Platform Used:</strong> ' + selectedPlatform.charAt(0).toUpperCase() + selectedPlatform.slice(1) + '</p><p><strong>Questions Answered:</strong> ' + questions.length + '</p><p><strong>Total Time Spent:</strong> ' + Math.floor(totalTime / 60) + 'm ' + String(totalTime % 60).padStart(2, '0') + 's</p><p><strong>Average Interaction Time:</strong> ' + avgTime.toFixed(1) + 's</p><p style="margin-top:16px;font-style:italic;">Detailed results will be downloaded. Thank you for contributing to fashion retail research!</p>';
@@ -1074,8 +1186,8 @@ function downloadData() {
     var data = {
         demographics: userData,
         platform: selectedPlatform,
-        answers: answers,
-        totalTime: Date.now() - startTime,
+        answers: answers.filter(a => a !== null), // Only send recorded answers
+        totalTime_ms: Date.now() - startTime,
         timestamp: new Date().toISOString()
     };
     
@@ -1094,7 +1206,7 @@ function downloadData() {
     var url = URL.createObjectURL(blob);
     var a = document.createElement('a');
     a.href = url;
-    a.download = 'survey-' + userData.age + '-' + userData.gender + '-' + selectedPlatform + '-' + Date.now() + '.json';
+    a.download = 'survey-' + (userData.name.startsWith('ANON-') ? 'ANON' : userData.name) + '-' + selectedPlatform + '-' + Date.now() + '.json';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
