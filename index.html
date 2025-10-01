@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Social Media Behaviour Study</title>
+<title>Social Media Behaviour Survey</title>
 <style>
 * {
     margin: 0;
@@ -300,7 +300,7 @@ body {
     border-radius: 0;
     margin-bottom: 12px;
     overflow: hidden;
-    position: relative; 
+    position: relative; /* Added for TikTok positioning */
 }
 
 .instagram .post {
@@ -325,10 +325,7 @@ body {
     border-radius: 0;
     margin-bottom: 0;
     border: none;
-    min-height: 80vh; 
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+    height: 100vh; /* Make TikTok post fill screen */
 }
 
 .post-header {
@@ -340,12 +337,11 @@ body {
 
 .tiktok .post-header {
     position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 5;
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 20px;
-    padding: 8px 12px;
+    top: 16px;
+    left: 0;
+    z-index: 10;
+    width: 80%;
+    color: white;
 }
 
 .post-avatar {
@@ -359,17 +355,15 @@ body {
     color: white;
     font-weight: 700;
     font-size: 16px;
-    flex-shrink: 0;
 }
 
 .instagram .post-avatar {
     border: 2px solid #c13584;
-    background: #fff;
-    color: #1a1a1a;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 0;
-    box-shadow: 0 0 0 2px white;
+}
+
+.tiktok .post-avatar {
+    background: white;
+    color: #667eea;
 }
 
 .post-info .brand {
@@ -378,15 +372,15 @@ body {
     color: #262626;
 }
 
-.post-info .time {
-    font-size: 12px;
-    color: #8e8e8e;
-}
-
 .tiktok .post-info .brand,
 .tiktok .post-info .time {
     color: white;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+
+.post-info .time {
+    font-size: 12px;
+    color: #8e8e8e;
 }
 
 .post-image {
@@ -398,21 +392,11 @@ body {
 }
 
 .tiktok .post-image {
-    height: 80vh;
+    height: 100%; /* Fill the entire post container */
 }
 
 .post-content {
     padding: 12px 16px;
-}
-
-.tiktok .post-content {
-    padding: 12px 16px 80px 16px; 
-    background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    z-index: 4;
-    color: white;
 }
 
 .post-text {
@@ -420,12 +404,6 @@ body {
     line-height: 1.5;
     color: #262626;
     margin-bottom: 12px;
-    white-space: pre-wrap; 
-}
-
-.tiktok .post-text {
-    color: white;
-    font-size: 15px;
 }
 
 .post-price {
@@ -433,18 +411,6 @@ body {
     font-weight: 700;
     color: #667eea;
     margin-bottom: 12px;
-}
-
-.tiktok .post-price {
-    color: white;
-    font-size: 18px;
-}
-
-.post-promo {
-    font-size: 12px;
-    font-weight: 500;
-    color: #8e8e8e;
-    margin-bottom: 8px;
 }
 
 /* Action buttons - platform specific */
@@ -459,7 +425,6 @@ body {
     border-top: none;
     padding: 6px 16px 12px;
     gap: 16px;
-    justify-content: flex-start;
 }
 
 .facebook .post-actions {
@@ -477,12 +442,11 @@ body {
 .tiktok .post-actions {
     position: absolute;
     right: 12px;
-    bottom: 120px;
+    bottom: 100px;
     flex-direction: column;
     gap: 20px;
     border: none;
     padding: 0;
-    z-index: 5;
 }
 
 .action-btn {
@@ -502,37 +466,18 @@ body {
 .instagram .action-btn {
     padding: 4px;
     color: #262626;
-    order: 1; 
-}
-
-.instagram .action-btn.buy-btn-container {
-    margin-left: auto;
-    order: 2;
-    padding: 0;
 }
 
 .facebook .action-btn {
     flex: 1;
     justify-content: center;
     color: #65676b;
-    order: 1;
-}
-
-.facebook .action-btn.buy-btn-container {
-    flex-grow: 0;
-    order: 2;
 }
 
 .linkedin .action-btn {
     flex: 1;
     justify-content: center;
     color: #00000099;
-    order: 1;
-}
-
-.linkedin .action-btn.buy-btn-container {
-    flex-grow: 0;
-    order: 2;
 }
 
 .tiktok .action-btn {
@@ -540,15 +485,6 @@ body {
     color: white;
     gap: 4px;
     font-size: 11px;
-    padding: 0;
-}
-
-.tiktok .action-btn.buy-btn-container {
-    position: absolute;
-    bottom: 20px;
-    left: 16px;
-    width: auto;
-    flex-direction: row;
     padding: 0;
 }
 
@@ -595,6 +531,7 @@ body {
 .tiktok .action-icon {
     width: 36px;
     height: 36px;
+    background: rgba(255, 255, 255, 0.15);
     border-radius: 50%;
 }
 
@@ -605,16 +542,10 @@ body {
     border-radius: 6px;
     padding: 8px 16px;
     font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 80px;
 }
 
 .instagram .buy-btn {
     background: #0095f6;
-    padding: 6px 12px;
-    font-size: 13px;
 }
 
 .facebook .buy-btn {
@@ -629,8 +560,6 @@ body {
     background: #fe2c55;
     border-radius: 4px;
     padding: 8px 12px;
-    font-size: 14px;
-    min-width: 60px;
 }
 
 .buy-btn:hover:not(:disabled) {
@@ -673,10 +602,6 @@ body {
 }
 
 @media (max-width: 768px) {
-    .container {
-        max-width: 100%;
-        margin: 0;
-    }
     .screen {
         padding: 30px 20px;
     }
@@ -689,44 +614,34 @@ body {
     .interface-grid {
         grid-template-columns: 1fr;
     }
-
-    .tiktok .post-image {
-        height: 85vh;
-    }
-    .tiktok .post-actions {
-        bottom: 80px;
-    }
-    .tiktok .post-content {
-        padding-bottom: 50px;
-    }
 }
 </style>
 </head>
 <body>
 <div class="container">
     <div class="screen" id="consentScreen">
-        <h1>Social Media Behaviour Study</h1>
+        <h1>Social Media Behaviour Survey</h1>
         <p style="text-align:center;color:#4a4a4a;margin-bottom:30px;font-style:italic;line-height:1.8">"Congratulations! You've been invited to participate in research that contributes to the potentially groundbreaking understanding of what will go on to be known as The Attention-Conversion Paradox. I'd like to extend my sincerest gratitude to each and every participant. You're the best!" - Aman Vasandani, 2025</p>
         
         <h2 class="screen-subtitle">About This Research</h2>
-        <p>This study examines how people **interact with different types of fashion content** on various social media platforms. You'll experience realistic social feeds and your interactions will be logged anonymously.</p>
+        <p>This study examines how people <strong>interact with different types of fashion content</strong> on various social media platforms. You'll experience realistic social feeds and your interactions will be logged anonymously.</p>
         
         <h2 class="screen-subtitle">What You'll Do</h2>
         <ul>
             <li>Answer a few background questions (2 minutes)</li>
             <li>Choose a social media platform style</li>
-            <li>**Browse through 15 posts and interact naturally** (like, comment, share, or click 'Buy Now').</li>
+            <li><strong>Browse through 15 posts and interact naturally</strong> (like, comment, share, or click 'Buy Now').</li>
         </ul>
         
         <h2 class="screen-subtitle">Privacy & Data Use</h2>
-        <p>Your responses are **anonymous** and used only for academic research. No personal information is stored or shared.</p>
+        <p>Your responses are <strong>anonymous</strong> and used only for academic research. No personal information is stored or shared.</p>
         
         <div class="consent-box">
             <input type="checkbox" id="consentCheck">
             <label for="consentCheck">I understand this is academic research and consent to participate. I understand my responses are anonymous and used only for research purposes.</label>
         </div>
         
-        <button class="btn" id="startBtn" disabled>Start Study</button>
+        <button class="btn" id="startBtn" disabled>Start Survey</button>
     </div>
 
     <div class="demo-screen" id="demoScreen">
@@ -855,7 +770,7 @@ body {
 
     <div class="survey-screen" id="surveyScreen">
         <div class="survey-header">
-            <div class="progress-text">Interacted with <span id="qNum">0</span> of <span id="qTotal">15</span> Posts</div>
+            <div class="progress-text">Question <span id="qNum">1</span> of <span id="qTotal">15</span></div>
             <div class="progress-bar">
                 <div class="progress-fill" id="progFill"></div>
             </div>
@@ -866,8 +781,7 @@ body {
     <div class="results-screen" id="resultsScreen">
         <h2>Thank You!</h2>
         <div class="results-box" id="resultsBox"></div>
-        <p>The data has been collected. You may download a copy for your reference.</p>
-        <button class="btn" onclick="downloadData()">Download Data Copy</button>
+        <button class="btn" onclick="downloadData()">Download Results</button>
     </div>
 </div>
 
@@ -878,78 +792,52 @@ var selectedPlatform = '';
 var answers = [];
 var startTime = Date.now();
 
-// --- Core Data: 15 Posts (6 Ads, 9 Content) ---
-const TOTAL_POSTS = 15;
+// *******************************************************************
+// 1. FINAL IMAGE ARRAY (PUBLIC URLs INTEGRATED)
+// *******************************************************************
+var productImages = [
+    'https://i.ibb.co/4nPCjLZq/Plain-T-Shirt.png',     // 01-tshirt-plain.jpg (Core Basics)
+    'https://i.ibb.co/7JwnqcGf/Eco-Sneakers.png',      // 02-sneakers-eco.jpg (Stride Co.)
+    'https://i.ibb.co/qYTzhX21/Luxury-Bag.png',        // 03-bag-designer.jpg (Maison Laurent)
+    'https://i.ibb.co/5W16YtT8/White-Shirt.png',       // 04-shirt-white.jpg (Office Flux)
+    'https://i.ibb.co/2YkJ8rkt/Hoodie.png',            // 05-hoodie-solid.jpg (Soft Spot)
+    'https://i.ibb.co/hJqHZzgY/Leggings.png',          // 06-leggings-yoga.jpg (AeroFit)
+    'https://i.ibb.co/mF49GBqb/Vintage-Jacket.png',    // 07-jacket-denim.jpg (The Archive)
+    'https://i.ibb.co/DHhQMpNk/Watch.png',             // 08-watch-classic.jpg (Valenza Orologi)
+    'https://i.ibb.co/3mKKvcyd/Summer-Dress.png',      // 09-dress-floral.jpg (Sundays)
+    'https://i.ibb.co/0RjKxKf9/Sweatshirt-Set.png',    // 10-set-lounge.jpg (Lounge Drop)
+    'https://i.ibb.co/274dVCyx/Blazer.png',            // 11-blazer-wool.jpg (Struktura Atelier)
+    'https://i.ibb.co/Gf4xLxtJ/Street-Sneakers.png',   // 12-sneakers-street.jpg (Rush Runner)
+    'https://i.ibb.co/rRt77DZK/Wide-Leg-Trousers.png', // 13-trousers-wide.jpg (Vogue Élan)
+    'https://i.ibb.co/00YQVty/Sunglasses.png',         // 14-sunglasses-polar.jpg (Optic Haze)
+    'https://i.ibb.co/HM15qm8/Trench-Coat.png'         // 15-trench-coat.jpg (Porte-Vent)
+];
+// *******************************************************************
 
-var allPostsData = [
-    // --- AD POSTS (6) ---
-    { id: 1, type: 'image', url: 'https://i.ibb.co/6y4jGkS/sharpwear-post.jpg', isAd: true, price: 45, brand: 'SharpWear', user: '@SharpWorkwear', avatar: 'S', 
-        shortCaption: 'The essential white shirt, redefined for comfort.', 
-        longCaption: "The cornerstone of any modern wardrobe: the perfect white shirt. We've redefined this essential piece using a new moisture-wicking, wrinkle-resistant fabric. Ideal for long days in the office or seamless transition to evening wear. Discover the intersection of classic style and performance technology in our new collection. #SharpWear #MensFashion" },
-    
-    { id: 2, type: 'image', url: 'https://i.ibb.co/3151g3g/sneakers-post.jpg', isAd: true, price: 89, brand: 'ZenithStyle', user: '@ZenithStyle', avatar: 'Z',
-        shortCaption: 'Elevate your daily hustle. Crafted for performance, styled for the street. Limited drop.', 
-        longCaption: "Step into tomorrow with the 'Velocity Runner' sneaker. Our design team focused on creating a shoe that excels in both form and function. Featuring responsive cushioning and a durable, light-weight mesh upper, these are built for the fast-paced modern professional. Pre-order is now open for this limited edition drop. Don't miss out on what critics are calling 'the most comfortable run-ready shoe of the year.' #ZenithStyle #Footwear" },
-
-    { id: 3, type: 'gradient', url: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)', isAd: true, price: 156, brand: 'CodeFit', user: '@CodeFitOfficial', avatar: 'C',
-        shortCaption: 'A modern blazer that works for the office or the weekend. Versatility is key.', 
-        longCaption: "The 'Apex' Blazer: a fundamental piece for bridging business and casual. Its lightweight, unstructured design means it travels beautifully and maintains its shape without effort. We believe professional wear shouldn't sacrifice comfort, which is why we included interior utility pockets and a 4-way stretch fabric. Shop now and use code **PROSTYLE** for 15% off. #CodeFit #ProfessionalWear" },
-
-    { id: 4, type: 'image', url: 'https://i.ibb.co/R2J304R/denim-post.jpg', isAd: true, price: 67, brand: 'UrbanFlux', user: '@UrbanFlux', avatar: 'U',
-        shortCaption: 'Perfect fit. Perfect wash. Perfect for every day.', 
-        longCaption: "Finding the perfect pair of jeans is a quest. Our new 'True Comfort' line is engineered with four-way stretch denim that retains its shape all day long. Stop settling for less than perfect. Shop the collection and experience the difference in fit and feel. We guarantee these will be your new favorites. Limited stock on the 'Indigo Deep' wash. #UrbanFlux #DenimFit" },
-        
-    { id: 5, type: 'image', url: 'https://i.ibb.co/m0f245x/watch-post.jpg', isAd: true, price: 78, brand: 'Voyage Gear', user: '@VoyageGear', avatar: 'V',
-        shortCaption: 'The everyday essential is back in stock. Shop before they sell out.', 
-        longCaption: "Precision and rugged elegance define the 'Explorer' series. Designed for the adventurer who still needs to look sharp, this timepiece features a hardened mineral crystal and a genuine leather strap. It's water-resistant up to 100m. A reliable companion for your most demanding days. Secure yours today and get free express shipping for a limited time. #VoyageGear #GiftsForHim" },
-
-    { id: 6, type: 'image', url: 'https://i.ibb.co/6y4jGkS/sharpwear-post.jpg', isAd: true, price: 95, brand: 'SharpWear', user: '@SharpWorkwear', avatar: 'S',
-        shortCaption: 'Your wardrobe\'s secret weapon. Buy one, get 50% off the second.', 
-        longCaption: "Introducing the 'Flex-Fit' shirt: the only work shirt you need. Engineered with two-way stretch fabric and a seamless construction, it guarantees comfort from your morning commute to your final meeting. Currently running a limited-time promotion: Buy One, Get the Second Half Price. Don't miss this opportunity to stock up on quality. Promotion ends Friday! #SharpWear #Workwear" },
-
-    // --- CONTENT POSTS (9) ---
-    { id: 7, type: 'gradient', url: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', isAd: false, brand: 'AuraThreads', user: '@AuraThreads', avatar: 'A',
-        shortCaption: 'Cozy up in our best-selling hoodie! Double tap if you love this colour.', 
-        longCaption: "Sunday morning vibes in the 'Vibrant Dusk' hoodie. Crafted from sustainable organic cotton, this plush piece is our number one seller for comfort and statement style. A reminder that quality leisurewear is an investment in your wellbeing. We focus on ethical production and minimizing waste in every thread. #AuraThreads #SustainableFashion" },
-
-    { id: 8, type: 'image', url: 'https://i.ibb.co/R2J304R/denim-post.jpg', isAd: false, brand: 'UrbanFlux', user: '@UrbanFlux', avatar: 'U',
-        shortCaption: 'Our new organic denim line is here. Sustainable style that lasts.', 
-        longCaption: "Sustainability meets unparalleled quality in our new 'Eco-Wash' denim collection. Made with 100% organic cotton and processed using 90% less water than traditional methods, this is denim you can feel good about wearing. The perfect slim fit, available in three washes. Invest in pieces that last—for your closet and the planet. #UrbanFlux #EcoDenim" },
-
-    { id: 9, type: 'gradient', url: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)', isAd: false, brand: 'VelvetEdge', user: '@VelvetEdge', avatar: 'V',
-        shortCaption: 'Feeling the pink energy. This vibrant dress is perfect for a summer evening.', 
-        longCaption: "Introducing the 'Sunset Bloom' midi dress. The perfect blend of vibrant color and comfortable, flowing structure. Made with breathable silk-blend fabric, this dress is guaranteed to turn heads and keep you cool. It's the ideal choice for summer events and destination wear. The design is inspired by vibrant Moroccan sunsets. #VelvetEdge #SummerStyle" },
-
-    { id: 10, type: 'gradient', url: 'linear-gradient(135deg, #30cfd0 0%, #330867 100%)', isAd: false, brand: 'Iconic Basics', user: '@IconicBasics', avatar: 'I',
-        shortCaption: 'Dark, sleek, and timeless. The only backpack you\'ll ever need.', 
-        longCaption: "Introducing the 'Shadow Pro' backpack. Designed for the creative commuter, this bag features a dedicated padded laptop sleeve, water-resistant exterior, and smart organizational pockets. Its minimalist aesthetic ensures it complements both professional attire and casual street style. We built it with military-grade cordura for ultimate longevity. #IconicBasics #TechWear" },
-
-    { id: 11, type: 'image', url: 'https://i.ibb.co/6y4jGkS/sharpwear-post.jpg', isAd: false, brand: 'SharpWear', user: '@SharpWorkwear', avatar: 'S',
-        shortCaption: 'Styling the classics. Always professional, always comfortable.', 
-        longCaption: "A look inside the design studio: we believe in building wardrobes around timeless essentials. This linen-blend shirt offers a breathable texture and an impeccably clean silhouette, proving that simplicity is the ultimate sophistication. Our goal is to create clothes that reduce decision fatigue. #SharpWear #StyleTips" },
-        
-    { id: 12, type: 'image', url: 'https://i.ibb.co/3151g3g/sneakers-post.jpg', isAd: false, brand: 'ZenithStyle', user: '@ZenithStyle', avatar: 'Z',
-        shortCaption: 'Weekend ready. Which adventure are you choosing in these kicks?', 
-        longCaption: "Our 'Trailblazer' model isn't just for running; it's engineered for life's adventures. Featuring a Vibram sole for superior grip and a recycled polymer upper, this shoe is built to handle tough terrain while keeping a minimal profile. We believe in gear that keeps up with you, whether you're climbing mountains or city blocks. #ZenithStyle #AdventureTime" },
-        
-    { id: 13, type: 'gradient', url: 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)', isAd: false, brand: 'Pinnacle Look', user: '@PinnacleLook', avatar: 'P',
-        shortCaption: 'Soft hues for a soft launch. Discover our new spring line.',
-        longCaption: "Our new spring collection is all about soft transitions and sophisticated comfort. These new knits use a luxurious merino wool blend that is both light and warm. Perfect for layering as the weather changes. We’ve meticulously chosen a palette designed to be mix-and-match compatible across the entire line, ensuring maximum utility. #PinnacleLook #NewArrivals" },
-        
-    { id: 14, type: 'image', url: 'https://i.ibb.co/R2J304R/denim-post.jpg', isAd: false, brand: 'UrbanFlux', user: '@UrbanFlux', avatar: 'U',
-        shortCaption: 'Denim on denim is always a win. Shop the full look.',
-        longCaption: "The Canadian Tuxedo, elevated. This season, we're embracing the head-to-toe denim look with pieces that offer varied textures and shades. It's a bold look that speaks to confident personal style. We've sourced the best quality Japanese selvedge denim for this line, guaranteeing a comfortable yet rigid structure. #UrbanFlux #DenimStyle" },
-        
-    { id: 15, type: 'image', url: 'https://i.ibb.co/m0f245x/watch-post.jpg', isAd: false, brand: 'Voyage Gear', user: '@VoyageGear', avatar: 'V',
-        shortCaption: 'Behind the scenes: The making of a classic.', 
-        longCaption: "A look inside our manufacturing process. Every component of our 'Legacy Chrono' is hand-inspected for quality and durability. We believe in transparent luxury—showing you the effort and precision that goes into a timeless piece. We're proud to uphold the traditions of fine watchmaking while utilizing modern, sustainable materials. #VoyageGear #WatchMaking" }
+// Survey questions (Now acting as captions/content) with final tiered brand names
+var questions = [
+    {text: 'When you discover new brands on social media, which platforms make you feel most confident about their quality?', caption: 'The perfect essential tee: soft-washed cotton, ideal drape, and crafted for longevity. Build your wardrobe foundation with quality that lasts. Always in stock.', image: 'Cotton T-Shirt', price: 45, brand: 'Core Basics'},
+    {text: 'Think about your last purchase discovered through social media. How many times did you see it before buying?', caption: 'Step into sustainable style with the new Stride Co. \'Eco-Stride\'. Featuring recycled materials and zero-waste construction. Lightweight comfort meets green design.', image: 'Eco Sneakers', price: 89, brand: 'Stride Co.'},
+    {text: 'What is the biggest gap between what catches your attention online and what you actually purchase?', caption: 'Maison Laurent: The \'Voyager\' tote. Italian leather, minimalist design, maximum utility. The only bag you need to transition seamlessly from the office to the weekend.', image: 'Designer Handbag', price: 156, brand: 'Maison Laurent'},
+    {text: 'How do you balance quality vs quantity when shopping online?', caption: 'Office Flux: Our crisp white shirt is redefined with a wrinkle-resistant stretch fabric. Look sharp, feel comfortable. A workwear essential that truly performs.', image: 'White Shirt', price: 67, brand: 'Office Flux'},
+    {text: 'Do likes or comments on a fashion post influence your perception of whether it is worth buying?', caption: 'Cozy up in our bestselling Soft Spot French Terry Hoodie. Oversized fit, premium heavyweight fabric, and the perfect shade for everyday style. Comfort, elevated.', image: 'Hoodie', price: 125, brand: 'Soft Spot'},
+    {text: 'When you see influencers or friends wearing something, does that make you more likely to buy it compared to ads?', caption: 'Engineered for movement: AeroFit high-waisted performance leggings offer compression and breathability. Perfect for your toughest workout or your most relaxed day.', image: 'Leggings', price: 78, brand: 'AeroFit'},
+    {text: 'Do you research products on multiple platforms before buying, or do you make impulse purchases?', caption: 'The ultimate throwback: a genuine 90s-inspired denim jacket from The Archive. Each piece is hand-distressed for a unique, lived-in feel. Limited quantity drop.', image: 'Vintage Jacket', price: 95, brand: 'The Archive'},
+    {text: 'When buying accessories, do you prioritize brands you have seen multiple times on social media?', caption: 'Valenza Orologi: Precision engineering meets classic design. The \'Chrono-X\' timepiece features a sapphire crystal and reliable quartz movement. A timeless piece for the modern professional.', image: 'Watch', price: 189, brand: 'Valenza Orologi'},
+    {text: 'Are you more likely to buy trending seasonal items or classic pieces that appear less frequently?', caption: 'Flowy, light, and vibrant. Our linen-blend summer dress from Sundays is perfect for destination weddings or effortless daily wear. Get vacation ready.', image: 'Summer Dress', price: 72, brand: 'Sundays'},
+    {text: 'Do promotional posts with discount codes make you more likely to buy immediately?', caption: 'The ultimate lounge wear set from Lounge Drop: super-soft organic cotton sweatshirt and joggers. Matching style, unmatched comfort. Your new weekend uniform.', image: 'Sweatshirt Set', price: 85, brand: 'Lounge Drop'},
+    {text: 'When you see the same product across multiple platforms, does that increase your trust in it?', caption: 'Struktura Atelier: The unstructured wool-blend blazer. Tailored for comfort, styled for versatility. The modern interpretation of professional attire.', image: 'Blazer', price: 145, brand: 'Struktura Atelier'},
+    {text: 'Which type of content makes you most likely to actually purchase?', caption: 'Built for speed, styled for the street. Our new Rush Runner sneakers offer responsive cushioning and a striking silhouette. Available in three colorways.', image: 'Sneakers', price: 110, brand: 'Rush Runner'},
+    {text: 'Do you prefer posts that focus on the garment\'s fit/cut or its material/sustainability?', caption: 'Vogue Élan: The ultimate versatile pant: wide-leg trousers in a breathable linen blend. Effortlessly polished for the office or a chic weekend.', image: 'Wide-Leg Trousers', price: 99, brand: 'Vogue Élan'},
+    {text: 'How important are video reviews of an accessory (like a watch or glasses) compared to high-quality photos?', caption: 'Classic geometry, modern feel. Optic Haze polarized sunglasses offer 100% UV protection and a universally flattering fit. Essential summer clarity.', image: 'Polarized Sunglasses', price: 65, brand: 'Optic Haze'},
+    {text: 'Which style of ad is most convincing for a high-value purchase like a coat: static studio shot or a dynamic outdoor scene?', caption: 'Porte-Vent: The iconic trench, redefined. Water-resistant, perfectly structured, and ready for transitional weather. An investment piece that lasts decades.', image: 'Trench Coat', price: 210, brand: 'Porte-Vent'}
 ];
 
-// --- Fictional brand names and user data (for random post assignment) ---
-var brandData = allPostsData.map(p => ({brand: p.brand, user: p.user, avatar: p.avatar}));
+// *******************************************************************
+// ICON AND UTILITY FUNCTIONS (UNMODIFIED)
+// *******************************************************************
 
-// SVG icons (Remains the same as before)
-var icons = {
+var icons = { 
     like: {
         instagram: '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="24" height="24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>',
         facebook: '<svg fill="currentColor" viewBox="0 0 48 48" width="20" height="20"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-4.5H8.5V12h2.5V9.5h2V12h2.5v.5H13v4.5h-2z"/></svg>',
@@ -970,14 +858,10 @@ var icons = {
     }
 };
 
-
-// --- INITIALIZATION AND DEMOGRAPHICS ---
-
-// Consent checkbox
+// Consent Check logic
 document.getElementById('consentCheck').addEventListener('change', function() {
     document.getElementById('startBtn').disabled = !this.checked;
 });
-
 document.getElementById('startBtn').addEventListener('click', function() {
     document.getElementById('consentScreen').style.display = 'none';
     document.getElementById('demoScreen').style.display = 'block';
@@ -999,12 +883,12 @@ function validateDemo() {
     document.getElementById('demoBtn').disabled = !filled;
 }
 
-// Anonymous checkbox
+// Anonymous checkbox - FIX: Removed hyphen from ID generation
 document.getElementById('anonCheck').addEventListener('change', function() {
     var nameInput = document.getElementById('nameInput');
     if (this.checked) {
         var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-        var id = 'ANON-';
+        var id = 'ANON';
         for (var i = 0; i < 8; i++) {
             id += chars[Math.floor(Math.random() * chars.length)];
         }
@@ -1017,7 +901,7 @@ document.getElementById('anonCheck').addEventListener('change', function() {
     validateDemo();
 });
 
-// Currency conversion
+// Currency conversion and income options
 document.getElementById('countryInput').addEventListener('change', function() {
     var country = this.value;
     var label = document.getElementById('currLabel');
@@ -1046,7 +930,6 @@ document.getElementById('countryInput').addEventListener('change', function() {
         opt.textContent = r;
         select.appendChild(opt);
     });
-    validateDemo(); 
 });
 
 document.getElementById('demoBtn').addEventListener('click', function() {
@@ -1083,159 +966,15 @@ document.getElementById('interfaceBtn').addEventListener('click', function() {
     initSurvey();
 });
 
-// Utility function to shuffle array
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-}
-
-// --- SURVEY/FEED LOGIC ---
-
-function initSurvey() {
-    // Shuffle the posts (all 15 posts are now in allPostsData)
-    shuffleArray(allPostsData);
-
-    var feed = document.getElementById('feed');
-    feed.innerHTML = '';
-    feed.className = 'feed ' + selectedPlatform;
-    
-    document.getElementById('qTotal').textContent = TOTAL_POSTS;
-    
-    allPostsData.forEach(function(postData, idx) {
-        
-        var priceText = postData.isAd ? getPriceForCountry(postData.price, userData.country) : '';
-        var postCaption = (selectedPlatform === 'facebook' || selectedPlatform === 'linkedin') ? 
-                          postData.longCaption : 
-                          postData.shortCaption;
-
-        var imageStyle = postData.type === 'image' ? 'background-image: url("' + postData.url + '");' : 'background: ' + postData.url + ';';
-        
-        var post = document.createElement('div');
-        post.className = 'post';
-        post.dataset.index = idx;
-        post.dataset.postId = postData.id; 
-        post.dataset.isAd = postData.isAd;
-        
-        var timeText = selectedPlatform === 'facebook' ? 'Sponsored · 2h' : '2h ago';
-        
-        // --- 1. Header Logic ---
-        var postHeaderHTML = '';
-        var sponsoredTag = postData.isAd ? 
-                           (selectedPlatform === 'facebook' ? ' <span style="font-weight: normal; color: #606770;">· Sponsored</span>' : 
-                            selectedPlatform === 'linkedin' ? ' <span style="font-size:12px;color:#00000099;">• Sponsored</span>' : '') 
-                           : '';
-        
-        if (selectedPlatform === 'tiktok') {
-             // TikTok overlay header
-             postHeaderHTML = '<div class="post-header">' +
-                '<div class="post-avatar">' + postData.avatar + '</div>' +
-                '<div class="post-info">' +
-                '<div class="brand">' + postData.user + (postData.isAd ? ' <span style="font-weight: normal; color: #ccc;">• Sponsored</span>' : '') + '</div>' +
-                '</div>' +
-                '</div>';
-
-        } else if (selectedPlatform === 'instagram') {
-            postHeaderHTML = '<div class="post-header">' +
-                '<div class="post-avatar">' + postData.avatar + '</div>' +
-                '<div class="post-info">' +
-                '<div class="brand">' + postData.user + '</div>' +
-                '<div class="time">' + timeText + (postData.isAd ? ' • Sponsored' : '') + '</div>' +
-                '</div>' +
-                '</div>';
-        } else { // Facebook, LinkedIn
-            postHeaderHTML = '<div class="post-header">' +
-                '<div class="post-avatar">' + postData.avatar + '</div>' +
-                '<div class="post-info">' +
-                '<div class="brand">' + postData.brand + sponsoredTag + '</div>' +
-                '<div class="time">' + timeText + '</div>' +
-                '</div>' +
-                '</div>';
-        }
-
-        // --- 2. Action Logic (Buy Button vs. Standard Actions) ---
-        var buyBtnHTML = postData.isAd ? 
-            (selectedPlatform === 'tiktok' ? '<div class="action-btn buy-btn-container" onclick="answer(' + idx + ', \'buy\')"><button class="buy-btn">Shop Now</button></div>' :
-             '<button class="action-btn buy-btn-container" onclick="answer(' + idx + ', \'buy\')"><button class="buy-btn">Buy Now</button></button>') :
-            '';
-
-        var standardActionsHTML = 
-                '<button class="action-btn" onclick="answer(' + idx + ', \'like\')"><div class="action-icon">' + icons.like[selectedPlatform] + '</div>' + (selectedPlatform !== 'instagram' && selectedPlatform !== 'tiktok' ? '<span>Like</span>' : '') + '</button>' +
-                '<button class="action-btn" onclick="answer(' + idx + ', \'comment\')"><div class="action-icon">' + icons.comment[selectedPlatform] + '</div>' + (selectedPlatform !== 'instagram' && selectedPlatform !== 'tiktok' ? '<span>Comment</span>' : '') + '</button>' +
-                '<button class="action-btn" onclick="answer(' + idx + ', \'share\')"><div class="action-icon">' + icons.share[selectedPlatform] + '</div>' + (selectedPlatform !== 'instagram' && selectedPlatform !== 'tiktok' ? '<span>Share</span>' : '') + '</button>';
-
-        var actionsHTML = '';
-        if (selectedPlatform === 'tiktok') {
-            actionsHTML = '<div class="post-actions">' + standardActionsHTML + '</div>' + buyBtnHTML;
-        } else if (selectedPlatform === 'instagram') {
-            actionsHTML = '<div class="post-actions">' + standardActionsHTML + buyBtnHTML + '</div>';
-        } else { // Facebook, LinkedIn
-            actionsHTML = '<div class="post-actions">' + standardActionsHTML + buyBtnHTML + '</div>';
-        }
-
-        // --- 3. Content Logic ---
-        var contentPrePrice = selectedPlatform === 'instagram' ? 
-            '<div class="post-text" style="font-size:14px; color:#4a4a4a; margin-top:4px; margin-bottom:0;"><strong>' + postData.user + '</strong> ' + postCaption + '</div>' :
-            '<div class="post-text" style="margin-bottom:' + (postData.isAd ? '12px' : '0px') + ';"><strong>' + postData.brand + '</strong> ' + postCaption + '</div>';
-
-        var contentPrice = postData.isAd ? 
-            '<div class="post-price" style="margin-top:' + (selectedPlatform === 'instagram' ? '8px' : '12px') + ';">' + priceText + '</div>' :
-            '';
-            
-        var postContentHTML = selectedPlatform === 'tiktok' ?
-            '<div class="post-content">' +
-                '<div class="post-text" style="color:white; font-weight:600;">' + postData.user + '</div>' +
-                '<div class="post-text" style="color:white; margin-bottom:5px;">' + postCaption + '</div>' +
-                (postData.isAd ? '<div class="post-promo" style="color:yellow;">' + priceText + ' • Shop Now</div>' : '') +
-            '</div>' : 
-            
-            '<div class="post-content" style="padding-top:0;">' + 
-                (selectedPlatform !== 'instagram' ? contentPrePrice : '') + // FB/LI Caption
-                contentPrice +
-                (selectedPlatform === 'instagram' ? contentPrePrice : '') + // IG Caption is below the price/actions
-            '</div>';
-        
-        // --- 4. Final Assembly ---
-        if (selectedPlatform === 'tiktok') {
-            post.innerHTML = 
-                '<div class="post-image" style="' + imageStyle + '"></div>' +
-                postHeaderHTML + 
-                postContentHTML + 
-                actionsHTML;
-        } else if (selectedPlatform === 'instagram') {
-            post.innerHTML = 
-                postHeaderHTML +
-                '<div class="post-image" style="' + imageStyle + '"></div>' +
-                actionsHTML + 
-                postContentHTML; // Content goes after actions on IG
-        } else { // Facebook, LinkedIn
-            post.innerHTML = 
-                postHeaderHTML +
-                '<div class="post-image" style="' + imageStyle + '"></div>' +
-                postContentHTML +
-                actionsHTML;
-        }
-        
-        feed.appendChild(post);
-    });
-}
-
 // Convert price based on country
 function getPriceForCountry(usd, country) {
     var rates = {
-        'AE': {r: 3.67, s: 'AED', after: true},
-        'SA': {r: 3.75, s: 'SAR', after: true},
-        'IN': {r: 83, s: '₹', after: false},
-        'PK': {r: 280, s: 'PKR', after: true},
-        'US': {r: 1, s: '$', after: false},
-        'UK': {r: 0.79, s: '£', after: false},
-        'CA': {r: 1.35, s: 'CAD $', after: false},
-        'AU': {r: 1.50, s: 'AUD $', after: false},
-        'DE': {r: 0.92, s: '€', after: false},
-        'FR': {r: 0.92, s: '€', after: false}
+        'AE': {r: 3.67, s: 'AED', after: true}, 'SA': {r: 3.75, s: 'SAR', after: true},
+        'IN': {r: 83, s: '₹', after: false}, 'PK': {r: 280, s: 'PKR', after: true},
+        'US': {r: 1, s: '$', after: false}, 'UK': {r: 0.79, s: '£', after: false},
+        'CA': {r: 1.35, s: 'CAD $', after: false}, 'AU': {r: 1.50, s: 'AUD $', after: false},
+        'DE': {r: 0.92, s: '€', after: false}, 'FR': {r: 0.92, s: '€', after: false}
     };
-    
     var info = rates[country] || rates['US'];
     var amt = Math.round(usd * info.r);
     return info.after ? (amt + ' ' + info.s) : (info.s + amt);
@@ -1246,58 +985,53 @@ function answer(idx, choice) {
     var now = Date.now();
     var post = document.querySelector('[data-index="' + idx + '"]');
 
-    // Prevent re-answering a post
-    if (answers.some(a => a.post_index === idx)) return;
+    // Store answer only if not already answered
+    if (!answers.some(a => a.question_index === idx)) {
+        answers.push({
+            question_index: idx,
+            platform: selectedPlatform,
+            action: choice,
+            time_ms: now - startTime
+        });
+        
+        // Disable all actions for this post
+        var btns = post.querySelectorAll('.action-btn');
+        btns.forEach(function(b) { b.disabled = true; });
 
-    answers.push({
-        post_id: parseInt(post.dataset.postId), 
-        post_index: idx,
-        platform: selectedPlatform,
-        is_ad: post.dataset.isAd === 'true',
-        action: choice,
-        time_ms: now - startTime
-    });
+        // Highlight the selected action
+        var chosenBtnContainer = post.querySelector('.action-btn[onclick*="' + choice + '"]');
+        if (chosenBtnContainer) {
+            chosenBtnContainer.style.opacity = '1.0';
+            chosenBtnContainer.style.color = selectedPlatform === 'tiktok' ? '#fe2c55' : '#667eea';
+            chosenBtnContainer.style.fontWeight = 'bold';
+        }
 
-    var btns = post.querySelectorAll('.action-btn button:not(.buy-btn)');
-    
-    // Disable all actions for this post
-    btns.forEach(function(b) {
-        b.disabled = true;
-    });
-    
-    // Disable the buy button specifically
-    var buyBtn = post.querySelector('.buy-btn');
-    if (buyBtn) buyBtn.disabled = true;
+        updateProgress();
 
-    // Highlight the selected action
-    var chosenBtnContainer = post.querySelector('.action-btn[onclick*="' + choice + '"]');
-    if (chosenBtnContainer) {
-        chosenBtnContainer.style.opacity = '1.0';
-        chosenBtnContainer.style.color = selectedPlatform === 'tiktok' ? '#fe2c55' : '#667eea';
-        chosenBtnContainer.style.fontWeight = 'bold';
+        if (answers.length === questions.length) {
+            setTimeout(showResults, 1000);
+        } else {
+            // Scroll to the next un-answered post
+            setTimeout(function() {
+                var nextUnanswered = document.querySelector('.post:not(.answered)');
+                if (nextUnanswered) {
+                    nextUnanswered.scrollIntoView({behavior: 'smooth', block: 'start'});
+                }
+            }, 500);
+        }
     }
-
-    updateProgress();
-    
-    // Check for survey completion
-    if (answers.length === TOTAL_POSTS) {
-        setTimeout(showResults, 1000);
-    } else {
-        // Scroll to the next post that hasn't been interacted with
-        setTimeout(function() {
-            var nextUnanswered = document.querySelector('.post:not(.answered)');
-            if (nextUnanswered) {
-                nextUnanswered.scrollIntoView({behavior: 'smooth', block: 'start'});
-            }
-        }, 500);
-    }
+    // Mark post as answered to prevent re-answering
+    post.classList.add('answered');
 }
 
 // Update progress
 function updateProgress() {
     var count = answers.length;
-    var pct = (count / TOTAL_POSTS) * 100;
-    document.getElementById('qNum').textContent = count;
+    var total = questions.length;
+    var pct = (count / total) * 100;
+    
+    // Update question number text
+    document.getElementById('qNum').textContent = count + 1 > total ? total : count + 1;
     document.getElementById('progFill').style.width = pct + '%';
 }
 
@@ -1307,17 +1041,10 @@ function showResults() {
     document.getElementById('resultsScreen').style.display = 'block';
     
     var totalTime = Math.floor((Date.now() - startTime) / 1000);
-    var adInteractions = answers.filter(a => a.is_ad && a.action !== 'buy').length;
-    var buyClicks = answers.filter(a => a.action === 'buy').length;
+    var totalResponseTime = answers.reduce((sum, a) => sum + a.time_ms, 0);
+    var avgTime = totalResponseTime / answers.length / 1000;
     
-    document.getElementById('resultsBox').innerHTML = 
-        '<h3>Study Metrics</h3>' +
-        '<p><strong>Platform:</strong> ' + selectedPlatform.charAt(0).toUpperCase() + selectedPlatform.slice(1) + '</p>' +
-        '<p><strong>Total Posts:</strong> ' + TOTAL_POSTS + '</p>' +
-        '<p><strong>Total Interactions:</strong> ' + answers.length + '</p>' +
-        '<p><strong>Buy Clicks:</strong> ' + buyClicks + ' / 6 Ads</p>' +
-        '<p><strong>Total Time:</strong> ' + Math.floor(totalTime / 60) + ':' + String(totalTime % 60).padStart(2, '0') + '</p>' +
-        '<p style="margin-top:16px;font-style:italic;">Thank you for contributing to fashion retail research!</p>';
+    document.getElementById('resultsBox').innerHTML = '<h3>Survey Complete!</h3><p><strong>Platform:</strong> ' + selectedPlatform.charAt(0).toUpperCase() + selectedPlatform.slice(1) + '</p><p><strong>Questions:</strong> ' + questions.length + '</p><p><strong>Total Time:</strong> ' + Math.floor(totalTime / 60) + ':' + String(totalTime % 60).padStart(2, '0') + '</p><p><strong>Average Response:</strong> ' + avgTime.toFixed(1) + 's</p><p style="margin-top:16px;font-style:italic;">Thank you for contributing to fashion retail research!</p>';
 }
 
 // Download data
@@ -1330,32 +1057,105 @@ function downloadData() {
         timestamp: new Date().toISOString()
     };
     
-    // !!! IMPORTANT: Paste your actual Google Apps Script URL here !!!
-    const SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE'; // <--- CHANGE THIS LINE!
-
-    if (SCRIPT_URL && SCRIPT_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
-        fetch(SCRIPT_URL, {
-            method: 'POST',
-            mode: 'no-cors', 
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(data)
-        }).then(res => console.log('Upload attempted to Google Script')).catch(err => {
-            console.error('Google Script upload failed:', err);
-        });
-    } else {
-        console.warn("Google Apps Script URL is missing! Data only downloaded locally.");
-    }
+    // REPLACE 'YOUR_GOOGLE_SCRIPT_URL_HERE' WITH YOUR ACTUAL GOOGLE APPS SCRIPT URL
+    fetch('YOUR_GOOGLE_SCRIPT_URL_HERE', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+    }).catch(function(err) {
+        console.log('Upload failed (This is expected if no Google Script URL is provided):', err);
+    });
     
     // Also download locally as backup
     var blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
     var url = URL.createObjectURL(blob);
     var a = document.createElement('a');
     a.href = url;
-    a.download = 'survey-' + userData.name.replace(/[^a-zA-Z0-9]/g, '') + '-' + selectedPlatform + '-' + Date.now() + '.json';
+    a.download = 'survey-' + userData.name.substring(0,4) + '-' + selectedPlatform + '-' + Date.now() + '.json';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+}
+
+
+// Initialize survey
+function initSurvey() {
+    var feed = document.getElementById('feed');
+    feed.innerHTML = '';
+    feed.className = 'feed ' + selectedPlatform;
+    
+    document.getElementById('qTotal').textContent = questions.length;
+    
+    questions.forEach(function(q, idx) {
+        var price = getPriceForCountry(q.price, userData.country);
+        var imagePath = productImages[idx]; 
+        var brandName = q.brand; 
+        
+        var post = document.createElement('div');
+        post.className = 'post';
+        post.dataset.index = idx;
+        
+        // This button calls the answer function with 'buy', logging the purchase intent.
+        var buyBtnClass = (selectedPlatform === 'facebook' || selectedPlatform === 'linkedin') ? 'btn buy-btn' : 'buy-btn';
+        var buyBtnHTML = '<button class="' + buyBtnClass + '" onclick="answer(' + idx + ', \'buy\')">Shop Now</button>'; 
+
+        var actionsHTML = '';
+        var headerHTML = '';
+
+        // Shared Image Block: Uses the public URL as a background image for proper scaling
+        var imageHTML = '<div class="post-image" style="background-image: url(\'' + imagePath + '\');"></div>';
+
+        // Content Block
+        var contentHTML = '<div class="post-content">' +
+            // Branding: Brand Name
+            '<div class="post-text"><strong>' + brandName + '</strong> ' + q.caption + '</div>' + 
+            '<div class="post-price">' + price + '</div>' +
+            '</div>';
+
+        // Platform-Specific Assembly
+        if (selectedPlatform === 'tiktok') {
+            // TikTok assembly is unique with overlay actions and content
+            // Branding: @BrandName (lowercase, common for TikTok)
+            var tiktokHandle = '@' + brandName.toLowerCase().replace(/ /g, '');
+            headerHTML = '<div class="post-header"><div class="post-avatar">B</div><div class="post-info"><div class="brand">' + tiktokHandle + '</div><div class="time">Sponsored</div></div></div>';
+            
+            // TikTok actions are vertical and float on the right
+            actionsHTML = '<div class="post-actions">' +
+                '<button class="action-btn" onclick="answer(' + idx + ', \'like\')"><div class="action-icon">' + icons.like.tiktok + '</div><span>Like</span></button>' +
+                '<button class="action-btn" onclick="answer(' + idx + ', \'comment\')"><div class="action-icon">' + icons.comment.tiktok + '</div><span>Comment</span></button>' +
+                '<button class="action-btn" onclick="answer(' + idx + ', \'share\')"><div class="action-icon">' + icons.share.tiktok + '</div><span>Share</span></button>' +
+                '</div>' +
+                // Buy button positioned specifically on TikTok
+                '<div style="position: absolute; bottom: 80px; left: 16px; z-index: 10;">' + buyBtnHTML + '</div>'; 
+
+            // TikTok has overlay content
+            post.innerHTML = imageHTML + 
+                '<div class="post-content" style="position:absolute; bottom:0; width:100%; color:white; padding-bottom:100px; padding-top: 150px; background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%); z-index: 5;">' +
+                // Branding: @BrandName and Caption
+                '<div class="post-text" style="color:white; font-size: 15px;">' + tiktokHandle + ' ' + q.caption + '</div>' +
+                '<div class="post-promo" style="color:yellow; font-size: 14px;">' + price + ' • Shop Now</div>' +
+                '</div>' + headerHTML + actionsHTML;
+            
+        } else {
+            // Facebook, Instagram, LinkedIn assembly
+            var sponsoredTag = (selectedPlatform === 'facebook' || selectedPlatform === 'linkedin') ? ' <span style="font-weight: normal; color: #606770;">· Sponsored</span>' : '';
+            // Branding: Full Brand Name
+            headerHTML = '<div class="post-header"><div class="post-avatar">B</div><div class="post-info"><div class="brand">' + brandName + sponsoredTag + '</div><div class="time">2h ago</div></div></div>';
+
+            actionsHTML = '<div class="post-actions">' +
+                '<button class="action-btn" onclick="answer(' + idx + ', \'like\')"><div class="action-icon">' + icons.like[selectedPlatform] + '</div><span>Like</span></button>' +
+                '<button class="action-btn" onclick="answer(' + idx + ', \'comment\')"><div class="action-icon">' + icons.comment[selectedPlatform] + '</div><span>Comment</span></button>' +
+                '<button class="action-btn" onclick="answer(' + idx + ', \'share\')"><div class="action-icon">' + icons.share[selectedPlatform] + '</div><span>Share</span></button>' +
+                '<div class="action-btn buy-btn-container">' + buyBtnHTML + '</div>' +
+                '</div>';
+            
+            post.innerHTML = headerHTML + imageHTML + contentHTML + actionsHTML;
+        }
+
+        feed.appendChild(post);
+    });
 }
 </script>
 </body>
