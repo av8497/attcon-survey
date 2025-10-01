@@ -1164,7 +1164,7 @@ function savePartialData() {
         };
         
         try {
-            navigator.sendBeacon('YOUR_GOOGLE_SCRIPT_URL_HERE', JSON.stringify(partialData));
+            navigator.sendBeacon('https://script.google.com/macros/s/AKfycbzPh9Lgs9qlDGW40CumoNGQK8f8Bmb5pPUUCBRwp6--czFxim_CgRY25FeW39d7674/exec', JSON.stringify(partialData));
         } catch(err) {
             console.log('Partial data save failed');
         }
@@ -1566,7 +1566,7 @@ function downloadData() {
         completed: true
     };
     
-    fetch('YOUR_GOOGLE_SCRIPT_URL_HERE', {
+    fetch('https://script.google.com/macros/s/AKfycbzPh9Lgs9qlDGW40CumoNGQK8f8Bmb5pPUUCBRwp6--czFxim_CgRY25FeW39d7674/exec', {
         method: 'POST',
         mode: 'no-cors',
         headers: {'Content-Type': 'application/json'},
