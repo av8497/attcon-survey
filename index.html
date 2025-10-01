@@ -1515,8 +1515,28 @@ function answer(idx, choice) {
             brand: questions[idx].brand
         });
         
-        var btns = post.querySelectorAll('.action-btn, .buy-btn');
-        btns.forEach(function(b) { b.disabled = true; });
+        // Disable all buttons and highlight only the clicked one
+        var allBtns = post.querySelectorAll('.action-btn, .buy-btn');
+        allBtns.forEach(function(btn) {
+            btn.disabled = true;
+            var btnText = btn.textContent.toLowerCase();
+            if (btnText.includes(choice.toLowerCase()) || 
+                (choice === 'buy' && btnText.includes('shop'))) {
+                // Clicked button stays visible and highlighted
+                btn.style.opacity = '1';
+                btn.style.fontWeight = '700';
+                if (selectedPlatform === 'instagram') {
+                    btn.style.color = '#ed4956';
+                } else if (selectedPlatform === 'facebook' || selectedPlatform === 'linkedin') {
+                    btn.style.color = '#1877f2';
+                } else if (selectedPlatform === 'tiktok') {
+                    btn.style.color = '#fe2c55';
+                }
+            } else {
+                // Other buttons fade out
+                btn.style.opacity = '0.3';
+            }
+        });
 
         updateProgress();
     }
