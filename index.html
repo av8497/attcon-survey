@@ -1059,7 +1059,6 @@ body {
     <div class="results-screen" id="resultsScreen">
         <h2>Thank You!</h2>
         <div class="results-box" id="resultsBox"></div>
-        <button class="btn" onclick="downloadData()" style="margin-bottom: 16px;">Download Results</button>
         <button class="btn" onclick="restartSurvey()" style="background: linear-gradient(135deg, #51cf66, #37b24d);">Take Survey Again for Another Platform</button>
     </div>
 </div>
@@ -1138,8 +1137,16 @@ for (var i = 0; i < questions.length; i++) {
     };
 }
 
-window.addEventListener('beforeunload', function(e) {
+// Use pagehide instead of beforeunload (better browser support)
+window.addEventListener('pagehide', function(e) {
     savePartialData();
+});
+
+// Also capture visibility changes for mobile
+document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'hidden') {
+        savePartialData();
+    }
 });
 
 function savePartialData() {
@@ -1164,7 +1171,7 @@ function savePartialData() {
         };
         
         try {
-            navigator.sendBeacon('https://script.google.com/macros/s/AKfycbzPh9Lgs9qlDGW40CumoNGQK8f8Bmb5pPUUCBRwp6--czFxim_CgRY25FeW39d7674/exec', JSON.stringify(partialData));
+            navigator.sendBeacon('YOUR_GOOGLE_SCRIPT_URL_HERE', JSON.stringify(partialData));
         } catch(err) {
             console.log('Partial data save failed');
         }
@@ -1526,7 +1533,48 @@ function completeSurvey() {
         }
     });
     
+    // Send data to Google Sheets automatically
+    sendDataToSheet(false);
+    
     showResults();
+}
+
+function sendDataToSheet(triggerDownload) {
+    var data = {
+        sessionId: surveySessionId,
+        demographics: userData,
+        platform: selectedPlatform,
+        answers: answers,
+        postViews: postViews,
+        totalTime_ms: Date.now() - startTime,
+        timestamp: new Date().toISOString(),
+        completed: true
+    };
+    
+    // Send to Google Sheets
+    fetch('https://script.google.com/macros/s/AKfycbzPh9Lgs9qlDGW40CumoNGQK8f8Bmb5pPUUCBRwp6--czFxim_CgRY25FeW39d7674/exec', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+    }).then(function() {
+        console.log('Data sent to Google Sheets successfully');
+    }).catch(function(err) {
+        console.log('Error sending to Google Sheets:', err);
+    });
+    
+    // Also download locally if requested
+    if (triggerDownload) {
+        var blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'survey-' + userData.name.substring(0,4) + '-' + selectedPlatform + '-' + Date.now() + '.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
 }
 
 function showResults() {
@@ -1566,7 +1614,7 @@ function downloadData() {
         completed: true
     };
     
-    fetch('https://script.google.com/macros/s/AKfycbzPh9Lgs9qlDGW40CumoNGQK8f8Bmb5pPUUCBRwp6--czFxim_CgRY25FeW39d7674/exec', {
+    fetch('YOUR_GOOGLE_SCRIPT_URL_HERE', {
         method: 'POST',
         mode: 'no-cors',
         headers: {'Content-Type': 'application/json'},
